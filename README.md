@@ -1,4 +1,5 @@
 # slidePage.js
+基于zepto.js
 ## Doc
 slidePage.init(options);
 
