@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class=" js-no-overflow-scrolling">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>test1</title>
+    <link rel="stylesheet" type="text/css" href="slidePage.css">
+    <link rel="stylesheet" type="text/css" href="page-animation.css">
+    <style type="text/css">
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-family: arial;
+            text-align: center;
+        }
+
+        body {
+            margin:0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+
+
+
+        .item2 {
+            background-color: #0067A6;
+        }
+        .item1 {
+            background-color: #00ABD8;
+        }
+        .item3 {
+            background-color: #008972;
+        }
+        .item4 {
+            background-color: #F5C564;
+        }
+        .item5 {
+            background-color: #F2572D;
+        }
+        .item6 {
+            background-color: #0067A6;
+        }
+
+        .item1 .step1 {
+            position: absolute;
+            top: 100px;
+            left: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+            border-radius: 50%;
+
+        }
+        .item1 .step2 {
+            position: absolute;
+            bottom: 100px;
+            right: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item3 .step1 {
+            position: absolute;
+            top: 100px;
+            left: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+            border-radius: 50%;
+        }
+        .item3 .step2 {
+            position: absolute;
+            bottom: 100px;
+            right: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item2 .step1 {
+            position: absolute;
+            top: 100px;
+            right: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+            border-radius: 50%;
+        }
+        .item2 .step3 {
+            position: absolute;
+            bottom: 60px;
+            left: 19%;
+            text-align: center;
+            width: 150px;
+            height: 150px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item2 .step2 {
+            position: absolute;
+            top: 100px;
+            left: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item4 .step1 {
+            position: absolute;
+            top: 100px;
+            left: 19%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+            border-radius: 50%;
+        }
+        .item4 .step2 {
+            position: absolute;
+            bottom: 100px;
+            right: 19%;
+            text-align: center;
+            width: 150px;
+            height: 150px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item5 .step1 {
+            position: absolute;
+            bottom: 100px;
+            right: 19%;
+            text-align: center;
+            width: 150px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item5 .step2 {
+            position: absolute;
+            top: 100px;
+            left: 19%;
+            text-align: center;
+            width: 150px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+
+        }
+
+        .item6 .step2 {
+            position: absolute;
+            top: 100px;
+            left: 19%;
+            text-align: center;
+            width: 150px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item6 .step1 {
+            position: absolute;
+            bottom: 100px;
+            left: 19%;
+            text-align: center;
+            width: 250px;
+            height: 250px;
+            background-color: rgb(116, 178, 9);
+        }
+    </style>
+
+</head>
+<body >
+<div class="slidePage-container">
+    <div class="item item1">
+        <h2>page1</h2>
+        <div class="step step1 fadeIn" data-delay="1000"></div>
+        <div class="step step2 fadeIn"></div>
+    </div>
+    <div class="item item2">
+        <h2>page2</h2>
+        <div class="step step1 slideRight" data-delay="1300"></div>
+        <div class="step step2 slideLeft"></div>
+        <div class="step step3 zoomIn"></div>
+    </div>
+    <div class="item item3">
+        <h2>page3</h2>
+        <div class="step step1 slideUp"></div>
+        <div class="step step2 slideDown"></div>
+    </div>
+    <div class="item item4">
+        <h2>page4</h2>
+        <div class="step step1 heartBeat"></div>
+        <div class="step step2 heartBeat"></div>
+    </div>
+    <div class="item item5">
+        <h2>page5</h2>
+        <div class="step step1 rollInRight"></div>
+        <div class="step step2 rollInLeft"></div>
+    </div>
+    <div class="item item6">
+        <h2>page6</h2>
+        <div class="step step1 rollInRight parallax"></div>
+    </div>
+</div>
+<script src="http://cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
+<script type="text/javascript" src="slidePage.js"></script>
+<script type="text/javascript">
+
+    slidePage.init({
+        'index': 1,
+        'before': function(index) {console.log('before current page '+index)},
+        'after': function(index) {console.log('after current page '+index)},
+        'useArrow': true,
+        'useMusic': false
+    });
+
+</script>
+</body>
+</html>
