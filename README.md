@@ -1,5 +1,4 @@
 
-# slidePage.js
 # slidePage
 基于zepto.js
 
