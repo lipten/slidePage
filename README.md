@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 # slidePage.js
+=======
+# slidePage
 基于zepto.js
+>>>>>>> origin/master
 ## Doc
 slidePage.init(options);
 

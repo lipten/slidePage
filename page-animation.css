@@ -63,8 +63,9 @@
 
 @-webkit-keyframes fadeFlash {
     0%{
-        opacity: .5;
+        opacity: 0;
     }
+
     25%{
         opacity: 1;
     }
@@ -75,7 +76,7 @@
         opacity: 1;
     }
     100%{
-        opacity: .5;
+        opacity: 0;
     }
 }
 

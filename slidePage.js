@@ -46,6 +46,7 @@
             return
         }
         prevSlide(item)
+
     }
     function nextSlide(item) {
         if (item.next().length) {

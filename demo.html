@@ -5,7 +5,7 @@
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>test1</title>
+    <title>demo</title>
     <link rel="stylesheet" type="text/css" href="slidePage.css">
     <link rel="stylesheet" type="text/css" href="page-animation.css">
     <style type="text/css">
@@ -89,7 +89,7 @@
         .item2 .step1 {
             position: absolute;
             top: 100px;
-            right: 19%;
+            right: 5%;
             text-align: center;
             width: 100px;
             height: 100px;
@@ -160,15 +160,25 @@
             text-align: center;
             width: 150px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(178, 159, 44);
         }
         .item6 .step1 {
             position: absolute;
             bottom: 100px;
             left: 19%;
             text-align: center;
-            width: 250px;
-            height: 250px;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(116, 178, 9);
+        }
+        .item6 .step3 {
+            position: absolute;
+            bottom: 100px;
+            left: 60%;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
             background-color: rgb(116, 178, 9);
         }
     </style>
@@ -204,10 +214,12 @@
     </div>
     <div class="item item6">
         <h2>page6</h2>
-        <div class="step step1 rollInRight parallax"></div>
+        <div class="step step1 rollInLeft"></div>
+        <div class="step step2 forceDown" data-delay="1000"></div>
+        <div class="step step3 fadeFlash infinite" data-delay="1500"></div>
     </div>
 </div>
-<script src="http://cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
+<script type="text/javascript" src="zepto.min.js"></script>
 <script type="text/javascript" src="slidePage.js"></script>
 <script type="text/javascript">
 
