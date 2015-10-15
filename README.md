@@ -39,4 +39,5 @@ options:(default)
 在想要动画控制的元素上加上step类，并加上css动画类名即可使用动画，data-delay属性控制动画延时播放(默认为100毫秒);
 此项目还为您准备了一套css动画：page-animation.css，可自由更改或添加您想要的动画，
 
-
+####动效列表:
+[fadeIn,fadeFlash,flaxLine,borderFlash,forceDown,slideLeft,slideRight,slideUp,slideDown,rotateIn,zoomIn,heartBeat,rollInLeft,rollInRight]
