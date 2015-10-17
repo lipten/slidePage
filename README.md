@@ -1,6 +1,6 @@
 
 # slidePage
-基于zepto.js
+Demo:http://lipten.link/projects/slidePage/demo.html
 
 ## Doc
 slidePage.init(options);
