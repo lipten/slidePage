@@ -1,6 +1,6 @@
 
 # slidePage
-Demo:http://lipten.link/projects/slidePage/demo.html
+Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
 ## Doc
 slidePage.init(options);
