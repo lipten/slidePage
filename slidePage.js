@@ -1,6 +1,7 @@
 (function() {
+    var page =  urlToObject(location.search).page;
     var opt = {
-        index:1,
+        index:page?page:1,
         'after': function() {},
         'before': function() {},
         'useArrow': true,
@@ -34,6 +35,20 @@
     }
     var after=true;
     var prevItem;
+
+    function urlToObject(url){
+        var urlObject = {};
+        if (/\?/.test(url)) {
+            var urlString = url.substring(url.indexOf("?")+1);
+            var urlArray = urlString.split("&");
+            for (var i=0, len=urlArray.length; i<len; i++) {
+                var urlItem = urlArray[i];
+                var item = urlItem.split("=");
+                urlObject[item[0]] = item[1];
+            }
+            return urlObject;
+        }
+    }
     function swipeUp(event) {
         var item = $(event.target).closest('.item');
         if (!item.length) {
