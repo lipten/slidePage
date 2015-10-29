@@ -1,5 +1,6 @@
 (function() {
     var opt = {
+        index:1,
         'after': function() {},
         'before': function() {},
         'useArrow': true,
