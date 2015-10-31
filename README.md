@@ -48,19 +48,19 @@ options:(default)
 ####动效列表:
 <pre>
 [
-    fadeIn,
-    fadeFlash,
-    flaxLine,
-    borderFlash,
-    forceDown,
-    slideLeft,
-    slideRight,
-    slideUp,
-    slideDown,
-    rotateIn,
-    zoomIn,
-    heartBeat,
-    rollInLeft,
-    rollInRight
+    fadeIn,                 //渐显动画
+    fadeFlash,              //闪烁动画
+    flaxLine,               //伸展线条(基于父容器的宽度伸到100%)
+    borderFlash,            //闪烁边框(红色边框)
+    forceDown,              //重力砸下的动画(不是弹跳动画)
+    slideLeft,              //从左边渐现移动出现
+    slideRight,             //从右边渐现移动出现
+    slideUp,                //从上边渐现移动出现
+    slideDown,              //从下边渐现移动出现
+    rotateIn,               //旋转渐现出现
+    zoomIn,                 //缩放渐显出现
+    heartBeat,              //若隐若现
+    rollInLeft,             //从左边旋转渐现
+    rollInRight             //从右边旋转渐现
 ]
 </pre>
