@@ -46,4 +46,21 @@ options:(default)
 此项目还为您准备了一套css动画：page-animation.css，可自由更改或添加您想要的动画，
 
 ####动效列表:
-[fadeIn,fadeFlash,flaxLine,borderFlash,forceDown,slideLeft,slideRight,slideUp,slideDown,rotateIn,zoomIn,heartBeat,rollInLeft,rollInRight]
+<pre>
+[
+    fadeIn,
+    fadeFlash,
+    flaxLine,
+    borderFlash,
+    forceDown,
+    slideLeft,
+    slideRight,
+    slideUp,
+    slideDown,
+    rotateIn,
+    zoomIn,
+    heartBeat,
+    rollInLeft,
+    rollInRight
+]
+</pre>
