@@ -2,6 +2,9 @@
 # slidePage
 Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
+#-update-
+新增url参数pege跳转指定页，优先于index参数.
+
 ## Doc
 slidePage.init(options);
 
@@ -23,6 +26,7 @@ options:(default)
 </pre>
 ####index
 初始进入的索引页面，值为1时从第一页开始，默认为1
+
 ####before
 触发页面滚动前的回调，参数index为滚动前的页面索引号
 ####after
