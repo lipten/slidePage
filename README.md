@@ -2,7 +2,7 @@
 # slidePage
 Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
-#-update-
+###-update-
 新增url参数pege跳转指定页，优先于index参数.
 
 ## Doc
