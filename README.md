@@ -5,6 +5,50 @@ Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 ###-update-
 新增url参数pege跳转指定页，优先于index参数.
 
+
+###安装方法
+
+####1、下载slidePage
+利用bower安装
+```
+bower install slidePage
+```
+或者克隆到本地
+```
+git clone https://github.com/lipten/slidePage.git
+```
+
+
+####2、引用相关文件
+```
+<link rel="stylesheet" type="text/css" href="slidePage.css">        //插件必须样式
+<link rel="stylesheet" type="text/css" href="page-animation.css">   //动画样式，可自己编写
+```
+
+####3、引用js文件
+```
+<script type="text/javascript" src="zepto.min.js"></script>         //zepto.js类库
+<script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件
+```
+
+####4、html结构
+```
+<div class="slidePage-container">
+    <div class="item">
+        <h2>page1</h2>
+        <div class="step step1 fadeIn" data-delay="1000"></div>
+        <div class="step step2 fadeIn"></div>
+    </div>
+    。。。
+</div>
+```
+
+
+####5、初始化代码
+```
+slidePage.init();
+```
+
 ## Doc
 slidePage.init(options);
 
