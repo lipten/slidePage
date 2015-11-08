@@ -31,6 +31,55 @@
 
 <p>新增url参数pege跳转指定页，优先于index参数.</p>
 
+<h3>
+<a id="安装方法" class="anchor" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装方法</h3>
+
+<h4>
+<a id="1下载slidepage" class="anchor" href="#1%E4%B8%8B%E8%BD%BDslidepage" aria-hidden="true"><span class="octicon octicon-link"></span></a>1、下载slidePage</h4>
+
+<p>利用bower安装</p>
+
+<pre><code>bower install slidePage
+</code></pre>
+
+<p>或者克隆到本地</p>
+
+<pre><code>git clone https://github.com/lipten/slidePage.git
+</code></pre>
+
+<h4>
+<a id="2引用相关文件" class="anchor" href="#2%E5%BC%95%E7%94%A8%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>2、引用相关文件</h4>
+
+<pre><code>&lt;link rel="stylesheet" type="text/css" href="slidePage.css"&gt;        //插件必须样式
+&lt;link rel="stylesheet" type="text/css" href="page-animation.css"&gt;   //动画样式，可自己编写
+</code></pre>
+
+<h4>
+<a id="3引用js文件" class="anchor" href="#3%E5%BC%95%E7%94%A8js%E6%96%87%E4%BB%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>3、引用js文件</h4>
+
+<pre><code>&lt;script type="text/javascript" src="zepto.min.js"&gt;&lt;/script&gt;         //zepto.js类库
+&lt;script type="text/javascript" src="slidePage.js"&gt;&lt;/script&gt;         //slidePage主文件
+</code></pre>
+
+<h4>
+<a id="4html结构" class="anchor" href="#4html%E7%BB%93%E6%9E%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>4、html结构</h4>
+
+<pre><code>&lt;div class="slidePage-container"&gt;
+    &lt;div class="item"&gt;
+        &lt;h2&gt;page1&lt;/h2&gt;
+        &lt;div class="step step1 fadeIn" data-delay="1000"&gt;&lt;/div&gt;
+        &lt;div class="step step2 fadeIn"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    。。。
+&lt;/div&gt;
+</code></pre>
+
+<h4>
+<a id="5初始化代码" class="anchor" href="#5%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%A3%E7%A0%81" aria-hidden="true"><span class="octicon octicon-link"></span></a>5、初始化代码</h4>
+
+<pre><code>slidePage.init();
+</code></pre>
+
 <h2>
 <a id="doc" class="anchor" href="#doc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Doc</h2>
 
