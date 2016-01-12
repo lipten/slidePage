@@ -47,6 +47,8 @@
                 urlObject[item[0]] = item[1];
             }
             return urlObject;
+        }else{
+            return urlObject.page = 1;
         }
     }
     function swipeUp(event) {
