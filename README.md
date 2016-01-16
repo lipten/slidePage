@@ -2,8 +2,13 @@
 # slidePage
 Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
-###-update-
-新增url参数pege跳转指定页，优先于index参数.
+###-update v0.3-
+1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)
+2.修复无page参数的bug.
+
+###-update v0.2-
+1.新增url参数pege跳转指定页，优先于index参数.
+2.已加入bower大军.
 
 
 ###安装方法
@@ -59,6 +64,7 @@ options:(default)
     'index' : 1,
     'before' : function(index){},
     'after' : function(index){},
+    'refresh'  : true,
     'useArrow' : true,
     'useAnimation' : true,
     'useMusic' : {
@@ -75,6 +81,8 @@ options:(default)
 触发页面滚动前的回调，参数index为滚动前的页面索引号
 ####after
 触发页面滚动后的回调，参数index为滚动后的页面索引号
+####refresh
+往回滚的时候是否重新执行动画
 ####useArrow
 使用自带样式的下箭头提示图标
 ####useAnimation

@@ -4,6 +4,7 @@
         index:page,
         'after': function() {},
         'before': function() {},
+        'refresh': true,
         'useArrow': true,
         'useAnimation': true,
         'useMusic': {
@@ -35,6 +36,7 @@
     }
     var after=true;
     var prevItem;
+    var direction = false;
 
     function urlToObject(url){
         var urlObject = {};
@@ -67,7 +69,7 @@
     function nextSlide(item) {
         if (item.next().length) {
             currentItem = item.next();
-            orderStep(item.next());
+            orderStep(item.next(),'next');
             obj.nextSlide(item);
             opt.before(item.index()+1);
         } else {
@@ -77,7 +79,7 @@
     function prevSlide(item) {
         if (item.prev().length) {
             currentItem = item.prev();
-            orderStep(item.prev());
+            orderStep(item.prev(),'prev');
             obj.prevSlide(item);
             item.prev().prev().css('-webkit-transform', 'translate3d(0px, -100%, 0px)');
             opt.before(item.index()+1);
@@ -105,8 +107,9 @@
             $('body').append('<span class="music play"><audio id="audio" src=' + src + ' ' + autoplay + ' ' + loopPlay + '></audio></span>')
         }
     }
-    function orderStep(dom) {
+    function orderStep(dom,directions) {
         after=true;
+        direction = directions;
         var steps = $(dom).find('.step');
         steps.forEach(function(item) {
             var time = $(item).attr('data-delay') || 100;
@@ -135,9 +138,11 @@
         $('.item').on('transitionend webkitTransitionEnd', function(event) {
             if(after){
                 opt.after($(event.target).index()+1);
+                if(opt.refresh){
+                    direction=='next'?$(event.target).prev().find('.step').addClass('hide'):$(event.target).find('.step').addClass('hide');
+                }
                 after=false;
             }
-
         })
     }
 })();
