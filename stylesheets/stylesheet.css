@@ -114,9 +114,7 @@ a {
   font-weight: normal;
   color: #159957; }
 .main-content p {
-  margin-bottom: 1em; 
-  word-break: break-word;
-}
+  margin-bottom: 1em; }
 .main-content code {
   padding: 2px 4px;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;

@@ -27,9 +27,18 @@
 <p><img src="http://lipten.link/projects/slidePage/demo.gif" alt="demo"> </p>
 
 <h3>
-<a id="-update-" class="anchor" href="#-update-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update-</h3>
+<a id="-update-v03-" class="anchor" href="#-update-v03-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update v0.3-</h3>
 
-<p>新增url参数pege跳转指定页，优先于index参数.</p>
+<p>1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)</p>
+
+<p>2.修复无page参数的bug.</p>
+
+<h3>
+<a id="-update-v02-" class="anchor" href="#-update-v02-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update v0.2-</h3>
+
+<p>1.新增url参数pege跳转指定页，优先于index参数.</p>
+
+<p>2.已加入bower大军.</p>
 
 <h3>
 <a id="安装方法" class="anchor" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装方法</h3>
@@ -92,6 +101,7 @@
     'index' : 1,
     'before' : function(index){},
     'after' : function(index){},
+    'refresh'  : true,
     'useArrow' : true,
     'useAnimation' : true,
     'useMusic' : {
@@ -116,6 +126,11 @@
 <a id="after" class="anchor" href="#after" aria-hidden="true"><span class="octicon octicon-link"></span></a>after</h4>
 
 <p>触发页面滚动后的回调，参数index为滚动后的页面索引号</p>
+
+<h4>
+<a id="refresh" class="anchor" href="#refresh" aria-hidden="true"><span class="octicon octicon-link"></span></a>refresh</h4>
+
+<p>往回滚的时候是否重新执行动画</p>
 
 <h4>
 <a id="usearrow" class="anchor" href="#usearrow" aria-hidden="true"><span class="octicon octicon-link"></span></a>useArrow</h4>
