@@ -143,7 +143,7 @@
         $('.item').on('transitionend webkitTransitionEnd', function(event) {
             if(after){
                 opt.after($(event.target).index()+1);
-                if(opt.refresh||direction){
+                if(opt.refresh&&direction&&opt.useAnimation){
                     direction=='next'?$(event.target).prev().find('.step').addClass('hide'):$(event.target).find('.step').addClass('hide');
                     direction=false;
                 }
