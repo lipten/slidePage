@@ -4,6 +4,7 @@
         index:page,
         'after': function() {},
         'before': function() {},
+        'speed': 700,
         'refresh': true,
         'useArrow': true,
         'useAnimation': true,
@@ -37,6 +38,7 @@
     var after=true;
     var prevItem;
     var direction = false;
+
 
     function urlToObject(url){
         var urlObject = {};
@@ -88,6 +90,7 @@
         }
     }
     function initDom(opt) {
+        $('.item').css('transition-duration',opt.speed+'ms');
         currentItem = $('.item').eq(opt.index - 1);
         prevItem = currentItem.prev();
         currentItem.css('-webkit-transform', 'translate3d(0px, 0px, 0px)');
@@ -109,7 +112,9 @@
     }
     function orderStep(dom,directions) {
         after=true;
-        direction = directions;
+        setTimeout(function(){
+            direction = directions;
+        },opt.speed)
         var steps = $(dom).find('.step');
         steps.forEach(function(item) {
             var time = $(item).attr('data-delay') || 100;
@@ -138,8 +143,9 @@
         $('.item').on('transitionend webkitTransitionEnd', function(event) {
             if(after){
                 opt.after($(event.target).index()+1);
-                if(opt.refresh){
+                if(opt.refresh||direction){
                     direction=='next'?$(event.target).prev().find('.step').addClass('hide'):$(event.target).find('.step').addClass('hide');
+                    direction=false;
                 }
                 after=false;
             }
