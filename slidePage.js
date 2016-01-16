@@ -1,7 +1,7 @@
 (function() {
-    var page =  urlToObject(location.search).page;
+    var page =  location.search?urlToObject(location.search).page:1;
     var opt = {
-        index:page?page:1,
+        index:page,
         'after': function() {},
         'before': function() {},
         'useArrow': true,
