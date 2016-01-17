@@ -28,7 +28,8 @@ git clone https://github.com/lipten/slidePage.git
 ####3、引用js文件
 ```
 <script type="text/javascript" src="zepto.min.js"></script>         //zepto.js类库
-<script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件
+<script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件，支持手机和PC浏览
+                                                                    //如果你的项目只需要手机浏览，可以选用slidePage_Mobile.js
 ```
 
 ####4、html结构
