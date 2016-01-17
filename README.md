@@ -2,20 +2,8 @@
 # slidePage
 Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
-###-update v0.4-
-1.新增参数speed(页面过渡的动画时间，毫秒为单位)
-
-2.修复refresh参数的bug.
-
-###-update v0.3-
-1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)
-
-2.修复无page参数的bug.
-
-###-update v0.2-
-1.新增url参数pege跳转指定页，优先于index参数.
-
-2.已加入bower大军.
+###-update v0.5-
+1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。
 
 
 ###安装方法
@@ -126,3 +114,22 @@ options:(default)
     rollInRight             //从右边旋转渐现
 ]
 </pre>
+
+
+
+####更新历史
+
+###-update v0.4-
+1.新增参数speed(页面过渡的动画时间，毫秒为单位)
+
+2.修复refresh参数的bug.
+
+###-update v0.3-
+1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)
+
+2.修复无page参数的bug.
+
+###-update v0.2-
+1.新增url参数pege跳转指定页，优先于index参数.
+
+2.已加入bower大军.

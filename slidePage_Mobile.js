@@ -37,8 +37,8 @@
     }
     var after=true;
     var prevItem;
-    var direction = IsPC();//-- 当客户端为PC的时候默认为true
-    var keyIndex = opt.index - 1;
+    var direction = false;
+
 
     function urlToObject(url){
         var urlObject = {};
@@ -53,21 +53,6 @@
             return urlObject;
         }
     }
-    function IsPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone",
-            "SymbianOS", "Windows Phone",
-            "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
-
     function swipeUp(event) {
         var item = $(event.target).closest('.item');
         if (!item.length) {
@@ -81,8 +66,8 @@
             return
         }
         prevSlide(item)
-    }
 
+    }
     function nextSlide(item) {
         if (item.next().length) {
             currentItem = item.next();
@@ -133,7 +118,7 @@
         after=true;
         setTimeout(function(){
             direction = directions;
-        },opt.speed||700)
+        },opt.speed)
         var steps = $(dom).find('.step');
         steps.forEach(function(item) {
             var time = $(item).attr('data-delay') || 100;
@@ -143,25 +128,6 @@
         })
     }
     function initEvent(opt) {
-        document.onmousewheel = function(e){
-            if(e.wheelDeltaY<0&&direction&&keyIndex<$('.item').length-1){
-                nextSlide($('.item').eq(keyIndex++))
-            }else if(e.wheelDeltaY>0&&direction&&keyIndex>0){
-                prevSlide($('.item').eq(keyIndex--))
-            }
-            direction=false;
-        }
-
-        document.onkeydown = function(e){
-            if(e.keyCode=='40'&&direction&&keyIndex<$('.item').length-1){
-                nextSlide($('.item').eq(keyIndex++))
-            }else if(e.keyCode == '38'&&direction&&keyIndex>0){
-                prevSlide($('.item').eq(keyIndex--))
-            }
-            direction=false;
-        }
-
-
         $('.music').on('tap', function() {
             $(this).toggleClass('play');
             var audio = document.getElementById('audio');
