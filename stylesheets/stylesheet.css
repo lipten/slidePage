@@ -11,8 +11,7 @@ body {
 
 a {
   color: #1e6bb8;
-  text-decoration: none;
-  word-break: break-all;}
+  text-decoration: none; }
   a:hover {
     text-decoration: underline; }
 
