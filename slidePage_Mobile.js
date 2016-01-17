@@ -117,8 +117,8 @@
     function orderStep(dom,directions) {
         after=true;
         setTimeout(function(){
-            direction = directions;
-        },opt.speed)
+            direction = directions||direction;
+        },opt.speed||700)
         var steps = $(dom).find('.step');
         steps.forEach(function(item) {
             var time = $(item).attr('data-delay') || 100;

@@ -132,7 +132,7 @@
     function orderStep(dom,directions) {
         after=true;
         setTimeout(function(){
-            direction = directions;
+            direction = directions||direction;
         },opt.speed||700)
         var steps = $(dom).find('.step');
         steps.forEach(function(item) {
@@ -144,24 +144,24 @@
     }
     function initEvent(opt) {
         document.onmousewheel = function(e){
+            console.log(direction)
             if(e.wheelDeltaY<0&&direction&&keyIndex<$('.item').length-1){
                 nextSlide($('.item').eq(keyIndex++))
+                direction=false;
             }else if(e.wheelDeltaY>0&&direction&&keyIndex>0){
                 prevSlide($('.item').eq(keyIndex--))
+                direction=false;
             }
-            direction=false;
         }
-
         document.onkeydown = function(e){
             if(e.keyCode=='40'&&direction&&keyIndex<$('.item').length-1){
                 nextSlide($('.item').eq(keyIndex++))
+                direction=false;
             }else if(e.keyCode == '38'&&direction&&keyIndex>0){
                 prevSlide($('.item').eq(keyIndex--))
+                direction=false;
             }
-            direction=false;
         }
-
-
         $('.music').on('tap', function() {
             $(this).toggleClass('play');
             var audio = document.getElementById('audio');
