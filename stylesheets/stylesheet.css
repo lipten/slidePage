@@ -11,7 +11,10 @@ body {
 
 a {
   color: #1e6bb8;
-  text-decoration: none; }
+  text-decoration: none;
+  word-break: break-all;
+  
+}
   a:hover {
     text-decoration: underline; }
 
