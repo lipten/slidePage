@@ -36,7 +36,7 @@ a {
   color:#39c;
   font-weight:400;
   text-decoration:none;
-  word-break:break-all;
+  word-break:break-all!importent;
 }
 
 a small {
