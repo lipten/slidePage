@@ -1,25 +1,65 @@
 (function() {
     var page =  location.search?urlToObject(location.search).page:1;
     var opt = {
-        index:page,
+        'index':page,
+        'pageContainer': '.item',
         'after': function() {},
         'before': function() {},
         'speed': false,
         'refresh': true,
+        'pagination': true,
+        'useWheel': true,
+        'useKeyboard':true,
         'useArrow': true,
         'useAnimation': true,
         'useMusic': {
             'autoPlay': true,
             'loopPlay': true,
-            'src': 'http://mat1.gtimg.com/news/2015/love/FadeAway.mp3'
-        }
+            'src': 'Summer.mp3'
+        },
     };
+    var after=true;
+    var prevItem;
+    var direction = true;
+    var keyIndex = opt.index - 1;
+    var defaultSpeed = $(opt.pageContainer).css('transition-duration').replace('s','')*1000;
+
     window.slidePage = {
         'init': function(option) {
             $.extend(opt, option);
             initDom(opt);
-            initEvent(opt)
-        }
+            initEvent(opt);
+        },
+        'index': function(index){
+            if(index>0){
+                index=parseInt(index)-1;
+                if(index>keyIndex){
+                    for(var i= keyIndex;i<index;i++){
+                        nextPage($(opt.pageContainer).eq(i));
+                    }
+                }else if(index<keyIndex){
+                    for(var i=keyIndex;i>=index;i--){
+                        prevPage($(opt.pageContainer).eq(i+1));
+                    }
+                }
+                keyIndex=index;
+                pageActive()
+            }
+            return keyIndex
+        },
+        'next': function(){
+            if(direction&&keyIndex<$(opt.pageContainer).length-1){
+                nextPage($(opt.pageContainer).eq(keyIndex++))
+                direction = false;
+            }
+        },
+        'prev': function(){
+            if(direction&&keyIndex>0){
+                prevPage($(opt.pageContainer).eq(keyIndex--))
+                direction = false;
+            }
+        },
+
     };
     var obj = {
         'nextSlide': function(item) {
@@ -35,10 +75,19 @@
             item.next().css('-webkit-transform', 'translate3d(0,100%,0)')
         }
     }
-    var after=true;
-    var prevItem;
-    var direction = IsPC();//-- 当客户端为PC的时候默认为true
-    var keyIndex = opt.index - 1;
+
+
+    function pageActive(){
+        if(opt.refresh&&direction&&opt.useAnimation){
+            direction=='next'?$(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide'):$(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide');
+        }
+        if (keyIndex+1==$(opt.pageContainer).length) {
+            $(opt.pageContainer).parent().find('.arrow').addClass('hide');
+        }else{
+            $(opt.pageContainer).parent().find('.arrow').removeClass('hide');
+        }
+        $('#pagination').find('a').removeClass('active').eq(keyIndex).addClass('active')
+    }
 
     function urlToObject(url){
         var urlObject = {};
@@ -53,87 +102,70 @@
             return urlObject;
         }
     }
-    function IsPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone",
-            "SymbianOS", "Windows Phone",
-            "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
-
-    function swipeUp(event) {
-        var item = $(event.target).closest('.item');
-        if (!item.length) {
-            return
-        }
-        nextSlide(item)
-    }
-    function swipeDown(event) {
-        var item = $(event.target).closest('.item');
-        if (!item.length) {
-            return
-        }
-        prevSlide(item)
-    }
-
-    function nextSlide(item) {
+    function nextPage(item) {
         if (item.next().length) {
             currentItem = item.next();
             orderStep(item.next(),'next');
             obj.nextSlide(item);
-            opt.before(item.index()+1);
         } else {
-            obj.showSlide(item)
+            obj.showSlide(item);
         }
+        opt.before(item.index()+1);
+        keyindex = $(opt.pageContainer).index(item)
+        pageActive()
     }
-    function prevSlide(item) {
+    function prevPage(item) {
         if (item.prev().length) {
             currentItem = item.prev();
             orderStep(item.prev(),'prev');
             obj.prevSlide(item);
             item.prev().prev().css('-webkit-transform', 'translate3d(0px, -100%, 0px)');
-            opt.before(item.index()+1);
         } else {
-            obj.showSlide(item)
+            obj.showSlide(item);
         }
+        opt.before(item.index()+1);
+        keyindex = $(opt.pageContainer).index(item)
+        pageActive()
     }
     function initDom(opt) {
         //-- 这里在移动端下有个奇怪的问题：如果设置了speed参数，也就是当js设置了下面这个css属性，那么这个css动画的时间曲线会变成匀速过渡（linear）,所以speed只能默认为false暂时避免这问题。
         //-- 如果有大神知道怎么解决请fork或联系我qq：296183464 谢谢。
-        if(opt.speed){
-            $('.item').css({'transition-duration':opt.speed+'ms','-webkit-transition-duration':opt.speed+'ms'});
+        if (!!opt.speed){
+            $(opt.pageContainer).css({'transition-duration':opt.speed+'ms','-webkit-transition-duration':opt.speed+'ms'});
         }
-        currentItem = $('.item').eq(opt.index - 1);
+        if(!!opt.pagination){
+            var domA = ''
+            for(var i= 0,len=$(opt.pageContainer).length;i<len;i++){
+                domA+='<a onclick="slidePage.index('+(i+1)+')"></a>'
+            }
+            $('body').append('<nav class="pagination" id="pagination"><div class="prev-page" onclick="slidePage.prev()">&Lambda;</div>'+domA+'<div class="next-page" onclick="slidePage.next()">V</div></nav>')
+            $('#pagination').css('margin-top',-$('#pagination').height()/2);
+            pageActive();
+        }
+        currentItem = $(opt.pageContainer).eq(opt.index - 1);
         prevItem = currentItem.prev();
         currentItem.css('-webkit-transform', 'translate3d(0px, 0px, 0px)');
         prevItem.css('-webkit-transform', 'translate3d(0px, -100%, 0px)');
-        if (opt.useAnimation) {
-            var items = $('.item');
+        if (!!opt.useAnimation) {
+            var items = $(opt.pageContainer);
             items.find('.step').addClass('hide');
             orderStep(items.eq(opt.index - 1))
         }
-        if (opt.useArrow) {
-            $('.item').slice(0, $('.item').length - 1).append('<span class="arrow"></span>')
+        if (!!opt.useArrow) {
+            $('#slidePage-container').append('<span class="arrow"></span>')
         }
-        if (opt.useMusic) {
+        if (!!opt.useMusic) {
             var autoplay = opt.useMusic.autoPlay ? 'autoplay="autoplay"' : '';
             var loopPlay = opt.useMusic.loopPlay ? 'loop="loop"' : '';
             var src = opt.useMusic.src;
-            $('body').append('<span class="music play"><audio id="audio" src=' + src + ' ' + autoplay + ' ' + loopPlay + '></audio></span>')
+            $('#slidePage-container').append('<span class="music play"><audio id="audio" src=' + src + ' ' + autoplay + ' ' + loopPlay + '></audio></span>')
         }
     }
     function orderStep(dom,directions) {
         after=true;
         setTimeout(function(){
             direction = directions||direction;
-        },opt.speed||700)
+        },opt.speed||defaultSpeed)
         var steps = $(dom).find('.step');
         steps.forEach(function(item) {
             var time = $(item).attr('data-delay') || 100;
@@ -143,23 +175,22 @@
         })
     }
     function initEvent(opt) {
-        document.onmousewheel = function(e){
-            console.log(direction)
-            if(e.wheelDeltaY<0&&direction&&keyIndex<$('.item').length-1){
-                nextSlide($('.item').eq(keyIndex++))
-                direction=false;
-            }else if(e.wheelDeltaY>0&&direction&&keyIndex>0){
-                prevSlide($('.item').eq(keyIndex--))
-                direction=false;
+        if(!!opt.useWheel){
+            document.onmousewheel = function(e){
+                if(e.wheelDeltaY<0){
+                    slidePage.next();
+                }else if(e.wheelDeltaY>0){
+                    slidePage.prev();
+                }
             }
         }
-        document.onkeydown = function(e){
-            if(e.keyCode=='40'&&direction&&keyIndex<$('.item').length-1){
-                nextSlide($('.item').eq(keyIndex++))
-                direction=false;
-            }else if(e.keyCode == '38'&&direction&&keyIndex>0){
-                prevSlide($('.item').eq(keyIndex--))
-                direction=false;
+        if(!!opt.useKeyboard){
+            document.onkeydown = function(e){
+                if(e.keyCode=='40'&&direction&&keyIndex<$(opt.pageContainer).length-1){
+                    slidePage.next();
+                }else if(e.keyCode == '38'&&direction&&keyIndex>0){
+                    slidePage.prev();
+                }
             }
         }
         $('.music').on('tap', function() {
@@ -171,20 +202,20 @@
                 audio.pause()
             }
         });
-        $('.slidePage-container').on('touchmove', function(e) {
+        $('#slidePage-container').on('touchmove', function(e) {
             e.preventDefault()
         });
-        $('.item').on({
-            'swipeUp': swipeUp,
-            'swipeDown': swipeDown
+        $(opt.pageContainer).on({
+            'swipeUp':  function () {
+                slidePage.next();
+            },
+            'swipeDown':  function () {
+                slidePage.prev();
+            }
         });
-        $('.item').on('transitionend webkitTransitionEnd', function(event) {
+        $(opt.pageContainer).on('transitionend webkitTransitionEnd', function(event) {
             if(after){
                 opt.after($(event.target).index()+1);
-                if(opt.refresh&&direction&&opt.useAnimation){
-                    direction=='next'?$(event.target).prev().find('.step').addClass('hide'):$(event.target).find('.step').addClass('hide');
-                    direction=false;
-                }
                 after=false;
             }
         })

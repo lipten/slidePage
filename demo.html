@@ -28,23 +28,23 @@
 
 
 
-        .item2 {
-            background-color: #0067A6;
-        }
         .item1 {
-            background-color: #00ABD8;
+            background-color: #99CC33;
+        }
+        .item2 {
+            background-color: #99CC66;
         }
         .item3 {
-            background-color: #008972;
+            background-color: #99CCCC;
         }
         .item4 {
-            background-color: #F5C564;
+            background-color: #CCCC33;
         }
         .item5 {
-            background-color: #F2572D;
+            background-color: #CCCC99;
         }
         .item6 {
-            background-color: #0067A6;
+            background-color: #CCCC66;
         }
 
         .item1 .step1 {
@@ -54,7 +54,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(178, 116, 57);
             border-radius: 50%;
 
         }
@@ -74,7 +74,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(178, 79, 65);
             border-radius: 50%;
         }
         .item3 .step2 {
@@ -84,7 +84,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(52, 178, 89);
         }
         .item2 .step1 {
             position: absolute;
@@ -93,7 +93,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(82, 110, 178);
             border-radius: 50%;
         }
         .item2 .step3 {
@@ -103,7 +103,7 @@
             text-align: center;
             width: 150px;
             height: 150px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(178, 79, 54);
         }
         .item2 .step2 {
             position: absolute;
@@ -121,7 +121,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(93, 163, 178);
             border-radius: 50%;
         }
         .item4 .step2 {
@@ -131,7 +131,7 @@
             text-align: center;
             width: 150px;
             height: 150px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(178, 160, 45);
         }
         .item5 .step1 {
             position: absolute;
@@ -140,7 +140,7 @@
             text-align: center;
             width: 150px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(152, 83, 178);
         }
         .item5 .step2 {
             position: absolute;
@@ -149,7 +149,7 @@
             text-align: center;
             width: 150px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(36, 178, 100);
 
         }
 
@@ -169,7 +169,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(178, 72, 91);
         }
         .item6 .step3 {
             position: absolute;
@@ -179,58 +179,68 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background-color: rgb(116, 178, 9);
+            background-color: rgb(93, 163, 178);
         }
+
+
+
     </style>
 
 </head>
 <body >
-<div class="slidePage-container">
+<div class="slidePage-container" id="slidePage-container">
+
     <div class="item item1">
-        <h2>page1</h2>
+        <h2>Page1</h2>
         <div class="step step1 fadeIn" data-delay="1000"></div>
         <div class="step step2 fadeIn"></div>
     </div>
     <div class="item item2">
-        <h2>page2</h2>
+        <h2>Page2</h2>
         <div class="step step1 slideRight" data-delay="1300"></div>
         <div class="step step2 slideLeft"></div>
         <div class="step step3 zoomIn"></div>
     </div>
     <div class="item item3">
-        <h2>page3</h2>
+        <h2>Page3</h2>
         <div class="step step1 slideUp"></div>
         <div class="step step2 slideDown"></div>
     </div>
     <div class="item item4">
-        <h2>page4</h2>
+        <h2>Page4</h2>
         <div class="step step1 heartBeat"></div>
         <div class="step step2 heartBeat"></div>
     </div>
     <div class="item item5">
-        <h2>page5</h2>
+        <h2>Page5</h2>
         <div class="step step1 rollInRight"></div>
         <div class="step step2 rollInLeft"></div>
     </div>
     <div class="item item6">
-        <h2>page6</h2>
+        <h2>Page6</h2>
         <div class="step step1 rollInLeft"></div>
         <div class="step step2 forceDown" data-delay="1000"></div>
         <div class="step step3 fadeFlash infinite" data-delay="1500"></div>
     </div>
+
+
+
+
 </div>
 <script type="text/javascript" src="zepto.min.js"></script>
 <script type="text/javascript" src="slidePage.js"></script>
 <script type="text/javascript">
-
     slidePage.init({
         /*'index': 1,*/
+        'pageContainer': '.item',
         'before': function(index) {console.log('before current page '+index)},
         'after': function(index) {console.log('after current page '+index)},
         'useArrow': true,
         'useMusic': false,
+        'refresh': true,
+        'speed': false,
+        'pagination': true,
     });
-
 </script>
 </body>
 </html>
