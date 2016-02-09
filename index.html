@@ -20,22 +20,39 @@
 
     <section class="main-content">
       <h1>
-<a id="slidepage" class="anchor" href="#slidepage" aria-hidden="true"><span class="octicon octicon-link"></span></a>slidePage</h1>
+<a id="slidepage" class="anchor" href="#slidepage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>slidePage</h1>
 
 <p>Demo:<a href="http://lipten.link/projects/slidePage/demo.html?page=1">http://lipten.link/projects/slidePage/demo.html?page=1</a></p>
 
 <p><img src="http://lipten.link/projects/slidePage/demo.gif" alt="demo"> </p>
 
 <h3>
-<a id="-update-v05-" class="anchor" href="#-update-v05-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update v0.5-</h3>
+<a id="-update-v06-" class="anchor" href="#-update-v06-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.6-</h3>
 
-<p>1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。</p>
+<p>1.加入了分页组件。</p>
+
+<p>2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;</p>
 
 <h3>
-<a id="安装方法" class="anchor" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装方法</h3>
+<a id="-update-v052-" class="anchor" href="#-update-v052-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.5.2-</h3>
+
+<p>1.html结构有所改变：滚动的父容器除了加"slidePage-container"的class样式外还要加多个"slidePage-container"的id</p>
+
+<pre><code>&lt;div class="slidePage-container" id="slidePage-container"&gt;
+</code></pre>
+
+<h3>
+<a id="-update-v051-" class="anchor" href="#-update-v051-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.5.1-</h3>
+
+<p>1.去除了slidePage_Mobile版本(只有十行左右的区别，没必要)。</p>
+
+<p>2.mobile版本的需求衍生成useWheel和useKeyboard两个参数来开关键盘事件和滚轮事件.</p>
+
+<h3>
+<a id="安装方法" class="anchor" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>安装方法</h3>
 
 <h4>
-<a id="1下载slidepage" class="anchor" href="#1%E4%B8%8B%E8%BD%BDslidepage" aria-hidden="true"><span class="octicon octicon-link"></span></a>1、下载slidePage</h4>
+<a id="1下载slidepage" class="anchor" href="#1%E4%B8%8B%E8%BD%BDslidepage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1、下载slidePage</h4>
 
 <p>利用bower安装</p>
 
@@ -48,40 +65,46 @@
 </code></pre>
 
 <h4>
-<a id="2引用相关文件" class="anchor" href="#2%E5%BC%95%E7%94%A8%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>2、引用相关文件</h4>
+<a id="2引用相关文件" class="anchor" href="#2%E5%BC%95%E7%94%A8%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2、引用相关文件</h4>
 
 <pre><code>&lt;link rel="stylesheet" type="text/css" href="slidePage.css"&gt;        //插件必须样式
 &lt;link rel="stylesheet" type="text/css" href="page-animation.css"&gt;   //动画样式，可自己编写
 </code></pre>
 
 <h4>
-<a id="3引用js文件" class="anchor" href="#3%E5%BC%95%E7%94%A8js%E6%96%87%E4%BB%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>3、引用js文件</h4>
+<a id="3引用js文件" class="anchor" href="#3%E5%BC%95%E7%94%A8js%E6%96%87%E4%BB%B6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3、引用js文件</h4>
 
 <pre><code>&lt;script type="text/javascript" src="zepto.min.js"&gt;&lt;/script&gt;         //zepto.js类库
-&lt;script type="text/javascript" src="slidePage.js"&gt;&lt;/script&gt;         //slidePage主文件
+&lt;script type="text/javascript" src="slidePage.js"&gt;&lt;/script&gt;         //slidePage主文件，支持手机和PC浏览
+
 </code></pre>
 
 <h4>
-<a id="4html结构" class="anchor" href="#4html%E7%BB%93%E6%9E%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>4、html结构</h4>
+<a id="4html结构" class="anchor" href="#4html%E7%BB%93%E6%9E%84" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4、html结构</h4>
 
-<pre><code>&lt;div class="slidePage-container"&gt;
-    &lt;div class="item"&gt;
+<pre><code>&lt;div class="slidePage-container" id="slidePage-container"&gt;
+    &lt;div class="item page1"&gt;
         &lt;h2&gt;page1&lt;/h2&gt;
         &lt;div class="step step1 fadeIn" data-delay="1000"&gt;&lt;/div&gt;
         &lt;div class="step step2 fadeIn"&gt;&lt;/div&gt;
     &lt;/div&gt;
-    。。。
+    &lt;div class="item page2"&gt;
+        &lt;h2&gt;page2&lt;/h2&gt;
+        &lt;div class="step step1 slideRight" data-delay="1300"&gt;&lt;/div&gt;
+        &lt;div class="step step2 slideLeft"&gt;&lt;/div&gt;
+        &lt;div class="step step3 zoomIn"&gt;&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
 
 <h4>
-<a id="5初始化代码" class="anchor" href="#5%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%A3%E7%A0%81" aria-hidden="true"><span class="octicon octicon-link"></span></a>5、初始化代码</h4>
+<a id="5初始化代码" class="anchor" href="#5%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%A3%E7%A0%81" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5、初始化代码</h4>
 
 <pre><code>slidePage.init();
 </code></pre>
 
 <h2>
-<a id="doc" class="anchor" href="#doc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Doc</h2>
+<a id="doc" class="anchor" href="#doc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doc</h2>
 
 <p>slidePage.init(options);</p>
 
@@ -94,58 +117,71 @@
     'after' : function(index){},
     'speed' : 700
     'refresh'  : true,
+    'useWheel' : true,
+    'useKeyboard' : true,
     'useArrow' : true,
     'useAnimation' : true,
+    'pagination': true,
     'useMusic' : {
         'autoPlay' : true,
         'loopPlay' : true,
-        'src' : 'http://mat1.gtimg.com/news/2015/love/FadeAway.mp3'
+        'src' : 'Summer.mp3'
     }
  };
 </pre>
 
 <h4>
-<a id="index" class="anchor" href="#index" aria-hidden="true"><span class="octicon octicon-link"></span></a>index</h4>
+<a id="index" class="anchor" href="#index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>index</h4>
 
 <p>初始进入的索引页面，值为1时从第一页开始，默认为1</p>
 
 <h4>
-<a id="before" class="anchor" href="#before" aria-hidden="true"><span class="octicon octicon-link"></span></a>before</h4>
+<a id="before" class="anchor" href="#before" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>before</h4>
 
 <p>触发页面滚动前的回调，参数index为滚动前的页面索引号</p>
 
 <h4>
-<a id="after" class="anchor" href="#after" aria-hidden="true"><span class="octicon octicon-link"></span></a>after</h4>
+<a id="after" class="anchor" href="#after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>after</h4>
 
 <p>触发页面滚动后的回调，参数index为滚动后的页面索引号</p>
 
 <h4>
-<a id="speed" class="anchor" href="#speed" aria-hidden="true"><span class="octicon octicon-link"></span></a>speed</h4>
+<a id="speed" class="anchor" href="#speed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>speed</h4>
 
 <p>页面过渡的动画时间，以毫秒为单位</p>
 
 <h4>
-<a id="refresh" class="anchor" href="#refresh" aria-hidden="true"><span class="octicon octicon-link"></span></a>refresh</h4>
+<a id="refresh" class="anchor" href="#refresh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>refresh</h4>
 
 <p>往回滚的时候是否重新执行动画</p>
 
 <h4>
-<a id="usearrow" class="anchor" href="#usearrow" aria-hidden="true"><span class="octicon octicon-link"></span></a>useArrow</h4>
+<a id="usewheel" class="anchor" href="#usewheel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useWheel</h4>
+
+<p>开启或关闭鼠标滚轮滑动</p>
+
+<h4>
+<a id="usekeyboard" class="anchor" href="#usekeyboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useKeyboard</h4>
+
+<p>开启或关闭键盘上下键控制滚动</p>
+
+<h4>
+<a id="usearrow" class="anchor" href="#usearrow" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useArrow</h4>
 
 <p>使用自带样式的下箭头提示图标</p>
 
 <h4>
-<a id="useanimation" class="anchor" href="#useanimation" aria-hidden="true"><span class="octicon octicon-link"></span></a>useAnimation</h4>
+<a id="useanimation" class="anchor" href="#useanimation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useAnimation</h4>
 
 <p>开启或关闭动画</p>
 
 <h4>
-<a id="usemusic" class="anchor" href="#usemusic" aria-hidden="true"><span class="octicon octicon-link"></span></a>useMusic</h4>
+<a id="usemusic" class="anchor" href="#usemusic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useMusic</h4>
 
-<p>使用音乐，并有音乐图标提示用户控制播放</p>
+<p>使用音乐，并有音乐图标提示用户控制播放(不使用直接赋值false)</p>
 
 <h3>
-<a id="使用动画" class="anchor" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E7%94%BB" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用动画</h3>
+<a id="使用动画" class="anchor" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E7%94%BB" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使用动画</h3>
 
 <pre>
 &lt;div class="step slideRight" data-delay="1300"&gt;&lt;/div&gt;
@@ -155,7 +191,7 @@
 此项目还为您准备了一套css动画：page-animation.css，可自由更改或添加您想要的动画，</p>
 
 <h4>
-<a id="动效列表" class="anchor" href="#%E5%8A%A8%E6%95%88%E5%88%97%E8%A1%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>动效列表:</h4>
+<a id="动效列表" class="anchor" href="#%E5%8A%A8%E6%95%88%E5%88%97%E8%A1%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>动效列表:</h4>
 
 <pre>
 [
@@ -177,24 +213,29 @@
 </pre>
 
 <h4>
-<a id="更新历史" class="anchor" href="#%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2" aria-hidden="true"><span class="octicon octicon-link"></span></a>更新历史</h4>
+<a id="更新历史" class="anchor" href="#%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>更新历史</h4>
 
 <h3>
-<a id="-update-v04-" class="anchor" href="#-update-v04-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update v0.4-</h3>
+<a id="-update-v05-" class="anchor" href="#-update-v05-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.5-</h3>
+
+<p>1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。</p>
+
+<h3>
+<a id="-update-v04-" class="anchor" href="#-update-v04-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.4-</h3>
 
 <p>1.新增参数speed(页面过渡的动画时间，毫秒为单位)</p>
 
 <p>2.修复refresh参数的bug.</p>
 
 <h3>
-<a id="-update-v03-" class="anchor" href="#-update-v03-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update v0.3-</h3>
+<a id="-update-v03-" class="anchor" href="#-update-v03-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.3-</h3>
 
 <p>1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)</p>
 
 <p>2.修复无page参数的bug.</p>
 
 <h3>
-<a id="-update-v02-" class="anchor" href="#-update-v02-" aria-hidden="true"><span class="octicon octicon-link"></span></a>-update v0.2-</h3>
+<a id="-update-v02-" class="anchor" href="#-update-v02-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.2-</h3>
 
 <p>1.新增url参数pege跳转指定页，优先于index参数.</p>
 
