@@ -15,7 +15,7 @@
         'useMusic': {
             'autoPlay': true,
             'loopPlay': true,
-            'src': 'Summer.mp3'
+            'src': 'http://info.lipten.net/projects/slidePage/Summer.mp3'
         },
     };
     var after=true;
@@ -23,6 +23,7 @@
     var direction = true;
     var keyIndex = opt.index - 1;
     var defaultSpeed = $(opt.pageContainer).css('transition-duration').replace('s','')*1000;
+    var pageCount = $(opt.pageContainer).length
 
     window.slidePage = {
         'init': function(option) {
@@ -48,7 +49,7 @@
             return keyIndex
         },
         'next': function(){
-            if(direction&&keyIndex<$(opt.pageContainer).length-1){
+            if(direction&&keyIndex<pageCount-1){
                 nextPage($(opt.pageContainer).eq(keyIndex++))
                 direction = false;
             }
@@ -76,12 +77,26 @@
         }
     }
 
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
 
     function pageActive(){
         if(opt.refresh&&direction&&opt.useAnimation){
             direction=='next'?$(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide'):$(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide');
         }
-        if (keyIndex+1==$(opt.pageContainer).length) {
+        if (keyIndex+1==pageCount) {
             $(opt.pageContainer).parent().find('.arrow').addClass('hide');
         }else{
             $(opt.pageContainer).parent().find('.arrow').removeClass('hide');
@@ -135,12 +150,13 @@
         }
         if(!!opt.pagination){
             var domA = ''
-            for(var i= 0,len=$(opt.pageContainer).length;i<len;i++){
-                domA+='<a onclick="slidePage.index('+(i+1)+')"></a>'
+            for(var i= 0;i<pageCount;i++){
+                domA+='<a></a>'
             }
-            $('body').append('<nav class="pagination" id="pagination"><div class="prev-page" onclick="slidePage.prev()">&Lambda;</div>'+domA+'<div class="next-page" onclick="slidePage.next()">V</div></nav>')
+            $('body').append('<nav class="pagination" id="pagination"><div class="prev-page" id="prev-page">&Lambda;</div>'+domA+'<div class="next-page" id="next-page">V</div></nav>')
             $('#pagination').css('margin-top',-$('#pagination').height()/2);
             pageActive();
+
         }
         currentItem = $(opt.pageContainer).eq(opt.index - 1);
         prevItem = currentItem.prev();
@@ -158,7 +174,7 @@
             var autoplay = opt.useMusic.autoPlay ? 'autoplay="autoplay"' : '';
             var loopPlay = opt.useMusic.loopPlay ? 'loop="loop"' : '';
             var src = opt.useMusic.src;
-            $('#slidePage-container').append('<span class="music play"><audio id="audio" src=' + src + ' ' + autoplay + ' ' + loopPlay + '></audio></span>')
+            $('#slidePage-container').append('<span class="music play" id="music"><audio id="audio" src=' + src + ' ' + autoplay + ' ' + loopPlay + '></audio></span>')
         }
     }
     function orderStep(dom,directions) {
@@ -175,6 +191,8 @@
         })
     }
     function initEvent(opt) {
+        var tapOrClick = IsPC()?'click':'tap'
+
         if(!!opt.useWheel){
             document.onmousewheel = function(e){
                 if(e.wheelDeltaY<0){
@@ -186,14 +204,26 @@
         }
         if(!!opt.useKeyboard){
             document.onkeydown = function(e){
-                if(e.keyCode=='40'&&direction&&keyIndex<$(opt.pageContainer).length-1){
+                if(e.keyCode=='40'&&direction&&keyIndex<pageCount-1){
                     slidePage.next();
                 }else if(e.keyCode == '38'&&direction&&keyIndex>0){
                     slidePage.prev();
                 }
             }
         }
-        $('.music').on('tap', function() {
+        $('#next-page').on(tapOrClick,function(){
+            slidePage.next();
+        })
+        $('#prev-page').on(tapOrClick,function(){
+            slidePage.prev();
+        })
+
+        $('#pagination a').on(tapOrClick,function(){
+            slidePage.index($('#pagination a').index($(this))+1);
+        })
+
+
+        $('#music').on('tap', function() {
             $(this).toggleClass('play');
             var audio = document.getElementById('audio');
             if (audio.paused) {
