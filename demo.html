@@ -250,7 +250,7 @@
         <div class="next-page" onclick="slidePage.next()">V</div>
     </nav>-->
 </div>
-<script type="text/javascript" src="zepto.min.js"></script>
+<script src="//cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
 <script type="text/javascript" src="slidePage.js"></script>
 <script type="text/javascript">
     slidePage.init({
@@ -262,7 +262,7 @@
             console.log('after current page ' + index)
         },
         'useArrow': true,
-        'useAnimation': false,
+        'useAnimation': true,
         'refresh': true,
         'speed': false,
         'pagination': true,//要自定义分页组件的话该属性应为false，否则会插入自带分页组件

@@ -211,6 +211,7 @@
                 }
             }
         }
+
         $('#next-page').on(tapOrClick,function(){
             slidePage.next();
         })
@@ -223,7 +224,7 @@
         })
 
 
-        $('#music').on('tap', function() {
+        $('#music').on(tapOrClick, function() {
             $(this).toggleClass('play');
             var audio = document.getElementById('audio');
             if (audio.paused) {

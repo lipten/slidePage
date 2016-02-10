@@ -124,14 +124,22 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 30px 0;
+    padding: 40px 0;
 }
 .pagination a{
+    width: 25px;
+    height: 25px;
+    display: block;
+    line-height: 28px;
+    text-align: center;
+    padding-left: 3px;
+}
+.pagination a:after{
+    content: "";
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    display: block;
-    margin: 10px auto;
+    display: inline-block;
     background: rgba(0,0,0,.5);
     -webkit-transition: background .3s ease;
     -moz-transition: background .3s ease;
@@ -139,7 +147,7 @@
     -o-transition: background .3s ease;
     transition: background .3s ease;
 }
-.pagination a.active{
+.pagination a.active:after{
     background: rgba(255,255,255,.5);
 }
 
