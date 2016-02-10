@@ -1,6 +1,6 @@
 
 # slidePage
-Demo:http://lipten.link/projects/slidePage/demo.html?page=1
+Demo:http://info.lipten.net/projects/slidePage/demo.html?page=1
 
 
 ###-update v0.6-
