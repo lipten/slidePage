@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class=" js-no-overflow-scrolling">
+<html class="js-no-overflow-scrolling">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>demo</title>
     <link rel="stylesheet" type="text/css" href="slidePage.css">
@@ -19,30 +19,34 @@
         }
 
         body {
-            margin:0;
+            margin: 0;
             padding: 0;
         }
+
         ul {
             list-style: none;
         }
 
-
-
         .item1 {
             background-color: #99CC33;
         }
+
         .item2 {
             background-color: #99CC66;
         }
+
         .item3 {
             background-color: #99CCCC;
         }
+
         .item4 {
             background-color: #CCCC33;
         }
+
         .item5 {
             background-color: #CCCC99;
         }
+
         .item6 {
             background-color: #CCCC66;
         }
@@ -58,6 +62,7 @@
             border-radius: 50%;
 
         }
+
         .item1 .step2 {
             position: absolute;
             bottom: 100px;
@@ -67,6 +72,7 @@
             height: 100px;
             background-color: rgb(116, 178, 9);
         }
+
         .item3 .step1 {
             position: absolute;
             top: 100px;
@@ -77,6 +83,7 @@
             background-color: rgb(178, 79, 65);
             border-radius: 50%;
         }
+
         .item3 .step2 {
             position: absolute;
             bottom: 100px;
@@ -86,6 +93,7 @@
             height: 100px;
             background-color: rgb(52, 178, 89);
         }
+
         .item2 .step1 {
             position: absolute;
             top: 100px;
@@ -96,6 +104,7 @@
             background-color: rgb(82, 110, 178);
             border-radius: 50%;
         }
+
         .item2 .step3 {
             position: absolute;
             bottom: 60px;
@@ -105,6 +114,7 @@
             height: 150px;
             background-color: rgb(178, 79, 54);
         }
+
         .item2 .step2 {
             position: absolute;
             top: 100px;
@@ -114,6 +124,7 @@
             height: 100px;
             background-color: rgb(116, 178, 9);
         }
+
         .item4 .step1 {
             position: absolute;
             top: 100px;
@@ -124,6 +135,7 @@
             background-color: rgb(93, 163, 178);
             border-radius: 50%;
         }
+
         .item4 .step2 {
             position: absolute;
             bottom: 100px;
@@ -133,6 +145,7 @@
             height: 150px;
             background-color: rgb(178, 160, 45);
         }
+
         .item5 .step1 {
             position: absolute;
             bottom: 100px;
@@ -142,6 +155,7 @@
             height: 100px;
             background-color: rgb(152, 83, 178);
         }
+
         .item5 .step2 {
             position: absolute;
             top: 100px;
@@ -162,6 +176,7 @@
             height: 100px;
             background-color: rgb(178, 159, 44);
         }
+
         .item6 .step1 {
             position: absolute;
             bottom: 100px;
@@ -171,6 +186,7 @@
             height: 100px;
             background-color: rgb(178, 72, 91);
         }
+
         .item6 .step3 {
             position: absolute;
             bottom: 100px;
@@ -183,11 +199,10 @@
         }
 
 
-
     </style>
 
 </head>
-<body >
+<body>
 <div class="slidePage-container" id="slidePage-container">
 
     <div class="item item1">
@@ -223,22 +238,34 @@
         <div class="step step3 fadeFlash infinite" data-delay="1500"></div>
     </div>
 
-
-
-
+    <!--通过slidePage.prev()、slidePage.next()和slidePage.index()可以对页面跳转操作，可以自定义分页组件-->
+    <!--<nav class="pagination" id="pagination">
+        <div class="prev-page" onclick="slidePage.prev()">&Lambda;</div>
+        <a onclick="slidePage.index(1)"></a>
+        <a onclick="slidePage.index(2)"></a>
+        <a onclick="slidePage.index(3)"></a>
+        <a onclick="slidePage.index(4)"></a>
+        <a onclick="slidePage.index(5)"></a>
+        <a onclick="slidePage.index(6)"></a>
+        <div class="next-page" onclick="slidePage.next()">V</div>
+    </nav>-->
 </div>
 <script type="text/javascript" src="zepto.min.js"></script>
 <script type="text/javascript" src="slidePage.js"></script>
 <script type="text/javascript">
     slidePage.init({
         /*'index': 1,*/
-        'before': function(index) {console.log('before current page '+index)},
-        'after': function(index) {console.log('after current page '+index)},
+        'before': function (index) {
+            console.log('before current page ' + index)
+        },
+        'after': function (index) {
+            console.log('after current page ' + index)
+        },
         'useArrow': true,
-        'useMusic': false,
+        'useAnimation': false,
         'refresh': true,
         'speed': false,
-        'pagination': true,
+        'pagination': true,//要自定义分页组件的话该属性应为false，否则会插入自带分页组件
     });
 </script>
 </body>
