@@ -143,8 +143,21 @@ options:(default)
 </pre>
 
 
+##Method
 
-####更新历史
+####slidePage.index(pageIndex)
+pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不传值则返回当前页面的页码
+
+####slidePage.prev()
+滚动上一页
+
+####slidePage.next()
+滚动下一页
+
+
+========
+
+##更新历史
 
 ###-update v0.5-
 1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。
