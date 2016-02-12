@@ -1,4 +1,4 @@
-(function() {
+(function($) {
     var page =  location.search?urlToObject(location.search).page:1;
     var opt = {
         'index':page,
@@ -183,7 +183,7 @@
             direction = directions||direction;
         },opt.speed||defaultSpeed)
         var steps = $(dom).find('.step');
-        steps.forEach(function(item) {
+        steps.each(function(index,item) {
             var time = $(item).attr('data-delay') || 100;
             setTimeout(function() {
                 $(item).removeClass('hide')
@@ -251,4 +251,4 @@
             }
         })
     }
-})();
+})($);

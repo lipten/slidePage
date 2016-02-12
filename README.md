@@ -2,23 +2,19 @@
 # slidePage
 Demo:http://info.lipten.net/projects/slidePage/demo.html?page=1
 
+###-update v0.6.2-
+1.全面支持jquery和zepto！
+
+2.将zepto-touch.js改造了一下，使jquery也能以同样的方式调用触屏事件;
+
+3.将改造后的zepto-touch.js取名为slidePage-touch.js,并与主文件合并压缩成slidePage.min.js
+
 
 ###-update v0.6-
 1.加入了分页组件。
 
 2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;
 
-
-###-update v0.5.2-
-1.html结构有所改变：滚动的父容器除了加"slidePage-container"的class样式外还要加多个"slidePage-container"的id
-```
-<div class="slidePage-container" id="slidePage-container">
-```
-
-###-update v0.5.1-
-1.去除了slidePage_Mobile版本(只有十行左右的区别，没必要)。
-
-2.mobile版本的需求衍生成useWheel和useKeyboard两个参数来开关键盘事件和滚轮事件.
 
 
 ###安装方法
@@ -158,6 +154,17 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 ========
 
 ##更新历史
+
+###-update v0.5.2-
+1.html结构有所改变：滚动的父容器除了加"slidePage-container"的class样式外还要加多个"slidePage-container"的id
+```
+<div class="slidePage-container" id="slidePage-container">
+```
+
+###-update v0.5.1-
+1.去除了slidePage_Mobile版本(只有十行左右的区别，没必要)。
+
+2.mobile版本的需求衍生成useWheel和useKeyboard两个参数来开关键盘事件和滚轮事件.
 
 ###-update v0.5-
 1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。
