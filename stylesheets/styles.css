@@ -39,6 +39,11 @@ a {
   word-break:break-all!importent;
 }
 
+.main-content > a{
+  word-break:break-all;
+}
+
+
 a small {
   font-size:11px;
   color:#777;
