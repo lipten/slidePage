@@ -1,6 +1,5 @@
-
 # slidePage
-Demo:http://info.lipten.net/projects/slidePage/demo.html?page=1
+Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
 ###-update v0.6.2-
 1.全面支持jquery和zepto！
