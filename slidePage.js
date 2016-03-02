@@ -154,7 +154,7 @@
                 domA+='<a></a>'
             }
             $('body').append('<nav class="pagination" id="pagination"><div class="prev-page" id="prev-page">&Lambda;</div>'+domA+'<div class="next-page" id="next-page">V</div></nav>')
-            $('#pagination').css('margin-top',-$('#pagination').height()/2);
+            $('#pagination').css('margin-top',-$('#pagination').height()/2-40+'px');
             pageActive();
 
         }
