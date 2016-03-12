@@ -1,22 +1,17 @@
 # slidePage
 Demo:http://lipten.link/projects/slidePage/demo.html?page=1
 
-###-update v0.6.2-
-1.全面支持jquery和zepto！
+###-update v1.1-
+1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）
 
-2.将zepto-touch.js改造了一下，使jquery也能以同样的方式调用触屏事件;
-
-3.将改造后的zepto-touch.js取名为slidePage-touch.js,并与主文件合并压缩成slidePage.min.js
+2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。
 
 
-###-update v0.6-
-1.加入了分页组件。
-
-2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;
+###-update v1.0-
+1.正式版，从0.6.2版本修复稳定。
 
 
-
-###安装方法
+###Usage
 
 ####1、下载slidePage
 利用bower安装
@@ -38,7 +33,7 @@ git clone https://github.com/lipten/slidePage.git
 ####3、引用js文件
 ```
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>  //zepto.js或者jquery类库
-<script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件，支持手机和PC浏览
+<script type="text/javascript" src="slidePage.min.js"></script>         //slidePage主文件，支持手机和PC浏览
                                                                     
 ```
 
@@ -65,36 +60,36 @@ git clone https://github.com/lipten/slidePage.git
 slidePage.init();
 ```
 
-## Doc
-slidePage.init(options);
-
-options:(default)
+## Configuration
 
 <pre>
-{
+slidePage.init({
     'index' : 1,
     'before' : function(index){},
     'after' : function(index){},
+    'next' : function(index){},
+    'prev' : function(index){},
     'speed' : 700
     'refresh'  : true,
     'useWheel' : true,
     'useKeyboard' : true,
     'useArrow' : true,
     'useAnimation' : true,
-    'pagination': true,
-    'useMusic' : {
-        'autoPlay' : true,
-        'loopPlay' : true,
-        'src' : 'Summer.mp3'
-    }
- };
+ });
 </pre>
+
+
+##Options
 ####index
 初始进入的索引页面，值为1时从第一页开始，默认为1
 ####before
-触发页面滚动前的回调，参数index为滚动前的页面索引号
+触发页面滚动前的回调，参数index为滚动前的页面序号
 ####after
-触发页面滚动后的回调，参数index为滚动后的页面索引号
+触发页面滚动后的回调，参数index为滚动后的页面序号
+####next
+监听滚动下一页，参数index为滚动前的页面序号
+####prev
+监听滚动上一页，参数index为滚动前的页面序号
 ####speed
 页面过渡的动画时间，以毫秒为单位
 ####refresh
@@ -107,10 +102,8 @@ options:(default)
 使用自带样式的下箭头提示图标
 ####useAnimation
 开启或关闭动画
-####useMusic
-使用音乐，并有音乐图标提示用户控制播放(不使用直接赋值false)
 
-###使用动画
+###Using Animation
 <pre>
 &lt;div class="step slideRight" data-delay="1300"&gt;&lt;/div&gt;
 </pre>
@@ -152,7 +145,22 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 
 ========
 
-##更新历史
+##History
+
+###-update v0.6.2-
+1.全面支持jquery和zepto！
+
+2.将zepto-touch.js改造了一下，使jquery也能以同样的方式调用触屏事件;
+
+3.将改造后的zepto-touch.js取名为slidePage-touch.js,并与主文件合并压缩成slidePage.min.js
+
+
+###-update v0.6-
+1.加入了分页组件。
+
+2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;
+
+
 
 ###-update v0.5.2-
 1.html结构有所改变：滚动的父容器除了加"slidePage-container"的class样式外还要加多个"slidePage-container"的id

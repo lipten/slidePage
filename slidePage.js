@@ -5,18 +5,15 @@
         'pageContainer': '.item',
         'after': function() {},
         'before': function() {},
+        'prev' : function(){},
+        'next' : function(){},
         'speed': false,
-        'refresh': true,
-        'pagination': true,
+        'refresh': false,
         'useWheel': true,
         'useKeyboard':true,
-        'useArrow': true,
+        'useArrow': false,
         'useAnimation': true,
-        'useMusic': {
-            'autoPlay': true,
-            'loopPlay': true,
-            'src': 'http://info.lipten.net/projects/slidePage/Summer.mp3'
-        },
+
     };
     var after=true;
     var prevItem;
@@ -26,11 +23,13 @@
     var pageCount = $(opt.pageContainer).length
 
     window.slidePage = {
-        'init': function(option) {
+        'init': function(option,callback) {
             $.extend(opt, option);
             initDom(opt);
             initEvent(opt);
+            callback&&callback.call(this)
         },
+
         'index': function(index){
             if(index>0){
                 index=parseInt(index)-1;
@@ -101,7 +100,6 @@
         }else{
             $(opt.pageContainer).parent().find('.arrow').removeClass('hide');
         }
-        $('#pagination').find('a').removeClass('active').eq(keyIndex).addClass('active')
     }
 
     function urlToObject(url){
@@ -125,6 +123,7 @@
         } else {
             obj.showSlide(item);
         }
+        opt.next(item.index()+1)
         opt.before(item.index()+1);
         keyindex = $(opt.pageContainer).index(item)
         pageActive()
@@ -138,6 +137,7 @@
         } else {
             obj.showSlide(item);
         }
+        opt.prev(item.index())
         opt.before(item.index()+1);
         keyindex = $(opt.pageContainer).index(item)
         pageActive()
@@ -148,16 +148,7 @@
         if (!!opt.speed){
             $(opt.pageContainer).css({'transition-duration':opt.speed+'ms','-webkit-transition-duration':opt.speed+'ms'});
         }
-        if(!!opt.pagination){
-            var domA = ''
-            for(var i= 0;i<pageCount;i++){
-                domA+='<a></a>'
-            }
-            $('body').append('<nav class="pagination" id="pagination"><div class="prev-page" id="prev-page">&Lambda;</div>'+domA+'<div class="next-page" id="next-page">V</div></nav>')
-            $('#pagination').css('margin-top',-$('#pagination').height()/2-40+'px');
-            pageActive();
 
-        }
         currentItem = $(opt.pageContainer).eq(opt.index - 1);
         prevItem = currentItem.prev();
         currentItem.css('-webkit-transform', 'translate3d(0px, 0px, 0px)');
@@ -170,12 +161,7 @@
         if (!!opt.useArrow) {
             $('#slidePage-container').append('<span class="arrow"></span>')
         }
-        if (!!opt.useMusic) {
-            var autoplay = opt.useMusic.autoPlay ? 'autoplay="autoplay"' : '';
-            var loopPlay = opt.useMusic.loopPlay ? 'loop="loop"' : '';
-            var src = opt.useMusic.src;
-            $('#slidePage-container').append('<span class="music play" id="music"><audio id="audio" src=' + src + ' ' + autoplay + ' ' + loopPlay + '></audio></span>')
-        }
+
     }
     function orderStep(dom,directions) {
         after=true;
@@ -191,8 +177,6 @@
         })
     }
     function initEvent(opt) {
-        var tapOrClick = IsPC()?'click':'tap'
-
         if(!!opt.useWheel){
             document.onmousewheel = function(e){
                 if(e.wheelDeltaY<0){
@@ -212,27 +196,6 @@
             }
         }
 
-        $('#next-page').on(tapOrClick,function(){
-            slidePage.next();
-        })
-        $('#prev-page').on(tapOrClick,function(){
-            slidePage.prev();
-        })
-
-        $('#pagination a').on(tapOrClick,function(){
-            slidePage.index($('#pagination a').index($(this))+1);
-        })
-
-
-        $('#music').on(tapOrClick, function() {
-            $(this).toggleClass('play');
-            var audio = document.getElementById('audio');
-            if (audio.paused) {
-                audio.play()
-            } else {
-                audio.pause()
-            }
-        });
         $('#slidePage-container').on('touchmove', function(e) {
             e.preventDefault()
         });

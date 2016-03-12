@@ -27,6 +27,72 @@
             list-style: none;
         }
 
+
+
+        .prev-page,.next-page{
+            display: block;
+            width: 25px;
+            height: 25px;
+            line-height: 26px;
+            position: absolute;
+            right: 2px;
+            z-index: 9999;
+            background: rgba(255,255,255,.5);
+            border-radius: 50%;
+            font-size: 14px;
+            color: #666;
+            text-align:center;
+        }
+
+        .prev-page{
+            top: 0;
+        }
+        .next-page{
+            bottom: 0;
+        }
+        .prev-page:active{
+            background: rgba(155,155,155,.5);
+        }
+        .next-page:active{
+            background: rgba(155,155,155,.5);
+        }
+        .pagination{
+            width: 30px;
+            height: auto;
+            position: fixed;
+            top: 50%;
+            right: 5px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 40px 0;
+            margin-top: -150px;
+        }
+        .pagination a{
+            width: 25px;
+            height: 25px;
+            display: block;
+            line-height: 28px;
+            text-align: center;
+            padding-left: 3px;
+        }
+        .pagination a:after{
+            content: "";
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            background: rgba(0,0,0,.5);
+            -webkit-transition: background .3s ease;
+            -moz-transition: background .3s ease;
+            -ms-transition: background .3s ease;
+            -o-transition: background .3s ease;
+            transition: background .3s ease;
+        }
+        .pagination a.active:after{
+            background: rgba(255,255,255,.5);
+        }
+
         .item1 {
             background-color: #99CC33;
         }
@@ -239,7 +305,7 @@
     </div>
 
     <!--通过slidePage.prev()、slidePage.next()和slidePage.index()可以对页面跳转操作，可以自定义分页组件-->
-    <!--<nav class="pagination" id="pagination">
+    <nav class="pagination" id="pagination">
         <div class="prev-page" onclick="slidePage.prev()">&Lambda;</div>
         <a onclick="slidePage.index(1)"></a>
         <a onclick="slidePage.index(2)"></a>
@@ -248,26 +314,31 @@
         <a onclick="slidePage.index(5)"></a>
         <a onclick="slidePage.index(6)"></a>
         <div class="next-page" onclick="slidePage.next()">V</div>
-    </nav>-->
+    </nav>
 </div>
-<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="slidePage.min.js"></script>
 
 <script type="text/javascript">
+    $('#pagination').find('a').eq(0).addClass('active')
     slidePage.init({
         /*'index': 1,*/
-        'before': function (index) {
-            console.log('before current page ' + index)
+        'before':function(index){
+            console.log(index)
         },
-        'after': function (index) {
-            console.log('after current page ' + index)
+        'next': function(index){
+            $('#pagination').find('a').removeClass('active').eq(index).addClass('active')
+        },
+        'prev': function(index){
+            $('#pagination').find('a').removeClass('active').eq(index-1).addClass('active')
         },
         'useArrow': true,
         'useAnimation': true,
         'refresh': true,
         'speed': false,
-        'pagination': true,//要自定义分页组件的话该属性应为false，否则会插入自带分页组件
     });
+
+
 </script>
 </body>
 </html>

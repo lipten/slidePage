@@ -89,67 +89,6 @@
 }
 
 
-.prev-page,.next-page{
-    display: block;
-    width: 25px;
-    height: 25px;
-    line-height: 26px;
-    position: absolute;
-    right: 2px;
-    z-index: 9999;
-    background: rgba(255,255,255,.5);
-    border-radius: 50%;
-    font-size: 14px;
-    color: #666
-}
-
-.prev-page{
-    top: 0;
-}
-.next-page{
-    bottom: 0;
-}
-.prev-page:active{
-    background: rgba(155,155,155,.5);
-}
-.next-page:active{
-    background: rgba(155,155,155,.5);
-}
-.pagination{
-    width: 30px;
-    height: auto;
-    position: fixed;
-    top: 50%;
-    right: 5px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 40px 0;
-}
-.pagination a{
-    width: 25px;
-    height: 25px;
-    display: block;
-    line-height: 28px;
-    text-align: center;
-    padding-left: 3px;
-}
-.pagination a:after{
-    content: "";
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    display: inline-block;
-    background: rgba(0,0,0,.5);
-    -webkit-transition: background .3s ease;
-    -moz-transition: background .3s ease;
-    -ms-transition: background .3s ease;
-    -o-transition: background .3s ease;
-    transition: background .3s ease;
-}
-.pagination a.active:after{
-    background: rgba(255,255,255,.5);
-}
 
 @keyframes fadeInUp{
     0%{
