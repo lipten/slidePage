@@ -27,23 +27,19 @@
 <p><img src="http://lipten.link/projects/slidePage/demo.gif" alt="demo"> </p>
 
 <h3>
-<a id="-update-v062-" class="anchor" href="#-update-v062-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.6.2-</h3>
+<a id="-update-v11-" class="anchor" href="#-update-v11-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.1-</h3>
 
-<p>1.全面支持jquery和zepto！</p>
+<p>1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）</p>
 
-<p>2.将zepto-touch.js改造了一下，使jquery也能以同样的方式调用触屏事件;</p>
-
-<p>3.将改造后的zepto-touch.js取名为slidePage-touch.js,并与主文件合并压缩成slidePage.min.js</p>
+<p>2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。</p>
 
 <h3>
-<a id="-update-v06-" class="anchor" href="#-update-v06-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.6-</h3>
+<a id="-update-v10-" class="anchor" href="#-update-v10-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.0-</h3>
 
-<p>1.加入了分页组件。</p>
-
-<p>2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;</p>
+<p>1.正式版，从0.6.2版本修复稳定。</p>
 
 <h3>
-<a id="安装方法" class="anchor" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>安装方法</h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h3>
 
 <h4>
 <a id="1下载slidepage" class="anchor" href="#1%E4%B8%8B%E8%BD%BDslidepage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1、下载slidePage</h4>
@@ -68,8 +64,8 @@
 <h4>
 <a id="3引用js文件" class="anchor" href="#3%E5%BC%95%E7%94%A8js%E6%96%87%E4%BB%B6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3、引用js文件</h4>
 
-<pre><code>&lt;script type="text/javascript" src="zepto.min.js"&gt;&lt;/script&gt;         //zepto.js类库
-&lt;script type="text/javascript" src="slidePage.js"&gt;&lt;/script&gt;         //slidePage主文件，支持手机和PC浏览
+<pre><code>&lt;script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"&gt;&lt;/script&gt;  //zepto.js或者jquery类库
+&lt;script type="text/javascript" src="slidePage.min.js"&gt;&lt;/script&gt;         //slidePage主文件，支持手机和PC浏览
 
 </code></pre>
 
@@ -98,31 +94,26 @@
 </code></pre>
 
 <h2>
-<a id="doc" class="anchor" href="#doc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doc</h2>
-
-<p>slidePage.init(options);</p>
-
-<p>options:(default)</p>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h2>
 
 <pre>
-{
+slidePage.init({
     'index' : 1,
     'before' : function(index){},
     'after' : function(index){},
+    'next' : function(index){},
+    'prev' : function(index){},
     'speed' : 700
     'refresh'  : true,
     'useWheel' : true,
     'useKeyboard' : true,
     'useArrow' : true,
     'useAnimation' : true,
-    'pagination': true,
-    'useMusic' : {
-        'autoPlay' : true,
-        'loopPlay' : true,
-        'src' : 'Summer.mp3'
-    }
- };
+ });
 </pre>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h2>
 
 <h4>
 <a id="index" class="anchor" href="#index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>index</h4>
@@ -132,12 +123,22 @@
 <h4>
 <a id="before" class="anchor" href="#before" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>before</h4>
 
-<p>触发页面滚动前的回调，参数index为滚动前的页面索引号</p>
+<p>触发页面滚动前的回调，参数index为滚动前的页面序号</p>
 
 <h4>
 <a id="after" class="anchor" href="#after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>after</h4>
 
-<p>触发页面滚动后的回调，参数index为滚动后的页面索引号</p>
+<p>触发页面滚动后的回调，参数index为滚动后的页面序号</p>
+
+<h4>
+<a id="next" class="anchor" href="#next" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>next</h4>
+
+<p>监听滚动下一页，参数index为滚动前的页面序号</p>
+
+<h4>
+<a id="prev" class="anchor" href="#prev" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>prev</h4>
+
+<p>监听滚动上一页，参数index为滚动前的页面序号</p>
 
 <h4>
 <a id="speed" class="anchor" href="#speed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>speed</h4>
@@ -169,13 +170,8 @@
 
 <p>开启或关闭动画</p>
 
-<h4>
-<a id="usemusic" class="anchor" href="#usemusic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useMusic</h4>
-
-<p>使用音乐，并有音乐图标提示用户控制播放(不使用直接赋值false)</p>
-
 <h3>
-<a id="使用动画" class="anchor" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E7%94%BB" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使用动画</h3>
+<a id="using-animation" class="anchor" href="#using-animation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using Animation</h3>
 
 <pre>
 &lt;div class="step slideRight" data-delay="1300"&gt;&lt;/div&gt;
@@ -227,7 +223,23 @@
 <h1></h1>
 
 <h2>
-<a id="更新历史" class="anchor" href="#%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>更新历史</h2>
+<a id="history" class="anchor" href="#history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>History</h2>
+
+<h3>
+<a id="-update-v062-" class="anchor" href="#-update-v062-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.6.2-</h3>
+
+<p>1.全面支持jquery和zepto！</p>
+
+<p>2.将zepto-touch.js改造了一下，使jquery也能以同样的方式调用触屏事件;</p>
+
+<p>3.将改造后的zepto-touch.js取名为slidePage-touch.js,并与主文件合并压缩成slidePage.min.js</p>
+
+<h3>
+<a id="-update-v06-" class="anchor" href="#-update-v06-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.6-</h3>
+
+<p>1.加入了分页组件。</p>
+
+<p>2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;</p>
 
 <h3>
 <a id="-update-v052-" class="anchor" href="#-update-v052-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.5.2-</h3>
