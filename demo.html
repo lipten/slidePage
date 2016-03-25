@@ -279,8 +279,8 @@
     <div class="item item2">
         <h2>Page2</h2>
         <div class="step step1 slideRight" data-delay="1300"></div>
-        <div class="step step2 slideLeft"></div>
-        <div class="step step3 zoomIn"></div>
+        <div class="lazy step2 slideLeft"></div>
+        <div class="lazy step3 zoomIn"></div>
     </div>
     <div class="item item3">
         <h2>Page3</h2>
@@ -323,10 +323,10 @@
     $('#pagination').find('a').eq(0).addClass('active')
     slidePage.init({
         /*'index': 1,*/
-        'before':function(index){
-            console.log(index)
-        },
         'next': function(index){
+            if(index==1){
+                slidePage.fire(2)   //-- 手动控制播放第几页的lazy动画
+            }
             $('#pagination').find('a').removeClass('active').eq(index).addClass('active')
         },
         'prev': function(index){
@@ -337,6 +337,7 @@
         'refresh': true,
         'speed': false,
     });
+
 
 
 </script>
