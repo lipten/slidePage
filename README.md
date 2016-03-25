@@ -164,6 +164,9 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 
 ##History
 
+###-update v1.0-
+1.正式版，从0.6.2版本修复稳定。
+
 ###-update v0.6.2-
 1.全面支持jquery和zepto！
 
