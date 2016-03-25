@@ -209,5 +209,5 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 2.已加入bower大军.
 
 
-  [1]: https://github.com/lipten/slidePage#slidepagefire
+  [1]: https://github.com/lipten/slidePage#slidepagefirepageindex
   [2]: https://github.com/lipten/slidePage#using-animation
