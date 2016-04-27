@@ -22,21 +22,21 @@
       <h1>
 <a id="slidepage" class="anchor" href="#slidepage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>slidePage</h1>
 
-<p>Demo:<a href="http://lipten.link/projects/slidePage/demo.html?page=1">http://lipten.link/projects/slidePage/demo.html?page=1</a></p>
+<blockquote>
+<p>slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。 </p>
+</blockquote>
 
-<p><img src="http://lipten.link/projects/slidePage/demo.gif" alt="demo"> </p>
-
-<h3>
-<a id="-update-v11-" class="anchor" href="#-update-v11-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.1-</h3>
-
-<p>1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）</p>
-
-<p>2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。</p>
+<p>Demo:<a href="http://lipten.link/projects/slidePage/demo.html">http://lipten.link/projects/slidePage/demo.html</a>
+<img src="http://lipten.link/projects/slidePage/demo.gif" alt="demo"> </p>
 
 <h3>
-<a id="-update-v10-" class="anchor" href="#-update-v10-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.0-</h3>
+<a id="-update-v20-" class="anchor" href="#-update-v20-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v2.0-</h3>
 
-<p>1.正式版，从0.6.2版本修复稳定。</p>
+<p>1.支持单屏滚动条滚动，使内容不再局限于一屏的高度，适配移动端的触摸滚动与桌面端的鼠标滚轮滚动。</p>
+
+<p>2.初始化的回调方法有所改动，废除了v1.1版本的next和prev函数，将它们融合到了before和after函数的参数中，并改进成更开放统一的参数。</p>
+
+<p>3.废除useArrow参数，去掉箭头组件</p>
 
 <h3>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h3>
@@ -65,8 +65,10 @@
 <a id="3引用js文件" class="anchor" href="#3%E5%BC%95%E7%94%A8js%E6%96%87%E4%BB%B6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3、引用js文件</h4>
 
 <pre><code>&lt;script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"&gt;&lt;/script&gt;  //zepto.js或者jquery类库
-&lt;script type="text/javascript" src="slidePage.min.js"&gt;&lt;/script&gt;         //slidePage主文件，支持手机和PC浏览
+&lt;script type="text/javascript" src="slidePage.js"&gt;&lt;/script&gt;         //slidePage主文件
+&lt;script type="text/javascript" src="slidePage-touch.js"&gt;&lt;/script&gt;   //slidePage移动端触屏事件 
 
+//也可以直接引入一个压缩合并过的slidePage.min.js
 </code></pre>
 
 <h4>
@@ -99,15 +101,12 @@
 <pre>
 slidePage.init({
     'index' : 1,
-    'before' : function(index){},
-    'after' : function(index){},
-    'next' : function(index){},
-    'prev' : function(index){},
+    'before' : function(index,direction,target){},
+    'after' : function(index,direction,target){},
     'speed' : 700
     'refresh'  : true,
     'useWheel' : true,
     'useKeyboard' : true,
-    'useArrow' : true,
     'useAnimation' : true,
  });
 </pre>
@@ -123,22 +122,12 @@ slidePage.init({
 <h4>
 <a id="before" class="anchor" href="#before" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>before</h4>
 
-<p>触发页面滚动前的回调，参数index为滚动前的页面序号</p>
+<p>触发页面滚动前的回调，参数解释：<code>index</code> 为滚动前的页码，<code>direction</code> 为滚动方向('next'或'prev')，<code>target</code>为滚动后的页码</p>
 
 <h4>
 <a id="after" class="anchor" href="#after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>after</h4>
 
-<p>触发页面滚动后的回调，参数index为滚动后的页面序号</p>
-
-<h4>
-<a id="next" class="anchor" href="#next" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>next</h4>
-
-<p>监听滚动下一页，参数index为滚动前的页面序号</p>
-
-<h4>
-<a id="prev" class="anchor" href="#prev" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>prev</h4>
-
-<p>监听滚动上一页，参数index为滚动前的页面序号</p>
+<p>触发页面滚动后的回调，参数同上。</p>
 
 <h4>
 <a id="speed" class="anchor" href="#speed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>speed</h4>
@@ -148,7 +137,7 @@ slidePage.init({
 <h4>
 <a id="refresh" class="anchor" href="#refresh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>refresh</h4>
 
-<p>往回滚的时候是否重新执行动画</p>
+<p>每次滚动是否重新执行动画</p>
 
 <h4>
 <a id="usewheel" class="anchor" href="#usewheel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useWheel</h4>
@@ -159,11 +148,6 @@ slidePage.init({
 <a id="usekeyboard" class="anchor" href="#usekeyboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useKeyboard</h4>
 
 <p>开启或关闭键盘上下键控制滚动</p>
-
-<h4>
-<a id="usearrow" class="anchor" href="#usearrow" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useArrow</h4>
-
-<p>使用自带样式的下箭头提示图标</p>
 
 <h4>
 <a id="useanimation" class="anchor" href="#useanimation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>useAnimation</h4>
@@ -177,11 +161,24 @@ slidePage.init({
 &lt;div class="step slideRight" data-delay="1300"&gt;&lt;/div&gt;
 </pre>
 
-<p>在想要动画控制的元素上加上step类，并加上css动画类名即可使用动画，data-delay属性控制动画延时播放(默认为100毫秒);
-此项目还为您准备了一套css动画：page-animation.css，可自由更改或添加您想要的动画，</p>
+<p>在想要动画控制的元素上加上step类，并加上css动画类名即可使用动画，data-delay属性控制动画延时播放(默认为100毫秒);</p>
 
-<h4>
-<a id="动效列表" class="anchor" href="#%E5%8A%A8%E6%95%88%E5%88%97%E8%A1%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>动效列表:</h4>
+<pre>
+&lt;div class="lazy slideRight"&gt;&lt;/div&gt;
+</pre>
+
+<ol>
+<li>在想要手动播放动画的元素上加上lazy类，并加上css动画类名即可使用动画，可以加上data-delay触发时再延时播放(一般好像没这必要了);</li>
+<li>通过slidePage.fire(index)指定某一页的lazy动画触发播放。</li>
+</ol>
+
+<hr>
+
+<ul>
+<li>此项目还为您准备了一套css动画：page-animation.css，可自由更改或添加您想要的动画</li>
+</ul>
+
+<p>动效列表:</p>
 
 <pre>
 [
@@ -220,10 +217,34 @@ slidePage.init({
 
 <p>滚动下一页</p>
 
-<h1></h1>
+<h4>
+<a id="slidepagefirepageindex" class="anchor" href="#slidepagefirepageindex" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>slidePage.fire(pageIndex)</h4>
+
+<p>触发指定页面的lazy动画，lazy动画用法详见 <a href="https://github.com/lipten/slidePage#using-animation">Using Animation</a></p>
+
+<hr>
 
 <h2>
 <a id="history" class="anchor" href="#history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>History</h2>
+
+<h3>
+<a id="-update-v12-" class="anchor" href="#-update-v12-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.2-</h3>
+
+<p>1.新增一个性化的功能，可以手动播放指定页面的动画元素(页面滚动不会自动触发)，只要把需要动画的元素的step类换成lazy（即不会自动触发动画的元素），然后在任意时刻调用<a href="https://github.com/lipten/slidePage#slidepagefirepageindex">slidePage.fire(index)</a>触发指定页面的lazy动画即可，详见demo.html</p>
+
+<p>2.修正FireFox浏览器的兼容性问题</p>
+
+<h3>
+<a id="-update-v11-" class="anchor" href="#-update-v11-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.1-</h3>
+
+<p>1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）</p>
+
+<p>2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。</p>
+
+<h3>
+<a id="-update-v10-" class="anchor" href="#-update-v10-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v1.0-</h3>
+
+<p>1.正式版，从0.6.2版本修复稳定。</p>
 
 <h3>
 <a id="-update-v062-" class="anchor" href="#-update-v062-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>-update v0.6.2-</h3>
