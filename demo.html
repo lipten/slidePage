@@ -21,6 +21,7 @@
         body {
             margin: 0;
             padding: 0;
+            background: #000;
         }
 
         ul {
@@ -93,6 +94,57 @@
             background: rgba(255,255,255,.5);
         }
 
+        .item h2{
+            margin:0;
+            padding:20px 0;
+        }
+
+        .play{
+            display: block;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-top:-20px;
+            margin-left: -50px;
+            width:100px;
+            height:40px;
+            line-height: 40px;
+            background-color: rgb(178, 79, 65);
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .play:hover{
+            background-color: rgb(189, 80, 66);
+        }
+        .play:active{
+            background-color: rgb(141, 60, 50);
+        }
+
+        .goto{
+            display: block;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-top:-20px;
+            margin-left: -50px;
+            width:100px;
+            height:40px;
+            line-height: 40px;
+            background-color: rgb(47, 95, 178);
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .goto:hover{
+            background-color: rgb(57, 123, 219);
+        }
+        .goto:active{
+            background-color: rgb(31, 79, 134);
+        }
+
         .item1 {
             background-color: #99CC33;
         }
@@ -139,27 +191,6 @@
             background-color: rgb(116, 178, 9);
         }
 
-        .item3 .step1 {
-            position: absolute;
-            top: 100px;
-            left: 19%;
-            text-align: center;
-            width: 100px;
-            height: 100px;
-            background-color: rgb(178, 79, 65);
-            border-radius: 50%;
-        }
-
-        .item3 .step2 {
-            position: absolute;
-            bottom: 100px;
-            right: 19%;
-            text-align: center;
-            width: 100px;
-            height: 100px;
-            background-color: rgb(52, 178, 89);
-        }
-
         .item2 .step1 {
             position: absolute;
             top: 100px;
@@ -191,49 +222,55 @@
             background-color: rgb(116, 178, 9);
         }
 
-        .item4 .step1 {
+        .item3 .step1 {
             position: absolute;
             top: 100px;
             left: 19%;
             text-align: center;
             width: 100px;
             height: 100px;
-            background-color: rgb(93, 163, 178);
+            background-color: rgb(178, 79, 65);
             border-radius: 50%;
         }
 
-        .item4 .step2 {
+
+        .item3 .step2 {
             position: absolute;
             bottom: 100px;
             right: 19%;
             text-align: center;
-            width: 150px;
-            height: 150px;
-            background-color: rgb(178, 160, 45);
+            width: 100px;
+            height: 100px;
+            background-color: rgb(52, 178, 89);
         }
 
-        .item5 .step1 {
-            position: absolute;
-            bottom: 100px;
-            right: 19%;
-            text-align: center;
-            width: 150px;
-            height: 100px;
-            background-color: rgb(152, 83, 178);
+
+        .item4 .container{
+            padding-bottom: 20px;
         }
+
+        .item4 ul{
+            margin:0;
+            padding:0;
+            width:90%;
+            margin-left: 5%;
+        }
+
+        .item4 ul li{
+            width:100%;
+            padding:10px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border-bottom:1px solid #ccc;
+            background: rgba(255,255,255,.5);
+        }
+
+
+
+
 
         .item5 .step2 {
-            position: absolute;
-            top: 100px;
-            left: 19%;
-            text-align: center;
-            width: 150px;
-            height: 100px;
-            background-color: rgb(36, 178, 100);
-
-        }
-
-        .item6 .step2 {
             position: absolute;
             top: 100px;
             left: 19%;
@@ -243,7 +280,7 @@
             background-color: rgb(178, 159, 44);
         }
 
-        .item6 .step1 {
+        .item5 .step1 {
             position: absolute;
             bottom: 100px;
             left: 19%;
@@ -253,7 +290,7 @@
             background-color: rgb(178, 72, 91);
         }
 
-        .item6 .step3 {
+        .item5 .step3 {
             position: absolute;
             bottom: 100px;
             left: 60%;
@@ -265,43 +302,78 @@
         }
 
 
+
     </style>
 
 </head>
-<body>
+<body ontouchstart="">
 <div class="slidePage-container" id="slidePage-container">
 
     <div class="item item1">
-        <h2>Page1</h2>
-        <div class="step step1 fadeIn" data-delay="1000"></div>
+        <h2>Page1 - 动画效果</h2>
+        <div class="step step1 fadeIn"></div>
         <div class="step step2 fadeIn"></div>
     </div>
     <div class="item item2">
-        <h2>Page2</h2>
-        <div class="step step1 slideRight" data-delay="1300"></div>
-        <div class="lazy step2 slideLeft"></div>
-        <div class="lazy step3 zoomIn"></div>
+        <h2>Page2 - 延迟1秒播放动画</h2>
+        <div class="step step1 slideRight" data-delay="1000"></div>
+        <div class="step step2 slideLeft" data-delay="1000"></div>
+        <div class="step step3 zoomIn" data-delay="1000"></div>
     </div>
     <div class="item item3">
-        <h2>Page3</h2>
-        <div class="step step1 slideUp"></div>
-        <div class="step step2 slideDown"></div>
+        <h2>Page3 - 手动播放动画</h2>
+        <a class="play" href="javascript:slidePage.fire(3)">点击播放动画</a>
+        <div class="lazy step1 slideUp"></div>
+        <div class="lazy step2 slideDown"></div>
     </div>
     <div class="item item4">
-        <h2>Page4</h2>
-        <div class="step step1 heartBeat"></div>
-        <div class="step step2 heartBeat"></div>
+        <div class="container">
+            <h2>Page4 - 滚动条滚动</h2>
+            <ul>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+                <li>滚动内容</li>
+            </ul>
+        </div>
+        <!--<div class="step step1 heartBeat"></div>
+        <div class="step step2 heartBeat"></div>-->
     </div>
     <div class="item item5">
-        <h2>Page5</h2>
-        <div class="step step1 rollInRight"></div>
-        <div class="step step2 rollInLeft"></div>
+        <div>
+            <h2>Page5 - 更多动画</h2>
+            <div class="step step1 rollInLeft"></div>
+            <div class="step step2 forceDown" data-delay="1000"></div>
+            <div class="step step3 fadeFlash infinite" data-delay="1500"></div>
+        </div>
+
     </div>
     <div class="item item6">
-        <h2>Page6</h2>
-        <div class="step step1 rollInLeft"></div>
-        <div class="step step2 forceDown" data-delay="1000"></div>
-        <div class="step step3 fadeFlash infinite" data-delay="1500"></div>
+        <h2>Page6 - 跳转</h2>
+        <a href="javascript:slidePage.index(1)" class="goto">跳转到page1</a>
     </div>
 
     <!--通过slidePage.prev()、slidePage.next()和slidePage.index()可以对页面跳转操作，可以自定义分页组件-->
@@ -317,27 +389,31 @@
     </nav>
 </div>
 <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="slidePage.min.js"></script>
+
+<script type="text/javascript" src="slidePage-touch.js"></script>
+<script type="text/javascript" src="slidePage.js"></script>
 
 <script type="text/javascript">
     $('#pagination').find('a').eq(0).addClass('active')
     slidePage.init({
         /*'index': 1,*/
-        'next': function(index){
-            if(index==1){
-                slidePage.fire(2)   //-- 手动控制播放第几页的lazy动画
+        before:function(index,direction,target){
+            if(direction=='next'){
+                if(target==1){
+                    slidePage.fire(2)   //-- 手动控制播放第几页的lazy动画
+                }
+                $('#pagination').find('a').removeClass('active').eq(index).addClass('active')
+            }else if(direction=='prev'){
+                $('#pagination').find('a').removeClass('active').eq(target-1).addClass('active')
             }
-            $('#pagination').find('a').removeClass('active').eq(index).addClass('active')
         },
-        'prev': function(index){
-            $('#pagination').find('a').removeClass('active').eq(index-1).addClass('active')
+        after:function(index,direction,target){
+
         },
-        'useArrow': true,
         'useAnimation': true,
         'refresh': true,
         'speed': false,
     });
-
 
 
 </script>

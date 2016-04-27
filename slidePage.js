@@ -5,22 +5,19 @@
         'pageContainer': '.item',
         'after': function() {},
         'before': function() {},
-        'prev' : function(){},
-        'next' : function(){},
         'speed': false,
         'refresh': false,
         'useWheel': true,
         'useKeyboard':true,
-        'useArrow': false,
         'useAnimation': true,
-
     };
     var after=true;
-    var prevItem;
-    var direction = true;
+    var delay = true;
     var keyIndex = opt.index - 1;
     var defaultSpeed = $(opt.pageContainer).css('transition-duration').replace('s','')*1000;
     var pageCount = $(opt.pageContainer).length
+    var windowH = window.innerHeight
+    var direction=''
 
     window.slidePage = {
         'init': function(option,callback) {
@@ -31,43 +28,59 @@
         },
 
         'index': function(index){
-            if(index>0){
+            if(index>0&&index!=keyIndex+1){
                 index=parseInt(index)-1;
+                var endheight = $(".item").eq(index).children().outerHeight();
+                var offset=(endheight-windowH)>20?1:0 //-- 判断最终页如果是滚动条模式的话偏移量为1
                 if(index>keyIndex){
                     for(var i= keyIndex;i<index;i++){
                         nextPage($(opt.pageContainer).eq(i));
+                        isScroll(i+2,offset)
+                        slideScroll(i+2)
                     }
                 }else if(index<keyIndex){
-                    for(var i=keyIndex;i>=index;i--){
-                        prevPage($(opt.pageContainer).eq(i+1));
+                    for(var i=keyIndex;i>=index+1;i--){
+                        prevPage($(opt.pageContainer).eq(i));
+                        isScroll(i,offset)
+                        slideScroll(i)
                     }
                 }
                 keyIndex=index;
-                pageActive()
             }
             return keyIndex
         },
         'next': function(){
-            if(direction&&keyIndex<pageCount-1){
-                nextPage($(opt.pageContainer).eq(keyIndex++))
-                direction = false;
+            if(keyIndex<pageCount-1){
+                var item = $(opt.pageContainer).eq(keyIndex++)
+                nextPage(item)
+                isScroll(item.index()+2)
+                slideScroll(item.index()+2)
+                delay=false
             }
         },
         'prev': function(){
-            if(direction&&keyIndex>0){
-                prevPage($(opt.pageContainer).eq(keyIndex--))
-                direction = false;
+            if(keyIndex>0){
+                var item = $(opt.pageContainer).eq(keyIndex--)
+                prevPage(item)
+                isScroll(item.index())
+                slideScroll(item.index())
+                delay=false
             }
         },
-        fire:function(index){
+        'fire':function(index){
             fireAnimate(index)
-        }
+        },
+
+        canNext:true,
+        canPrev:true,
+        isScroll:false,//-- 移动端控制滚动或滑动
 
     };
     var obj = {
         'nextSlide': function(item) {
-            item.css(translate('-100%'));
-            item.next().css(translate('0'))
+            item.css({'transform':'translate3d(0px, -100%, 0px)','-webkit-transform':'translate3d(0px,-100%, 0px)'});
+            var css = translate('0')
+            item.next().css(css)
         },
         'prevSlide': function(item) {
             item.prev().css({'-webkit-transform': 'scale(1)','transform': 'scale(1)'});
@@ -78,7 +91,7 @@
             item.next().css(translate('100%'))
         }
     }
-
+    //-- 判断pc端
     function IsPC() {
         var userAgentInfo = navigator.userAgent;
         var Agents = ["Android", "iPhone",
@@ -94,21 +107,19 @@
         return flag;
     }
 
+    //-- translate兼容性封装
     function translate(y){
         return {'-webkit-transform':'translate3d(0px, '+y+' 0px)','transform':'translate3d(0px, '+y+', 0px)'}
     }
 
+    //-- 滚动执行动画
     function pageActive(){
-        if(opt.refresh&&direction&&opt.useAnimation){
-            direction=='next'?$(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide'):$(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide');
-        }
-        if (keyIndex+1==pageCount) {
-            $(opt.pageContainer).parent().find('.arrow').addClass('hide');
-        }else{
-            $(opt.pageContainer).parent().find('.arrow').removeClass('hide');
+        if(opt.refresh&&delay&&opt.useAnimation){
+            $(opt.pageContainer).eq(keyIndex).find('.step').addClass('hide')
+            $(opt.pageContainer).eq(keyIndex).find('.lazy').addClass('hide')
         }
     }
-
+    //-- 拆分url的参数
     function urlToObject(url){
         var urlObject = {};
         if (/\?/.test(url)) {
@@ -122,44 +133,43 @@
             return urlObject;
         }
     }
+    //-- 滚动下一屏执行过程
     function nextPage(item) {
+        direction = 'next'
         if (item.next().length) {
             currentItem = item.next();
-            orderStep(item.next(),'next');
+            orderStep(item.next(),direction);
             obj.nextSlide(item);
         } else {
             obj.showSlide(item);
         }
-        opt.next(item.index()+1)
-        opt.before(item.index()+1);
+        opt.before(item.index()+1,direction,item.index()+2);
         keyindex = $(opt.pageContainer).index(item)
         pageActive()
     }
+    //-- 滚动上一屏执行过程
     function prevPage(item) {
+        direction = 'prev'
         if (item.prev().length) {
             currentItem = item.prev();
-            orderStep(item.prev(),'prev');
+            orderStep(item.prev(),direction);
             obj.prevSlide(item);
             item.prev().prev().css(translate('-100%'));
         } else {
             obj.showSlide(item);
         }
-        opt.prev(item.index())
-        opt.before(item.index()+1);
+        opt.before(item.index()+1,direction,item.index());
         keyindex = $(opt.pageContainer).index(item)
         pageActive()
     }
+    //-- 初始化元素
     function initDom(opt) {
         //-- 这里在移动端下有个奇怪的问题：如果设置了speed参数，也就是当js设置了下面这个css属性，那么这个css动画的时间曲线会变成匀速过渡（linear）,所以speed只能默认为false暂时避免这问题。
         //-- 如果有大神知道怎么解决请fork或联系我qq：296183464 谢谢。
         if (!!opt.speed){
             $(opt.pageContainer).css({'transition-duration':opt.speed+'ms','-webkit-transition-duration':opt.speed+'ms'});
         }
-
-        currentItem = $(opt.pageContainer).eq(opt.index - 1);
-        prevItem = currentItem.prev();
-        currentItem.css(translate(0));
-        prevItem.css(translate('-100%'));
+        slidePage.index(opt.index)// 初始化指定页码
 
         if (!!opt.useAnimation) {
             var items = $(opt.pageContainer);
@@ -167,15 +177,12 @@
             items.find('.lazy').addClass('hide');
             orderStep(items.eq(opt.index - 1))
         }
-        if (!!opt.useArrow) {
-            $('#slidePage-container').append('<span class="arrow"></span>')
-        }
-
     }
-    function orderStep(dom,directions) {
+    //-- 默认触发动画
+    function orderStep(dom,delays) {
         after=true;
         setTimeout(function(){
-            direction = directions||direction;
+            delay = delays||delay;
         },opt.speed||defaultSpeed)
         var steps = $(dom).find('.step');
         steps.each(function(index,item) {
@@ -185,6 +192,7 @@
             }, time)
         })
     }
+    //-- 手动触发动画
     function fireAnimate(index) {
         var item = $(opt.pageContainer).eq(index - 1);
         var lazy = item.find('.lazy')
@@ -195,46 +203,91 @@
             }, time)
         })
     }
-    function initEvent(opt) {
 
+    //-- 判断滚动模式
+    function isScroll(target,offset){
+        var offset = offset===0?0:false||1
+        var itemheight = $(".item").eq(target - 1).children().outerHeight();
+        if((itemheight-windowH)>20){
+            var isNext = direction == 'next';   //-- 判断方向
+            !isNext?$(opt.pageContainer).eq(target-1).scrollTop(itemheight-windowH-offset):$(opt.pageContainer).eq(target-1).scrollTop(offset) //如果是往下滚来的就滚动条定位在顶部，往上滚来的就滚动条定位在底部
+        }
+    }
+
+    //-- 处理滚动条模式
+    function slideScroll(target){
+        var itemheight = $(".item").eq(target - 1).children().outerHeight();
+        if((itemheight-windowH)>20){
+            $(opt.pageContainer).eq(target-1).on('scroll',function(e){
+                var isBottom = itemheight == this.scrollTop+windowH;
+                var isTop = this.scrollTop==0;
+                slidePage.canSlide = isBottom || isTop;
+                slidePage.canPrev = isTop && !isBottom;
+                slidePage.canNext = isBottom && !isTop;
+                slidePage.isScroll = !(slidePage.canSlide)
+            });
+        }else{
+            slidePage.canPrev = true;
+            slidePage.canNext = true;
+            slidePage.canSlide = true;
+            slidePage.isScroll = false;
+        }
+
+    }
+
+    //-- 各种事件交互
+    function initEvent(opt) {
+        //-- 滚轮事件触发
         function wheelFunc(e){
             var e = e|| window.event
             if(e.wheelDeltaY<0||e.wheelDelta<0||e.detail>0){
-                slidePage.next();
+                slidePage.canNext&&delay&&slidePage.next();
             }else if(e.wheelDeltaY>0||e.wheelDelta>0||e.detail<0){
-                slidePage.prev();
+                slidePage.canPrev&&delay&&slidePage.prev();
             }
+
         }
+        //-- 滚轮事件兼容处理
         if(!!opt.useWheel){
             document.onmousewheel = wheelFunc
-            document.addEventListener&& document.addEventListener('DOMMouseScroll',wheelFunc,false);    //-- FireFox兼容
+            document.addEventListener&& document.addEventListener('DOMMouseScroll',wheelFunc,false);
         }
+        //-- 键盘事件
         if(!!opt.useKeyboard){
             document.onkeydown = function(e){
-                if(e.keyCode=='40'&&direction&&keyIndex<pageCount-1){
-                    slidePage.next();
-                }else if(e.keyCode == '38'&&direction&&keyIndex>0){
-                    slidePage.prev();
+                if(e.keyCode=='40'&&delay&&keyIndex<pageCount-1){
+                    slidePage.canNext&&slidePage.next();
+                }else if(e.keyCode == '38'&&delay&&keyIndex>0){
+                    slidePage.canPrev&&slidePage.prev();
                 }
             }
         }
-
-
-
-        $('#slidePage-container').on('touchmove', function(e) {
-            e.preventDefault()
+        //-- 获取触控开始位置
+        var touchY = 0
+        $('#slidePage-container').on('touchstart', function(e) {
+            touchY = e.originalEvent.targetTouches[0].clientY
         });
+        //-- 判断触控移动方向
+        $('#slidePage-container').on('touchmove', function(e) {
+            var offsetY = e.originalEvent.targetTouches[0].clientY-touchY
+            !slidePage.canPrev&&offsetY>5&&(slidePage.isScroll=true)    //-- 滚动到底部往上滑可继续滚动条滚动
+            !slidePage.canNext&&offsetY<-5&&(slidePage.isScroll=true)   //-- 滚动到顶部往下滑可继续滚动条滚动
+            !slidePage.isScroll&&e.preventDefault()
+        });
+        //-- 手势滑动
         $(opt.pageContainer).on({
             'swipeUp':  function () {
-                slidePage.next();
+                slidePage.canNext&&slidePage.next();
             },
             'swipeDown':  function () {
-                slidePage.prev();
+                slidePage.canPrev&&slidePage.prev();
             }
         });
+
+        //-- 监听css过渡结束的事件
         $(opt.pageContainer).on('transitionend webkitTransitionEnd', function(event) {
             if(after){
-                opt.after($(event.target).index()+1);
+                opt.after(direction=='next'?keyIndex:keyIndex+2,direction,keyIndex+1);
                 after=false;
             }
         })

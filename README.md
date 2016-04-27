@@ -1,18 +1,16 @@
 # slidePage
 Demo:http://lipten.link/projects/slidePage/demo.html
 
-###-update v1.2-
-1.新增一个性化的功能，可以手动播放指定页面的动画元素(页面滚动不会自动触发)，只要把需要动画的元素的step类换成lazy（即不会自动触发动画的元素），然后在任意时刻调用[slidePage.fire(index)][1]触发指定页面的lazy动画即可，详见demo.html
 
-2.修正FireFox浏览器的兼容性问题
+> slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。 
 
 
+###-update v2.0-
+1.支持单屏滚动条滚动，使内容不再局限于一屏的高度，适配移动端的触摸滚动与桌面端的鼠标滚轮滚动。
 
-###-update v1.1-
-1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）
+2.初始化的回调方法有所改动，废除了v1.1版本的next和prev函数，将它们融合到了before和after函数的参数中，并改进成更开放统一的参数。
 
-2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。
-
+3.废除useArrow参数，去掉箭头组件
 
 ###Usage
 
@@ -36,8 +34,10 @@ git clone https://github.com/lipten/slidePage.git
 ####3、引用js文件
 ```
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>  //zepto.js或者jquery类库
-<script type="text/javascript" src="slidePage.min.js"></script>         //slidePage主文件，支持手机和PC浏览
-                                                                    
+<script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件
+<script type="text/javascript" src="slidePage-touch.js"></script>   //slidePage移动端触屏事件 
+
+//也可以直接引入一个压缩合并过的slidePage.min.js
 ```
 
 ####4、html结构
@@ -68,15 +68,12 @@ slidePage.init();
 <pre>
 slidePage.init({
     'index' : 1,
-    'before' : function(index){},
-    'after' : function(index){},
-    'next' : function(index){},
-    'prev' : function(index){},
+    'before' : function(index,direction,target){},
+    'after' : function(index,direction,target){},
     'speed' : 700
     'refresh'  : true,
     'useWheel' : true,
     'useKeyboard' : true,
-    'useArrow' : true,
     'useAnimation' : true,
  });
 </pre>
@@ -86,23 +83,17 @@ slidePage.init({
 ####index
 初始进入的索引页面，值为1时从第一页开始，默认为1
 ####before
-触发页面滚动前的回调，参数index为滚动前的页面序号
+触发页面滚动前的回调，参数解释：`index` 为滚动前的页码，`direction` 为滚动方向('next'或'prev')，`target`为滚动后的页码
 ####after
-触发页面滚动后的回调，参数index为滚动后的页面序号
-####next
-监听滚动下一页，参数index为滚动前的页面序号
-####prev
-监听滚动上一页，参数index为滚动前的页面序号
+触发页面滚动后的回调，参数同上。
 ####speed
 页面过渡的动画时间，以毫秒为单位
 ####refresh
-往回滚的时候是否重新执行动画
+每次滚动是否重新执行动画
 ####useWheel
 开启或关闭鼠标滚轮滑动
 ####useKeyboard
 开启或关闭键盘上下键控制滚动
-####useArrow
-使用自带样式的下箭头提示图标
 ####useAnimation
 开启或关闭动画
 
@@ -163,6 +154,17 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 ---
 
 ##History
+
+###-update v1.2-
+1.新增一个性化的功能，可以手动播放指定页面的动画元素(页面滚动不会自动触发)，只要把需要动画的元素的step类换成lazy（即不会自动触发动画的元素），然后在任意时刻调用[slidePage.fire(index)][1]触发指定页面的lazy动画即可，详见demo.html
+
+2.修正FireFox浏览器的兼容性问题
+
+###-update v1.1-
+1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）
+
+2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。
+
 
 ###-update v1.0-
 1.正式版，从0.6.2版本修复稳定。
