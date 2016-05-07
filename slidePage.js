@@ -30,7 +30,7 @@
         'index': function(index){
             if(index>0&&index!=keyIndex+1){
                 index=parseInt(index)-1;
-                var endheight = $(".item").eq(index).children().outerHeight();
+                var endheight = $(".item").eq(index).children().height();
                 var offset=(endheight-windowH)>20?1:0 //-- 判断最终页如果是滚动条模式的话偏移量为1
                 if(index>keyIndex){
                     for(var i= keyIndex;i<index;i++){
@@ -207,7 +207,7 @@
     //-- 判断滚动模式
     function isScroll(target,offset){
         var offset = offset===0?0:false||1
-        var itemheight = $(".item").eq(target - 1).children().outerHeight();
+        var itemheight = $(".item").eq(target - 1).children().height();
         if((itemheight-windowH)>20){
             var isNext = direction == 'next';   //-- 判断方向
             !isNext?$(opt.pageContainer).eq(target-1).scrollTop(itemheight-windowH-offset):$(opt.pageContainer).eq(target-1).scrollTop(offset) //如果是往下滚来的就滚动条定位在顶部，往上滚来的就滚动条定位在底部
@@ -216,7 +216,7 @@
 
     //-- 处理滚动条模式
     function slideScroll(target){
-        var itemheight = $(".item").eq(target - 1).children().outerHeight();
+        var itemheight = $(".item").eq(target - 1).children().height();
         if((itemheight-windowH)>20){
             $(opt.pageContainer).eq(target-1).on('scroll',function(e){
                 var isBottom = itemheight == this.scrollTop+windowH;
@@ -264,12 +264,13 @@
         }
         //-- 获取触控开始位置
         var touchY = 0
-        $('#slidePage-container').on('touchstart', function(e) {
-            touchY = e.originalEvent.targetTouches[0].clientY
-        });
+        //由于zepto与jquery对象的事件返回不一致，所以这里用原生来统一
+        document.getElementById('slidePage-container').addEventListener('touchstart',function(e){
+            touchY = e.touches[0].clientY
+        })
         //-- 判断触控移动方向
-        $('#slidePage-container').on('touchmove', function(e) {
-            var offsetY = e.originalEvent.targetTouches[0].clientY-touchY
+        document.getElementById('slidePage-container').addEventListener('touchmove',function(e){
+            var offsetY = e.touches[0].clientY-touchY
             !slidePage.canPrev&&offsetY>5&&(slidePage.isScroll=true)    //-- 滚动到底部往上滑可继续滚动条滚动
             !slidePage.canNext&&offsetY<-5&&(slidePage.isScroll=true)   //-- 滚动到顶部往下滑可继续滚动条滚动
             !slidePage.isScroll&&e.preventDefault()
