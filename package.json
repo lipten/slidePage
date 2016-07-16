@@ -1,0 +1,23 @@
+{
+  "name": "slidePage",
+  "version": "2.0.0",
+  "description": "The compact full screen scroll plugin",
+  "main": "slidePage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lipten/slidePage.git"
+  },
+  "keywords": [
+    "scroll",
+    "fullscreen"
+  ],
+  "author": "lipten",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lipten/slidePage/issues"
+  },
+  "homepage": "https://github.com/lipten/slidePage#readme"
+}

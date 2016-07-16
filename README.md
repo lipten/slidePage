@@ -2,7 +2,7 @@
 Demo:http://lipten.link/projects/slidePage/demo.html
 
 
-> slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。 
+> slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。
 
 
 ###-update v2.0-
@@ -15,7 +15,11 @@ Demo:http://lipten.link/projects/slidePage/demo.html
 ###Usage
 
 ####1、下载slidePage
-利用bower安装
+npm安装
+```
+npm install slidePage
+```
+bower安装
 ```
 bower install slidePage
 ```
@@ -35,7 +39,7 @@ git clone https://github.com/lipten/slidePage.git
 ```
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>  //zepto.js或者jquery类库
 <script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件
-<script type="text/javascript" src="slidePage-touch.js"></script>   //slidePage移动端触屏事件 
+<script type="text/javascript" src="slidePage-touch.js"></script>   //slidePage移动端触屏事件
 
 //也可以直接引入一个压缩合并过的slidePage.min.js
 ```
