@@ -18,7 +18,8 @@
     var pageCount = $(opt.pageContainer).length
     var windowH = window.innerHeight
     var direction=''
-
+    var removedIndex=''
+    var removedPages={}
     window.slidePage = {
         'init': function(option,callback) {
             $.extend(opt, option);
@@ -70,7 +71,37 @@
         'fire':function(index){
             fireAnimate(index)
         },
-
+        'remove':function(index, callback){
+          if (!removedIndex.match(index)) {
+            pageCount--
+            if(keyIndex > index){
+              keyIndex--
+            }
+            removedIndex = index + ',' + removedIndex
+            removedPages[index] = $(opt.pageContainer).eq(index-1).remove()
+            callback&&callback()
+          }
+        },
+        'recover':function(index, callback){
+          if (removedIndex.match(index)) {
+            removedIndex = removedIndex.replace(index + ',', '');
+            if (index >= pageCount) {
+                $(opt.pageContainer).eq(pageCount-1).after(removedPages[index]);
+            } else {
+                $(opt.pageContainer).eq(index-1).before(removedPages[index]);
+            }
+            if(keyIndex > index){
+              keyIndex++
+            }
+            pageCount++
+            if (direction == 'prev') {
+              obj.prevSlide(removedPages[index])
+            } else {
+              obj.prevSlide(removedPages[index])
+            }
+            callback&&callback()
+          }
+        },
         canNext:true,
         canPrev:true,
         isScroll:false,//-- 移动端控制滚动或滑动
@@ -143,8 +174,8 @@
         } else {
             obj.showSlide(item);
         }
-        opt.before(item.index()+1,direction,item.index()+2);
         keyindex = $(opt.pageContainer).index(item)
+        opt.before(item.index()+1,direction,item.index()+2);
         pageActive()
     }
     //-- 滚动上一屏执行过程
@@ -164,8 +195,6 @@
     }
     //-- 初始化元素
     function initDom(opt) {
-        //-- 这里在移动端下有个奇怪的问题：如果设置了speed参数，也就是当js设置了下面这个css属性，那么这个css动画的时间曲线会变成匀速过渡（linear）,所以speed只能默认为false暂时避免这问题。
-        //-- 如果有大神知道怎么解决请fork或联系我qq：296183464 谢谢。
         if (!!opt.speed){
             $(opt.pageContainer).css({'transition-duration':opt.speed+'ms','-webkit-transition-duration':opt.speed+'ms'});
         }
@@ -287,9 +316,15 @@
 
         //-- 监听css过渡结束的事件
         $(opt.pageContainer).on('transitionend webkitTransitionEnd', function(event) {
+          // 判断是否有页面被remove
+          var removedLength = removedIndex.split(',').length
             if(after){
+              if (removedLength>1) {
+                opt.after(direction=='next'?keyIndex+1:keyIndex+2,direction,keyIndex+2);
+              } else {
                 opt.after(direction=='next'?keyIndex:keyIndex+2,direction,keyIndex+1);
-                after=false;
+              }
+              after=false;
             }
         })
     }

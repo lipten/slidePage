@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="slidePage.css">
     <link rel="stylesheet" type="text/css" href="page-animation.css">
     <style type="text/css">
-
         html, body {
             margin: 0;
             width: 100%;
@@ -17,19 +16,14 @@
             font-family: arial;
             text-align: center;
         }
-
         body {
             margin: 0;
             padding: 0;
             background: #000;
         }
-
         ul {
             list-style: none;
         }
-
-
-
         .prev-page,.next-page{
             display: block;
             width: 25px;
@@ -44,7 +38,6 @@
             color: #666;
             text-align:center;
         }
-
         .prev-page{
             top: 0;
         }
@@ -93,12 +86,10 @@
         .pagination a.active:after{
             background: rgba(255,255,255,.5);
         }
-
         .item h2{
             margin:0;
             padding:20px 0;
         }
-
         .play{
             display: block;
             position: absolute;
@@ -124,7 +115,6 @@
         .play:active{
             background-color: rgb(141, 60, 50);
         }
-
         .goto{
             display: block;
             position: absolute;
@@ -150,31 +140,24 @@
         .goto:active{
             background-color: rgb(31, 79, 134);
         }
-
         .item1 {
             background-color: #99CC33;
         }
-
         .item2 {
             background-color: #99CC66;
         }
-
         .item3 {
             background-color: #99CCCC;
         }
-
         .item4 {
             background-color: #CCCC33;
         }
-
         .item5 {
             background-color: #CCCC99;
         }
-
         .item6 {
             background-color: #CCCC66;
         }
-
         .item1 .step1 {
             position: absolute;
             top: 100px;
@@ -184,9 +167,7 @@
             height: 100px;
             background-color: rgb(178, 116, 57);
             border-radius: 50%;
-
         }
-
         .item1 .step2 {
             position: absolute;
             bottom: 100px;
@@ -196,7 +177,6 @@
             height: 100px;
             background-color: rgb(116, 178, 9);
         }
-
         .item2 .step1 {
             position: absolute;
             top: 100px;
@@ -207,7 +187,6 @@
             background-color: rgb(82, 110, 178);
             border-radius: 50%;
         }
-
         .item2 .step3 {
             position: absolute;
             bottom: 60px;
@@ -217,7 +196,6 @@
             height: 150px;
             background-color: rgb(178, 79, 54);
         }
-
         .item2 .step2 {
             position: absolute;
             top: 100px;
@@ -227,7 +205,6 @@
             height: 100px;
             background-color: rgb(116, 178, 9);
         }
-
         .item3 .step1 {
             position: absolute;
             top: 100px;
@@ -238,8 +215,6 @@
             background-color: rgb(178, 79, 65);
             border-radius: 50%;
         }
-
-
         .item3 .step2 {
             position: absolute;
             bottom: 100px;
@@ -249,19 +224,15 @@
             height: 100px;
             background-color: rgb(52, 178, 89);
         }
-
-
         .item4 .container{
             padding-bottom: 20px;
         }
-
         .item4 ul{
             margin:0;
             padding:0;
             width:90%;
             margin-left: 5%;
         }
-
         .item4 ul li{
             width:100%;
             padding:10px;
@@ -271,11 +242,6 @@
             border-bottom:1px solid #ccc;
             background: rgba(255,255,255,.5);
         }
-
-
-
-
-
         .item5 .step2 {
             position: absolute;
             top: 100px;
@@ -285,7 +251,6 @@
             height: 100px;
             background-color: rgb(178, 159, 44);
         }
-
         .item5 .step1 {
             position: absolute;
             bottom: 100px;
@@ -295,7 +260,6 @@
             height: 100px;
             background-color: rgb(178, 72, 91);
         }
-
         .item5 .step3 {
             position: absolute;
             bottom: 100px;
@@ -306,9 +270,6 @@
             border-radius: 50%;
             background-color: rgb(93, 163, 178);
         }
-
-
-
     </style>
 
 </head>
@@ -395,8 +356,7 @@
     </nav>
 </div>
 <script src="http://cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
-<script type="text/javascript" src="slidePage-touch.js"></script>
-<script type="text/javascript" src="slidePage.js"></script>
+<script type="text/javascript" src="slidePage.min.js"></script>
 
 <script type="text/javascript">
     $('#pagination').find('a').eq(0).addClass('active')
@@ -413,14 +373,11 @@
             }
         },
         after:function(index,direction,target){
-
         },
         'useAnimation': true,
         'refresh': true,
         'speed': false,
     });
-
-
 </script>
 </body>
 </html>
