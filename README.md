@@ -4,13 +4,10 @@ Demo:http://lipten.link/projects/slidePage/demo.html
 
 > slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。
 
+### -update v2.1-
+1.【实验性功能】加入移除页面和恢复被移除页面的methods([slidePage.remove()][3]和[slidePage.recover()][4])。
 
-###-update v2.0-
-1.支持单屏滚动条滚动，使内容不再局限于一屏的高度，适配移动端的触摸滚动与桌面端的鼠标滚轮滚动。
-
-2.初始化的回调方法有所改动，废除了v1.1版本的next和prev函数，将它们融合到了before和after函数的参数中，并改进成更开放统一的参数。
-
-3.废除useArrow参数，去掉箭头组件
+2.加入npm包管理。
 
 ###Usage
 
@@ -29,13 +26,13 @@ git clone https://github.com/lipten/slidePage.git
 ```
 
 
-####2、引用相关文件
+#### 2、引用相关文件
 ```
 <link rel="stylesheet" type="text/css" href="slidePage.css">        //插件必须样式
 <link rel="stylesheet" type="text/css" href="page-animation.css">   //动画样式，可自己编写
 ```
 
-####3、引用js文件
+#### 3、引用js文件
 ```
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>  //zepto.js或者jquery类库
 <script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件
@@ -44,7 +41,7 @@ git clone https://github.com/lipten/slidePage.git
 //也可以直接引入一个压缩合并过的slidePage.min.js
 ```
 
-####4、html结构
+#### 4、html结构
 ```
 <div class="slidePage-container" id="slidePage-container">
     <div class="item page1">
@@ -62,7 +59,7 @@ git clone https://github.com/lipten/slidePage.git
 ```
 
 
-####5、初始化代码
+#### 5、初始化代码
 ```
 slidePage.init();
 ```
@@ -83,25 +80,25 @@ slidePage.init({
 </pre>
 
 
-##Options
-####index
+## Options
+#### index
 初始进入的索引页面，值为1时从第一页开始，默认为1
-####before
+#### before
 触发页面滚动前的回调，参数解释：`index` 为滚动前的页码，`direction` 为滚动方向('next'或'prev')，`target`为滚动后的页码
-####after
+#### after
 触发页面滚动后的回调，参数同上。
-####speed
+#### speed
 页面过渡的动画时间，以毫秒为单位
-####refresh
+#### refresh
 每次滚动是否重新执行动画
-####useWheel
+#### useWheel
 开启或关闭鼠标滚轮滑动
-####useKeyboard
+#### useKeyboard
 开启或关闭键盘上下键控制滚动
-####useAnimation
+#### useAnimation
 开启或关闭动画
 
-###Using Animation
+### Using Animation
 <pre>
 &lt;div class="step slideRight" data-delay="1300"&gt;&lt;/div&gt;
 </pre>
@@ -140,40 +137,53 @@ slidePage.init({
 </pre>
 
 
-##Method
+## Method
 
-####slidePage.index(pageIndex)
+#### slidePage.index(pageIndex)
 pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不传值则返回当前页面的页码
 
-####slidePage.prev()
+#### slidePage.prev()
 滚动上一页
 
-####slidePage.next()
+#### slidePage.next()
 滚动下一页
 
-####slidePage.fire(pageIndex)
+#### slidePage.fire(pageIndex)
 触发指定页面的lazy动画，lazy动画用法详见 [Using Animation][2]
 
+#### slidePage.remove(pageIndex，callback)
+移除指定页面，第一个参数是指定页码，第二个参数是移除后的回调
 
+#### slidePage.recover(pageIndex，callback)
+恢复被移除的页面，第一个参数参数传入被移除前的页码。第二个参数是恢复后的回调函数
 ---
 
-##History
+## History
 
-###-update v1.2-
+
+### -update v2.0-
+1.支持单屏滚动条滚动，使内容不再局限于一屏的高度，适配移动端的触摸滚动与桌面端的鼠标滚轮滚动。
+
+2.初始化的回调方法有所改动，废除了v1.1版本的next和prev函数，将它们融合到了before和after函数的参数中，并改进成更开放统一的参数。
+
+3.废除useArrow参数，去掉箭头组件
+
+
+### -update v1.2-
 1.新增一个性化的功能，可以手动播放指定页面的动画元素(页面滚动不会自动触发)，只要把需要动画的元素的step类换成lazy（即不会自动触发动画的元素），然后在任意时刻调用[slidePage.fire(index)][1]触发指定页面的lazy动画即可，详见demo.html
 
 2.修正FireFox浏览器的兼容性问题
 
-###-update v1.1-
+### -update v1.1-
 1.正式版之后的改版，为了在避免在项目中遇到UI组件混乱，实现清晰的功能划分，废除了一些绑定html结构的功能（分页组件、音乐组件）
 
 2.初始化方法的参数开出多两个回调函数（next和prev）,可以自由的做二次开发，demo中利用这两个回调和methon实现了分页组件，下面有详细说明这两个参数。
 
 
-###-update v1.0-
+### -update v1.0-
 1.正式版，从0.6.2版本修复稳定。
 
-###-update v0.6.2-
+### -update v0.6.2-
 1.全面支持jquery和zepto！
 
 2.将zepto-touch.js改造了一下，使jquery也能以同样的方式调用触屏事件;
@@ -181,38 +191,38 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 3.将改造后的zepto-touch.js取名为slidePage-touch.js,并与主文件合并压缩成slidePage.min.js
 
 
-###-update v0.6-
+### -update v0.6-
 1.加入了分页组件。
 
 2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;
 
 
 
-###-update v0.5.2-
+### -update v0.5.2-
 1.html结构有所改变：滚动的父容器除了加"slidePage-container"的class样式外还要加多个"slidePage-container"的id
 ```
 <div class="slidePage-container" id="slidePage-container">
 ```
 
-###-update v0.5.1-
+### -update v0.5.1-
 1.去除了slidePage_Mobile版本(只有十行左右的区别，没必要)。
 
 2.mobile版本的需求衍生成useWheel和useKeyboard两个参数来开关键盘事件和滚轮事件.
 
-###-update v0.5-
+### -update v0.5-
 1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。
 
-###-update v0.4-
+### -update v0.4-
 1.新增参数speed(页面过渡的动画时间，毫秒为单位)
 
 2.修复refresh参数的bug.
 
-###-update v0.3-
+### -update v0.3-
 1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)
 
 2.修复无page参数的bug.
 
-###-update v0.2-
+### -update v0.2-
 1.新增url参数pege跳转指定页，优先于index参数.
 
 2.已加入bower大军.
@@ -220,3 +230,5 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 
   [1]: https://github.com/lipten/slidePage#slidepagefirepageindex
   [2]: https://github.com/lipten/slidePage#using-animation
+  [3]: https://github.com/lipten/slidePage#slidePage.remove(pageIndex，callback)
+  [4]: https://github.com/lipten/slidePage#slidePage.recover(pageIndex，callback)
