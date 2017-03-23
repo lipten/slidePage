@@ -5,13 +5,13 @@ Demo:http://lipten.link/projects/slidePage/demo.html
 > slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。
 
 ### -update v2.1-
-1.【实验性功能】加入移除页面和恢复被移除页面的methods([slidePage.remove()][3]和[slidePage.recover()][4])。
+1.【实验性功能】加入移除页面和恢复被移除页面的methods(slidePage.remove()和slidePage.recover())。
 
 2.加入npm包管理。
 
-###Usage
+### Usage
 
-####1、下载slidePage
+#### 1、下载slidePage
 npm安装
 ```
 npm install slidePage
@@ -156,6 +156,41 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 
 #### slidePage.recover(pageIndex，callback)
 恢复被移除的页面，第一个参数参数传入被移除前的页码。第二个参数是恢复后的回调函数
+
+> 以此项目demo为例，实现从第四页向上滚动使第三页移除，移除后从第二页向下滚动使第三页恢复：
+```
+var removedPagination; //暂存删除后的页码元素
+    slidePage.init({
+        /*'index': 1,*/
+        before:function(index,direction,target){
+            if(direction=='next'){
+                $('#pagination').find('a').removeClass('active').eq(index).addClass('active')
+            }else if(direction=='prev'){
+                $('#pagination').find('a').removeClass('active').eq(target-1).addClass('active')
+            }
+        },
+        after:function(index,direction,target){
+          if(direction=='next'){
+            if (target-1 == 2) { //注意移除后的所有的页码顺序会发生改变，所以这里匹配的其实是第二页【实验性功能，容易出Bug】
+              slidePage.recover(3, function(){
+                // 恢复第三页后页码元素也做相应的恢复
+                $('#pagination a').eq(2).before(removedPagination)
+              })
+            }
+          } else if (direction=='prev') {
+            if (target == 4) {
+              slidePage.remove(3, function() {
+                // 移除第三页后页码也做相应的移除
+                removedPagination = $('#pagination a').eq(2).remove()
+              })
+            }
+          }
+        },
+        'useAnimation': true,
+        'refresh': true,
+        'speed': false,
+    });
+```
 ---
 
 ## History
@@ -230,5 +265,3 @@ pageIndex传入一个正整数作为页码跳转到指定页面(从1开始),不�
 
   [1]: https://github.com/lipten/slidePage#slidepagefirepageindex
   [2]: https://github.com/lipten/slidePage#using-animation
-  [3]: https://github.com/lipten/slidePage#slidePage.remove(pageIndex，callback)
-  [4]: https://github.com/lipten/slidePage#slidePage.recover(pageIndex，callback)
