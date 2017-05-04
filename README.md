@@ -195,7 +195,9 @@ var removedPagination; //暂存删除后的页码元素
 
 ## Donate
 喜欢这个项目？捐助一杯咖啡支持下(￥20)
+
 支付宝：http://lipten.link/images/alipay_get_money.jpeg
+
 微信支付：http://lipten.link/images/wechat_get_money.jpeg
 
 ## History
