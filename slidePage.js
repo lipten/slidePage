@@ -14,14 +14,16 @@
     var after=true;
     var delay = true;
     var keyIndex = opt.index - 1;
-    var defaultSpeed = $(opt.pageContainer).css('transition-duration').replace('s','')*1000;
-    var pageCount = $(opt.pageContainer).length
+    var defaultSpeed = 700;
+    var pageCount = 1
     var windowH = window.innerHeight
     var direction=''
     var removedIndex=''
     var removedPages={}
     window.slidePage = {
         'init': function(option,callback) {
+            defaultSpeed = $(opt.pageContainer).css('transition-duration').replace('s','')*1000;
+            pageCount = $(opt.pageContainer).length
             $.extend(opt, option);
             initDom(opt);
             initEvent(opt);
