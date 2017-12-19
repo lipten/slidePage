@@ -250,7 +250,7 @@
         var itemheight = $(".item").eq(target - 1).children().height();
         if((itemheight-windowH)>20){
             $(opt.pageContainer).eq(target-1).on('scroll',function(e){
-                var isBottom = itemheight == this.scrollTop+windowH;
+                var isBottom = itemheight <= this.scrollTop+windowH+1;
                 var isTop = this.scrollTop==0;
                 slidePage.canSlide = isBottom || isTop;
                 slidePage.canPrev = isTop && !isBottom;
