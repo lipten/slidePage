@@ -1,13 +1,14 @@
 # slidePage
+----
+> 感谢大家对slidePage的支持，现已推出全新版本的[slidePage.js](https://github.com/lipten/slidePage.js)，与slidePage不同的是移除了对jquery和zepto的依赖，精简到只有一个js文件，还做了很多优化工作，适配主流框架。
+
+----
+
+
 Demo:http://lipten.link/projects/slidePage/demo.html
 
 
 > slidePage 是一个简单却可以很强大的滚动插件，不提供各种花俏的UI组件，只提供实用的功能接口，方便二次开发。
-
-### -update v2.1-
-1.【实验性功能】加入移除页面和恢复被移除页面的methods(slidePage.remove()和slidePage.recover())。
-
-2.加入npm包管理。
 
 ### Usage
 
@@ -195,6 +196,10 @@ var removedPagination; //暂存删除后的页码元素
 
 ## Update Logs
 
+### -update v2.1-
+1.【实验性功能】加入移除页面和恢复被移除页面的methods(slidePage.remove()和slidePage.recover())。
+
+2.加入npm包管理。
 
 ### -update v2.0-
 1.支持单屏滚动条滚动，使内容不再局限于一屏的高度，适配移动端的触摸滚动与桌面端的鼠标滚轮滚动。
