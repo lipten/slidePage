@@ -1,5 +1,5 @@
 title: slidePage
-description: 一款轻量的全屏滚动插件，结合Scrollify和H5FullscreenPage的特点优化，并精简了部分功能
+description: 简单、跨平台、无依赖的全屏滚动H5插件，适配PC和移动端，具有单屏内容滚动、控制动画播放等特色功能
 google_analytics: 
 show_downloads: true
 theme: jekyll-theme-slate
