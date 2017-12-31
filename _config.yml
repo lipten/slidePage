@@ -1,0 +1,8 @@
+title: slidePage
+description: 一款轻量的全屏滚动插件，结合Scrollify和H5FullscreenPage的特点优化，并精简了部分功能
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
