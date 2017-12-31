@@ -1,19 +1,23 @@
-# slidePage.js
-纯原生js编写的H5全屏滚动插件，适配PC和移动端，具有单屏内容滚动、控制动画播放、动态重绘等特色功能
+# slidePage
+
+ > slidePage现已推出3.0, 吸取了上一版本[slidePage v2.1.1](https://github.com/lipten/slidePage/tree/v2) 的各种经验，弥补不足，与slidePage不同的是，原生js编写没有任何依赖，优化了接口调用方式，更适合主流的前端框架，现在只是简单的js版本，后续会陆续封装出主流框架的版本。
 
 ### Demo:
-* [simple](http://lipten.link/projects/slidePage.js/examples/simple.html)
-* [animated](http://lipten.link/projects/slidePage.js/examples/animated.html)
-* [scroll](http://lipten.link/projects/slidePage.js/examples/scroll.html) 
-* [custom](http://lipten.link/projects/slidePage.js/examples/custom.html) 
-* [fullFeatured](http://lipten.link/projects/slidePage.js/examples/fullFeatured.html)
+* [simple](http://lipten.link/projects/slidePage3/examples/simple.html)
+* [animated](http://lipten.link/projects/slidePage3/examples/animated.html)
+* [scroll](http://lipten.link/projects/slidePage3/examples/scroll.html) 
+* [custom](http://lipten.link/projects/slidePage3/examples/custom.html) 
+* [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+
+### Featured
+slidePage3.0 特别适合主流前端框架开发，无任何依赖库，源代码只有12kb，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，具有单屏内容滚动、控制动画播放、动态重绘等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Documentation:
 * [Usage](#usage)
-  * [Install slidePage.js](#1install-slidepagejs)
-  * [Including files](#2including-files)
-  * [Required HTML structure](#3required-html-structure)
-  * [Initialization](#4initialization)
+  * [Install slidePage](#install-slidepage)
+  * [Including files](#including-files)
+  * [Required HTML structure](#required-html-structure)
+  * [Initialization](#initialization)
 * [Configuration](#configuration)
 * [Options](#options)
 * [Using Animation](#using-animation)
@@ -25,32 +29,26 @@
   * [slidepage.destroy()](#slidepagedestroy)
   * [slidepage.update()](#slidepageupdate)
 
-### Introduction
-slidePage.js 吸取了 [slidePage](https://github.com/lipten/slidePage) 项目的各种经验，弥补不足，与slidePage不同的是，原生js编写没有任何依赖，优化了接口调用方式，更适合主流的前端框架，现在只是简单的js版本，后续会陆续封装出主流框架的版本。
-
-### Featured
-slidePage.js 特别适合主流前端框架开发，纯原生无任何依赖，源代码只有12kb，gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，具有单屏内容滚动、控制动画播放、动态重绘等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage.js/examples/fullFeatured.html)
-
 
 ## Usage
 
-### 1、Install slidepage.js
+### Install slidePage
 ```
 // With npm
-npm install slidepage.js
+npm install slidePage
 
 // With bower
-bower install slidepage.js
+bower install slidePage
 ```
 
-### 2、Including files
+### Including files
 ```
 <link rel="stylesheet" type="text/css" href="slidePage.css">
 
 <script type="text/javascript" src="slidePage.js"></script>
 ```
 
-### 3、Required HTML structure
+### Required HTML structure
 ```
 <div class="slidePage-container" id="slidePage-container">
     <div class="page page1">
@@ -67,9 +65,9 @@ bower install slidepage.js
     </div>
 </div>
 ```
-您可以查看完整examples里的html文件结构 [fullFeatured.html](https://github.com/lipten/slidePage.js/blob/master/examples/fullFeatured.html)
+您可以查看完整examples里的html文件结构 [fullFeatured.html](https://github.com/lipten/slidePage/blob/master/examples/fullFeatured.html)
 
-### 4、Initialization
+### Initialization
 ```
 new slidePage()
 ```
@@ -91,7 +89,7 @@ var slidepage = new slidePage({
  });
 ```
 ## Options
-> 在slidePage.js中，page指的是每一次全屏滚动的一屏，也可以理解为每一屏对应的页码，必须是1以上的整数
+> 在slidePage中，page指的是每一次全屏滚动的一屏，也可以理解为每一屏对应的页码，必须是1以上的整数
 
 #### slideContainer
 指定slidePage要运行的容器选择器，值为querySelector所支持的选择器参数
@@ -156,5 +154,5 @@ var slidepage = new slidePage({
 销毁当前实例，移除所有事件恢复class属性值。
 
 ### slidepage.update()
-当html里的page发生变化时需要执行动态更新，此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看完整示例源码了解：[fullFeatured.html](http://lipten.link/projects/slidePage.js/examples/fullFeatured.html)
+当html里的page发生变化时需要执行动态更新，此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看完整示例源码了解：[fullFeatured.html](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 

@@ -1,5 +1,5 @@
 {
-  "name": "slidepage.js",
+  "name": "slidePage",
   "version": "3.0.0",
   "description": "slidePage.js is a simple and universal to use libary to create fullscreen scrolling websites",
   "main": "dist/sldePage.min.js",
