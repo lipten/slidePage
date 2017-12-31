@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>scroll - slidePage.js</title>
+	<link rel="stylesheet" type="text/css" href="../dist/slidePage.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+	<style type="text/css">
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background: #000;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		.slide-page p {
+			box-sizing: border-box;
+			padding: 10px;
+			text-align: center;
+		}
+		.slide-page h2 {
+			margin: 0;
+			padding: 20px 0;
+			text-align: center;
+		}
+
+		.page1 {
+			background-color: #99CC33;
+		}
+
+		.page2 {
+			background-color: rgb(89, 154, 214);
+		}
+
+		.page3 {
+			background-color: #99CCCC;
+		}
+
+		.page2 .container {
+			padding-bottom: 20px;
+		}
+
+		.page2 ul {
+			margin: 0;
+			padding: 0;
+			width: 90%;
+			margin-left: 5%;
+		}
+
+		.page2 ul li {
+			width: 100%;
+			padding: 100px 10px;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			border-bottom: 1px solid rgb(83, 83, 83);
+			background: rgba(255, 255, 255, .5);
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body ontouchstart="">
+	<div class="slide-container" id="slidePage-container">
+
+		<div class="slide-page page1">
+			<div class="container">
+				<h2>Page1 - 全屏滚动</h2>
+				<p>当前是全屏滚动，滑到下一屏试试。</p>
+			</div>
+		</div>
+		<div class="slide-page page2">
+			<div class="container">
+				<h2>Page2 - 单屏内容滚动</h2>
+				<p>当内容长度超过屏幕<br/>会自动变成原生滚动条方式</p>
+				<ul>
+						<li>滚动内容 - 第1条</li>
+						<li>滚动内容 - 第2条</li>
+						<li>滚动内容 - 第3条</li>
+						<li>滚动内容 - 第4条</li>
+						<li>滚动内容 - 最后1条内容</li>
+					</ul>
+			</div>
+		</div>
+		<div class="slide-page page3">
+			<div class="container">
+				<h2>Page3 - 全屏滚动</h2>
+				<p>滑动回到上一屏，滚动条会从底部开始</p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../dist/slidePage.min.js"></script>
+	<script type="text/javascript">
+		var slide = new slidePage()
+	</script>
+</body>
+
+</html>

@@ -1,20 +1,37 @@
 {
-  "name": "slidePage",
-  "version": "2.1.1",
-  "description": "The compact full screen scroll plugin",
-  "main": "slidePage.js",
+  "name": "slidepage.js",
+  "version": "3.0.0",
+  "description": "slidePage.js is a simple and universal to use libary to create fullscreen scrolling websites",
+  "main": "dist/sldePage.min.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lipten/slidePage.git"
+    "url": "git+https://github.com/lipten/slidePage.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lipten/slidePage.js/issues"
   },
   "keywords": [
-    "scroll",
-    "fullscreen"
+    "fullscreen",
+    "slide",
+    "h5",
+    "fullpage"
   ],
   "author": "lipten",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lipten/slidePage/issues"
+  "homepage": "https://github.com/lipten/slidePage.js#readme",
+  "dependencies": {
+    "gulp-cli": "^2.0.0"
   },
-  "homepage": "https://github.com/lipten/slidePage#readme"
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
+  }
 }

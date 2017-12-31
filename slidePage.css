@@ -1,71 +1,28 @@
-.slidePage-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
+.slide-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
-.slidePage-container .item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    transition: all 700ms cubic-bezier(0.550, 0.085, 0.000, 0.990);
-    -webkit-transition: all 700ms cubic-bezier(0.550, 0.085, 0.000, 0.990);
-    -webkit-tap-highlight-color:rgba(255,255,255,0);
-    -webkit-text-size-adjust: none;
-    -webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d;
-    /*transition: all 300ms ease-in-out;
-    -webkit-transition: all 300ms ease-in-out;*/
-    background-position: center;
+.slide-container .slide-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color:rgba(255,255,255,0);
+  -webkit-text-size-adjust: none;
+  -webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d;
+  background-position: center;
 }
-.slidePage-container .item:not(:first-child ) {
-    transform: translate3d(0,100%,0);
-    -webkit-transform: translate3d(0,100%,0);
+.slide-container .slide-page {
+  transform: translate3d(0,100%,0);
+  -webkit-transform: translate3d(0,100%,0);
 }
-
-.slidePage-container .no-animation {
-    transition: none;
-    -webkit-transition: none;
+.slide-container .slide-page.transition {
+  transition: all 700ms cubic-bezier(0.550, 0.085, 0.000, 0.990);
+  -webkit-transition: all 700ms cubic-bezier(0.550, 0.085, 0.000, 0.990);
 }
-.slidePage-container .hide {
-    display: none;
-}
-.slidePage-container .overlay {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 99;
-}
-.slidePage-container .zindex {
-    z-index: 99;
-}
-
-
-@keyframes fadeInUp{
-    0%{
-        opacity:0;
-        transform: translateY(20px) rotate(45deg);
-    }
-    100%{
-        opacity:1;
-        transform: translateY(0px) rotate(45deg);
-    }
-}
-@-webkit-keyframes fadeInUp{
-    0%{
-        opacity:0;
-        transform: translateY(20px) rotate(45deg);
-    }
-    100%{
-        opacity:1;
-        transform: translateY(0px) rotate(45deg);
-    }
-}
-@keyframes rotate{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@-webkit-keyframes rotate{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}

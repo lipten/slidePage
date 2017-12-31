@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>simple - slidePage.js</title>
+	<link rel="stylesheet" type="text/css" href="../dist/slidePage.min.css">
+	<style type="text/css">
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background: #000;
+		}
+
+		h2 {
+			text-align: center;
+			position: absolute;
+			width: 100%;
+			top: 30%;
+		}
+
+		.page1 {
+			background-color: #99CC33;
+		}
+
+		.page2 {
+			background-color: #99CCCC;
+		}
+	</style>
+</head>
+
+<body ontouchstart="">
+	<div class="slide-container" id="slidePage-container">
+		<div class="slide-page page1">
+			<div class="container">
+				<h2>Page1</h2>
+			</div>
+		</div>
+		<div class="slide-page page2">
+			<div class="container">
+				<h2>Page2</h2>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../dist/slidePage.min.js"></script>
+	<script type="text/javascript">
+		var slide = new slidePage()
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>custom - slidePage.js</title>
+	<!-- 不引入任何样式文件 -->
+	<style type="text/css">
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background: #000;
+		}
+
+		/* 自定义容器样式 */
+		.custom-container {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+		.custom-container .custom-page {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow-y: auto;
+			overflow-x: hidden;
+			-webkit-overflow-scrolling: touch;
+			-webkit-tap-highlight-color:rgba(255,255,255,0);
+			-webkit-text-size-adjust: none;
+			-webkit-backface-visibility:hidden;-webkit-transform-style:preserve-3d;
+			background-position: center;
+			transform: translate3d(0,100%,0);
+			-webkit-transform: translate3d(0,100%,0);
+		}
+		/* page容器必须要有.transition 定义滑屏动画过度效果 */
+		.custom-container .custom-page.transition {
+			transition: all 500ms cubic-bezier(0.550, 0.085, 0.000, 0.990);
+			-webkit-transition: all 500ms cubic-bezier(0.550, 0.085, 0.000, 0.990);
+		}
+
+
+		/* 自定义动画 */
+		@keyframes flash {
+			from, 50%, to {
+				opacity: 1;
+			}
+
+			25%, 75% {
+				opacity: 0;
+			}
+		}
+
+		.flash {
+			animation: flash .5s;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		.fadeIn {
+			animation: fadeIn .5s;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		.custom-page h2 {
+			margin: 0;
+			padding: 20px 0;
+			text-align: center;
+		}
+
+		.custom-page p {
+			box-sizing: border-box;
+			padding: 10px;
+			text-align: center;
+		}
+
+		.custom-page p.middle {
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			text-align: center;
+			width: 100%;
+			margin-top: -20px;
+		}
+
+		.custom-page p.tips {
+			font-size: 14px;
+			color: #444;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+		}
+
+		.prev-page,
+		.next-page {
+			display: block;
+			width: 25px;
+			height: 25px;
+			line-height: 26px;
+			position: absolute;
+			right: 2px;
+			z-index: 9999;
+			background: rgba(255, 255, 255, .5);
+			border-radius: 50%;
+			font-size: 14px;
+			color: #666;
+			text-align: center;
+		}
+
+		.prev-page {
+			top: 0;
+		}
+
+		.next-page {
+			bottom: 0;
+		}
+
+		.prev-page:active {
+			background: rgba(155, 155, 155, .5);
+		}
+
+		.next-page:active {
+			background: rgba(155, 155, 155, .5);
+		}
+
+		.pagination {
+			width: 30px;
+			height: auto;
+			position: fixed;
+			top: 50%;
+			right: 5px;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 40px 0;
+			z-index: 1;
+			transform: translate(0, -50%);
+		}
+
+		.pagination a {
+			width: 25px;
+			height: 25px;
+			display: block;
+			line-height: 28px;
+			text-align: center;
+			padding-left: 3px;
+		}
+
+		.pagination a:after {
+			content: "";
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			display: inline-block;
+			background: rgba(0, 0, 0, .5);
+			-webkit-transition: background .3s ease;
+			-moz-transition: background .3s ease;
+			-ms-transition: background .3s ease;
+			-o-transition: background .3s ease;
+			transition: background .3s ease;
+		}
+
+		.pagination a.active:after {
+			background: rgba(255, 255, 255, .5);
+		}
+
+		.add,
+		.remove{
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -20px;
+			margin-left: -50px;
+			padding: 38px 0;
+			box-sizing: border-box;
+			width: 100px;
+			height: 100px;
+			webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			border-radius: 50%;
+			background-color: rgb(47, 95, 178);
+			color: #fff;
+			text-align: center;
+			font-size: 14px;
+			text-decoration: none;
+		}
+
+		.add:hover {
+			background-color: rgb(57, 123, 219);
+		}
+
+		.add:active {
+			background-color: rgb(31, 79, 134);
+		}
+
+		.remove {
+			background-color: rgb(151, 43, 43);
+		}
+
+		.remove:hover {
+			background-color: rgb(194, 63, 63);
+		}
+
+		.remove:active {
+			background-color: rgb(116, 33, 33);
+		}
+
+		.page1 {
+			background-color: #99CC33;
+		}
+
+		.page2 {
+			background-color: rgb(197, 181, 88);
+		}
+
+		.page3 {
+			background-color: #99CCCC;
+		}
+
+		.page4 {
+			background-color: rgb(204, 125, 51);
+		}
+		.page1 .step1 {
+			position: absolute;
+			top: 100px;
+			left: 19%;
+			text-align: center;
+			width: 100px;
+			height: 100px;
+			background-color: rgb(178, 116, 57);
+			border-radius: 50%;
+		}
+
+		.page1 .step2 {
+			position: absolute;
+			bottom: 100px;
+			right: 19%;
+			text-align: center;
+			width: 100px;
+			height: 100px;
+			background-color: rgb(116, 178, 9);
+		}
+	</style>
+</head>
+
+<body ontouchstart="">
+	<div class="custom-container" id="slidePage-container">
+		<div class="custom-page page1">
+			<div class="container">
+				<h2>Page1 - 自定义动画</h2>
+				<div class="step step1 flash" data-delay="1000"></div>
+				<div class="step step2 fadeIn" data-delay="500"></div>
+			</div>
+		</div>
+		<div class="custom-page page2">
+			<div class="container">
+				<h2>Page2 - 定制分页</h2>
+				<p class="middle">通过before事件和slideTo方法<br/>定制实现右侧的分页器 -- ></p>
+				<p class="tips">通过开放的事件接口和方法可以实现很多定制功能</p>
+			</div>
+		</div>
+		<div class="custom-page page3">
+			<div class="container">
+				<h2>Page3 - 动态添加page</h2>
+				<a href="javascript:appendpage()" class="add">添加Page</a>
+			</div>
+		</div>
+		<nav class="pagination" id="pagination">
+			<div class="prev-page" onclick="slide.slidePrev()">&Lambda;</div>
+			<div class="pagination-page"></div>
+			<div class="next-page" onclick="slide.slideNext()">V</div>
+		</nav>
+	</div>
+	<script type="text/javascript" src="../dist/slidePage.min.js"></script>
+	<script type="text/javascript">
+		function GetQueryString(name){
+			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r!=null)return  unescape(r[2]); return null;
+		}
+		pageParams = GetQueryString('page') * 1;
+
+		renderPagination()
+		var initPage = pageParams || 1
+		var currentPage = initPage
+		var slide = new slidePage({
+			slideItem: '.custom-page',
+			slideContainer: '#slidePage-container',
+			refresh: true,
+			page: initPage,
+			before: function (origin, diraction, target) {
+				pagepages = document.querySelectorAll('#pagination a')
+				pagepages[origin - 1].classList.remove('active')
+				pagepages[target - 1].classList.add('active')
+				currentPage = target
+			},
+			after: function (origin, diraction, target) {
+			},
+		})
+		window.slide = slide
+
+		// -- slidePage.js不提供分页组件，以下是当前示例的分页器逻辑
+		pagination.querySelectorAll('a')[initPage - 1].classList.add('active')
+		function renderPagination() {
+			var pagination = document.querySelector('#pagination');
+			var len = document.querySelectorAll('.custom-page').length;
+			var paginationContent = ''
+			// 渲染页码
+			for (var i = 1; i <= len; i++) {
+				paginationContent += '<a onclick="slide.slideTo(' + i + ')"></a>';
+			}
+			pagination.querySelector('.pagination-page').innerHTML = paginationContent;
+		}
+		function appendpage() {
+			var len = document.querySelectorAll('.custom-page').length;
+			el = document.createElement('div');
+			el.innerHTML = '<div class="custom-page page4"> <h2>Page' + (len + 1) + ' - 删除Page</h2> <a href="javascript:removepage()" class="remove">删除最后page' + '</a> </div>'
+			document.querySelector('#slidePage-container').appendChild(el.children[0])
+			// 增加节点后更新页码
+			renderPagination()
+			pagination.querySelectorAll('a')[currentPage - 1].classList.add('active')
+			slide.update()
+		}
+		function removepage() {
+			var len = document.querySelectorAll('.custom-page').length;
+			var page6 = document.querySelectorAll('.custom-page')[len - 1];
+			document.querySelector('#slidePage-container').removeChild(page6)
+			// 删除节点后更新页码
+			renderPagination()
+			pagination.querySelectorAll('a')[currentPage === len ? 0 : currentPage - 1].classList.add('active')
+			slide.update()
+		}
+	</script>
+</body>
+
+</html>

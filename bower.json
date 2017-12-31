@@ -1,0 +1,23 @@
+{
+  "name": "slidepage.js",
+  "description": "slidePage.js is a simple and universal to use libary to create fullscreen scrolling websites",
+  "main": "dist/sldePage.min.js",
+  "authors": [
+    "lipten"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "fullscreen",
+    "slide",
+    "h5",
+    "fullpage"
+  ],
+  "homepage": "https://github.com/lipten/slidePage.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
