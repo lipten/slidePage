@@ -168,23 +168,23 @@
 					element.style.display = 'none';
 				})
 				methods.runAnimation.call(this, index);
-				for (var i = 0, item; item = this.items[i]; i++) {
-					if (i === index) {
-						item.style.transform = 'translate3d(0, 0, 0)';
-					} else {
-						if (i < index) {
-							item.style.transform = 'translate3d(0, -100%, 0)';
-						} else if (i > index) {
-							item.style.transform = 'translate3d(0, 100%, 0)';
-						}
+			}
+			for (var i = 0, item; item = this.items[i]; i++) {
+				if (i === index) {
+					item.style.transform = 'translate3d(0, 0, 0)';
+				} else {
+					if (i < index) {
+						item.style.transform = 'translate3d(0, -100%, 0)';
+					} else if (i > index) {
+						item.style.transform = 'translate3d(0, 100%, 0)';
 					}
-					(function(item) {
-						var timer = setTimeout(function () {
-							item.classList.add('transition');
-							clearTimeout(timer);
-						});
-					})(item)
 				}
+				(function(item) {
+					var timer = setTimeout(function () {
+						item.classList.add('transition');
+						clearTimeout(timer);
+					});
+				})(item)
 			}
 		},
 	
