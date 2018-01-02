@@ -307,9 +307,11 @@
 		renderPagination()
 		var initPage = pageParams || 1
 		var currentPage = initPage
+		var slideContainer =  document.querySelector('#slidePage-container')
+		var slidePages = document.querySelectorAll('.custom-page')
 		var slide = new slidePage({
-			slideItem: '.custom-page',
-			slideContainer: '#slidePage-container',
+			slideContainer: slideContainer,
+			slidePages: slidePages,
 			refresh: true,
 			page: initPage,
 			before: function (origin, diraction, target) {
@@ -336,23 +338,27 @@
 			pagination.querySelector('.pagination-page').innerHTML = paginationContent;
 		}
 		function appendpage() {
-			var len = document.querySelectorAll('.custom-page').length;
+			var pages = document.querySelectorAll('.custom-page')
+			var len = pages.length;
 			el = document.createElement('div');
 			el.innerHTML = '<div class="custom-page page4"> <h2>Page' + (len + 1) + ' - 删除Page</h2> <a href="javascript:removepage()" class="remove">删除最后page' + '</a> </div>'
 			document.querySelector('#slidePage-container').appendChild(el.children[0])
 			// 增加节点后更新页码
 			renderPagination()
 			pagination.querySelectorAll('a')[currentPage - 1].classList.add('active')
-			slide.update()
+			// 如果初始化时传入的pages是NodeList类型，那么更新的时候也需要再传一次新的Nodelist
+			slide.update(document.querySelectorAll('.custom-page'))
 		}
 		function removepage() {
-			var len = document.querySelectorAll('.custom-page').length;
-			var page6 = document.querySelectorAll('.custom-page')[len - 1];
+			var pages = document.querySelectorAll('.custom-page')
+			var len = pages.length;
+			var page6 = pages[len - 1];
 			document.querySelector('#slidePage-container').removeChild(page6)
 			// 删除节点后更新页码
 			renderPagination()
 			pagination.querySelectorAll('a')[currentPage === len ? 0 : currentPage - 1].classList.add('active')
-			slide.update()
+			// 如果初始化时传入的pages是NodeList类型，那么更新的时候也需要再传一次新的Nodelist
+			slide.update(document.querySelectorAll('.custom-page'))
 		}
 	</script>
 </body>

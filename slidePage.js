@@ -41,6 +41,17 @@
 			var equalHTML = el1.innerHTML === el2.innerHTML;
 			var equalClass = el1.className.replace(/ transition/g, '') === el2.className.replace(/ transition/g, '');
 			return equalClass && equalNodeName && equalNodeType && equalHTML;
+		},
+		isDOM: function(obj){
+			if (obj instanceof NodeList && obj.length > 0) {
+				var isTrue = 0;
+				for (var i = 0, len = obj.length; i < len; i ++) {
+					(obj[i] instanceof Element) && (isTrue++);
+				}
+				return isTrue === len;
+			} else {
+				return (obj instanceof Element);
+			}
 		}
 	}
 	var touchPoint = {}
@@ -203,7 +214,7 @@
 		var pageParams = utils.getQueryParam('page') * 1;
 		var default_opt = {
 			page: pageParams || 1,
-			slideItem: '.slide-page',
+			slidePages: '.slide-page',
 			slideContainer: '.slide-container',
 			after: function () { },
 			before: function () { },
@@ -217,10 +228,11 @@
 		this.canNext = true;
 		this.canPrev = true;
 		this.isScroll = false;
+
 		this.opt = utils.extend(default_opt, opt);
 		this.page = this.opt.page;
-		this.container = document.querySelector(this.opt.slideContainer);
-		this.items = document.querySelectorAll(this.opt.slideItem);
+		this.container = utils.isDOM(this.opt.slideContainer) ? this.opt.slideContainer : document.querySelector(this.opt.slideContainer);
+		this.items = utils.isDOM(this.opt.slidePages) ? this.opt.slidePages : document.querySelectorAll(this.opt.slidePages);
 		this.count = this.items.length;
 		this.direction = '';
 		this.eventHandler = {};
@@ -327,12 +339,12 @@
 		this.container.removeEventListener('transitionend', this.eventHandler.transitionEnd);
 	}
 	
-	slidePage.prototype.update = function () {
+	slidePage.prototype.update = function (pages) {
 		// 回到第一屏
 		this.canSlide = true;
 		this.canNext = true;
 		this.canPrev = true;
-		var newItems = document.querySelectorAll(this.opt.slideItem);
+		var newItems = utils.isDOM(pages) ? pages : document.querySelectorAll(this.opt.slidePages);
 		for (var i = 0, len = newItems.length; i < len; i++) {
 			// 判断当前活动的page是否还存在则保持当前屏
 			if (utils.isEqualNode(newItems[i], this.items[this.page - 1])) {

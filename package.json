@@ -1,8 +1,8 @@
 {
   "name": "slidePage",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "slidePage.js is a simple and universal to use libary to create fullscreen scrolling websites",
-  "main": "dist/sldePage.min.js",
+  "main": "dist/slidePage.min.js",
   "directories": {
     "example": "examples"
   },
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lipten/slidePage.js.git"
+    "url": "git+https://github.com/lipten/slidePage.git"
   },
   "bugs": {
-    "url": "https://github.com/lipten/slidePage.js/issues"
+    "url": "https://github.com/lipten/slidePage/issues"
   },
   "keywords": [
     "fullscreen",
@@ -24,7 +24,7 @@
   ],
   "author": "lipten",
   "license": "MIT",
-  "homepage": "https://github.com/lipten/slidePage.js#readme",
+  "homepage": "http://lipten.github.io/slidePage/",
   "dependencies": {
     "gulp-cli": "^2.0.0"
   },
