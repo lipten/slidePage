@@ -168,7 +168,7 @@
 					element.style.display = 'none';
 				})
 				methods.runAnimation.call(this, index);
-				this.items.forEach(function (item, i) {
+				for (var i = 0, item; item = this.items[i]; i++) {
 					if (i === index) {
 						item.style.transform = 'translate3d(0, 0, 0)';
 					} else {
@@ -178,11 +178,13 @@
 							item.style.transform = 'translate3d(0, 100%, 0)';
 						}
 					}
-					var timer = setTimeout(function () {
-						item.classList.add('transition');
-						clearTimeout(timer);
-					});
-				})
+					(function(item) {
+						var timer = setTimeout(function () {
+							item.classList.add('transition');
+							clearTimeout(timer);
+						});
+					})(item)
+				}
 			}
 		},
 	
@@ -216,9 +218,8 @@
 			page: pageParams || 1,
 			slidePages: '.slide-page',
 			slideContainer: '.slide-container',
-			after: function () { },
-			before: function () { },
-			speed: false,
+			after: null,
+			before: null,
 			refresh: false,
 			useWheel: true,
 			useSwipe: true,
@@ -347,7 +348,7 @@
 		var newItems = utils.isDOM(pages) ? pages : document.querySelectorAll(this.opt.slidePages);
 		for (var i = 0, len = newItems.length; i < len; i++) {
 			// 判断当前活动的page是否还存在则保持当前屏
-			if (utils.isEqualNode(newItems[i], this.items[this.page - 1])) {
+			if (this.items[this.page - 1] && utils.isEqualNode(this.items[this.page - 1], newItems[i])) {
 				this.page = i + 1;
 				break;
 			}
