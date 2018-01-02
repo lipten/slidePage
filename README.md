@@ -76,7 +76,7 @@ new slidePage()
 ```
 var slidepage = new slidePage({
     slideContainer: '#slidePage-container',
-    slideItem: '.slide-item',
+    slidePages: '.slide-item',
     page: 1,
     refresh: true,
     useWheel: true,
@@ -91,25 +91,26 @@ var slidepage = new slidePage({
 ## Options
 > 在slidePage中，page指的是每一次全屏滚动的一屏，也可以理解为每一屏对应的页码，必须是1以上的整数
 
-#### slideContainer
-指定slidePage要运行的容器选择器，值为querySelector所支持的选择器参数
+### slideContainer
+指定slidePage要运行的容器选择器或元素，值为querySelector所支持的选择器参数,支持`Element`类型的对象.
 
-#### slideItem
-指定slidePage容器里每个page的选择器，值为querySelectorAll所支持的选择器参数
+### slidePages
+指定`slideContainer`容器里每个page的选择器或元素，值为querySelectorAll所支持的选择器参数，支持`NodeList`和`HTMLCollection`对象
 
-#### page
+
+### page
 首次进入的page页码，值为1时从第一页开始，默认为1
 
-#### refresh
+### refresh
 每次滚动是否重新执行动画，默认true
 
-#### useWheel
+### useWheel
 是否开启鼠标滚轮滑动，默认true
 
-#### useSwipe
+### useSwipe
 是否开启移动端触控滑动，默认true
 
-#### useAnimation
+### useAnimation
 是否开启动画 默认true
 
 
@@ -153,6 +154,10 @@ var slidepage = new slidePage({
 ### slidepage.destroy()
 销毁当前实例，移除所有事件恢复class属性值。
 
-### slidepage.update()
-当html里的page发生变化时需要执行动态更新，此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看完整示例源码了解：[fullFeatured.html](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+### slidepage.update(newSlidePages)
+当html里的page发生变化时需要执行动态更新。
+
+`newSlidePages`参数非必填，仅应对于初始化的时候`slidePages`参数传入的是`NodeList`或`HTMLCollection`时才需要在更新的时候再传一次变化后的DOM结构通知更新。
+
+> 此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看示例源码了解：[custom.html](https://github.com/lipten/slidePage/blob/master/examples/custom.html)
 

@@ -43,7 +43,7 @@
 			return equalClass && equalNodeName && equalNodeType && equalHTML;
 		},
 		isDOM: function(obj){
-			if (obj instanceof NodeList && obj.length > 0) {
+			if ((obj instanceof NodeList) || (obj instanceof HTMLCollection) && obj.length > 0) {
 				var isTrue = 0;
 				for (var i = 0, len = obj.length; i < len; i ++) {
 					(obj[i] instanceof Element) && (isTrue++);
