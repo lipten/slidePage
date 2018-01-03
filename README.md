@@ -91,28 +91,81 @@ var slidepage = new slidePage({
 ## Options
 > 在slidePage中，page指的是每一次全屏滚动的一屏，也可以理解为每一屏对应的页码，必须是1以上的整数
 
-### slideContainer
-指定slidePage要运行的容器选择器或元素，值为querySelector所支持的选择器参数,支持`Element`类型的对象.
+<table>
+  <thead>
+  <tr>
+    <th>name</th>
+    <th>type</th>
+    <th>default</th>
+    <th>description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>slideContainer</td>
+      <td>String|Element</td>
+      <td>'.slide-container'</td>
+      <td>指定slidePage要运行的容器选择器或元素</td>
+    </tr>
+    <tr>
+      <td>slidePages</td>
+      <td>String|NodeList|HTMLCollection</td>
+      <td>'.slide-page'</td>
+      <td>指定`slideContainer`容器里每个page的选择器或元素</td>
+    </tr>
+    <tr>
+      <td>page</td>
+      <td>Number</td>
+      <td>1</td>
+      <td>首次进入的page页码</td>
+    </tr>
+    <tr>
+      <td>useAnimation</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>是否开启动画</td>
+    </tr>
+    <tr>
+      <td>refresh</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>每次滚动进入是否重新执行动画</td>
+    </tr>
+    <tr>
+      <td>useWheel</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>是否开启鼠标滚轮滑动</td>
+    </tr>
+    <tr>
+      <td>useSwipe</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>是否开启移动端触控滑动</td>
+    </tr>
+  </tbody>
+</table>
 
-### slidePages
-指定`slideContainer`容器里每个page的选择器或元素，值为querySelectorAll所支持的选择器参数，支持`NodeList`和`HTMLCollection`对象
+## Events
 
-
-### page
-首次进入的page页码，值为1时从第一页开始，默认为1
-
-### refresh
-每次滚动是否重新执行动画，默认true
-
-### useWheel
-是否开启鼠标滚轮滑动，默认true
-
-### useSwipe
-是否开启移动端触控滑动，默认true
-
-### useAnimation
-是否开启动画 默认true
-
+<table>
+  <thead>
+  <tr>
+    <th>name</th>
+    <th>description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>before</td>
+      <td>每次全屏滚动前触发事件，回调三个参数(origin, direction, target)，分别是滚动前的page序号、方向('next'|'prev')、滚动后的page序号</td>
+    </tr>
+    <tr>
+      <td>after</td>
+      <td>每次全屏滚动后触发事件，回调三个参数(origin, direction, target)，参数释义同上</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Using Animation
 

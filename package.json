@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lipten/slidePage.git"
+    "url": "git@github.com:lipten/slidePage.git"
   },
   "bugs": {
     "url": "https://github.com/lipten/slidePage/issues"
@@ -22,7 +22,7 @@
     "h5",
     "fullpage"
   ],
-  "author": "lipten",
+  "author": "lipten < lipten@foxmail.com >",
   "license": "MIT",
   "homepage": "http://lipten.github.io/slidePage/",
   "dependencies": {
