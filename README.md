@@ -1,6 +1,6 @@
 # slidePage
 
- > slidePage现已推出3.0, 吸取了上一版本[slidePage v2.1.1](https://github.com/lipten/slidePage/tree/v2) 的各种经验，弥补不足，与v2.1.1不同的是移除了对jquery和zepto的依赖，精简到只有一个js文件，优化了接口调用方式，更适合主流的前端框架，现在只是简单的js版本，后续会陆续封装出主流框架的版本。
+ > slidePage现已推出3.0, 吸取了上一版本[slidePage v2.1.1](https://github.com/lipten/slidePage/tree/v2) 的各种经验，弥补不足，与v2.1.1不同的是移除了对jquery和zepto的依赖，精简到只有一个js文件，优化了接口调用方式，更适合主流的前端框架，另外还有基于vue的插件版本[vue-slidePage](https://github.com/lipten/vue-slidePage)和基于react的插件版本(https://github.com/lipten/react-slidePage)
 
 ### Demo:
 * [simple](http://lipten.link/projects/slidePage3/examples/simple.html)
