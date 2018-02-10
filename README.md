@@ -50,14 +50,14 @@ bower install slidePage
 
 ### Required HTML structure
 ```
-<div class="slidePage-container" id="slidePage-container">
-    <div class="page page1">
+<div class="slide-container" id="slide-container">
+    <div class="slide-page page1">
       <div class="container">
         <h2>page1</h2>
         <p>page1 content</p>
       </div>
     </div>
-    <div class="page page2">
+    <div class="slide-page page2">
       <div class="container">
         <h2>page2</h2>
         <p>page2 content</p>
@@ -75,7 +75,7 @@ new slidePage()
 ## Configuration
 ```
 var slidepage = new slidePage({
-    slideContainer: '#slidePage-container',
+    slideContainer: '#slide-container',
     slidePages: '.slide-item',
     page: 1,
     refresh: true,
