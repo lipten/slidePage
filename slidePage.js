@@ -22,7 +22,6 @@
 		});
 		window.addEventListener("test", null, opts);
 	} catch (e) { }
-	
 	var utils = {
 		getQueryParam: function (name) {
 			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -218,8 +217,8 @@
 			page: pageParams || 1,
 			slidePages: '.slide-page',
 			slideContainer: '.slide-container',
-			after: null,
-			before: null,
+			after: function(){},
+			before: function(){},
 			refresh: false,
 			useWheel: true,
 			useSwipe: true,
