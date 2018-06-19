@@ -210,7 +210,7 @@
 				}
 				(function (item) {
 					var timer = setTimeout(function () {
-						item.classList.add('transition');
+						if (item.classList && item.classList.add instanceof Function) item.classList.add('transition');
 						clearTimeout(timer);
 					});
 				})(item)
