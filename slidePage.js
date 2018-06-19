@@ -1,17 +1,17 @@
 
 
-(function  (root,  factory)  {
+(function (root, factory) {
 	'use strict';
-	if  (typeof  define  ===  'function'  &&  define.amd)  {
+	if (typeof define === 'function' && define.amd) {
 		define([], function () {
 			return factory(root, root.document);
 		});
-	}  else  if  (typeof  exports  ===  'object')  {
-		module.exports  =  factory(root, root.document);
-	} else  {
-		root.slidePage =  factory(root, root.document);
+	} else if (typeof exports === 'object') {
+		module.exports = factory(root, root.document);
+	} else {
+		root.slidePage = factory(root, root.document);
 	}
-}(typeof window !== 'undefined' ? window : this,  function  (window, document)  {
+}(typeof window !== 'undefined' ? window : this, function (window, document) {
 	'use strict';
 	var supportsPassive = false;
 	try {
@@ -135,10 +135,10 @@
 				}
 				var steps = this.items[index].querySelectorAll('.step');
 				var lazys = this.items[index].querySelectorAll('.lazy');
-				for (element of steps) {
+				for (var element of steps) {
 					element.style.display = 'none';
 				}
-				for (element of lazys) {
+				for (var element of lazys) {
 					element.style.display = 'none';
 				}
 			}
@@ -147,7 +147,7 @@
 		runAnimation: function (index, lazy) {
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
-				for (element of steps) {
+				for (var element of steps) {
 					var delay = element.getAttribute('data-delay') || 100;
 					var timer = setTimeout(function () {
 						element.style.display = '';
@@ -160,10 +160,10 @@
 			if (this.opt.useAnimation) {
 				var steps = this.container.querySelectorAll('.step');
 				var lazys = this.container.querySelectorAll('.lazy');
-				for (element of steps) {
+				for (var element of steps) {
 					element.style.display = 'none';
 				}
-				for (element of lazys) {
+				for (var element of lazys) {
 					element.style.display = 'none';
 				}
 				methods.runAnimation.call(this, index);
@@ -309,10 +309,10 @@
 			var i = 0, len = this.items.length;
 			var steps = this.container.querySelectorAll('.step');
 			var lazys = this.container.querySelectorAll('.lazy');
-			for (element of steps) {
+			for (var element of steps) {
 				element.style.display = '';
 			}
-			for (element of lazys) {
+			for (var element of lazys) {
 				element.style.display = '';
 			}
 			methods.runAnimation.call(this, 0);
