@@ -136,12 +136,12 @@
 				var steps = this.items[index].querySelectorAll('.step');
 				var lazys = this.items[index].querySelectorAll('.lazy');
 				for (var i = 0; i < steps.length; i++) {
-					var element = steps[i];
-					element.style.display = '';
+					var step = steps[i];
+					step.style.display = 'none';
 				}
-				for (var i = 0; i < lazys.length; i++) {
-					var element = lazys[i];
-					element.style.display = '';
+				for (var k = 0; k < lazys.length; k++) {
+					var lazy = lazys[k];
+					lazy.style.display = 'none';
 				}
 			}
 		},
@@ -150,10 +150,10 @@
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
 				for (var i = 0; i < steps.length; i++) {
-					var element = steps[i];
-					var delay = element.getAttribute('data-delay') || 100;
+					var step = steps[i];
+					var delay = step.getAttribute('data-delay') || 100;
 					var timer = setTimeout(function () {
-						element.style.display = '';
+						step.style.display = '';
 						clearTimeout(timer);
 					}, delay);
 				}
@@ -164,12 +164,12 @@
 				var steps = this.container.querySelectorAll('.step');
 				var lazys = this.container.querySelectorAll('.lazy');
 				for (var i = 0; i < steps.length; i++) {
-					var element = steps[i];
-					element.style.display = 'none';
+					var step = steps[i];
+					step.style.display = 'none';
 				}
-				for (var i = 0; i < lazys.length; i++) {
-					var element = lazys[i];
-					element.style.display = 'none';
+				for (var k = 0; k < lazys.length; k++) {
+					var lazy = lazys[k];
+					lazy.style.display = 'none';
 				}
 				methods.runAnimation.call(this, index);
 			}
@@ -314,13 +314,13 @@
 			var i = 0, len = this.items.length;
 			var steps = this.container.querySelectorAll('.step');
 			var lazys = this.container.querySelectorAll('.lazy');
-			for (var i = 0; i < steps.length; i++) {
-				var element = steps[i];
-				element.style.display = '';
+			for (var k = 0; k < steps.length; k++) {
+				var step = steps[k];
+				step.style.display = '';
 			}
-			for (var i = 0; i < lazys.length; i++) {
-				var element = lazys[i];
-				element.style.display = '';
+			for (var p = 0; p < lazys.length; p++) {
+				var elem = lazys[p];
+				elem.style.display = '';
 			}
 			methods.runAnimation.call(this, 0);
 		}
