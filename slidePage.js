@@ -135,11 +135,13 @@
 				}
 				var steps = this.items[index].querySelectorAll('.step');
 				var lazys = this.items[index].querySelectorAll('.lazy');
-				for (var element of steps) {
-					element.style.display = 'none';
+				for (var i = 0; i < steps.length; i++) {
+					var element = steps[i];
+					element.style.display = '';
 				}
-				for (var element of lazys) {
-					element.style.display = 'none';
+				for (var i = 0; i < lazys.length; i++) {
+					var element = lazys[i];
+					element.style.display = '';
 				}
 			}
 		},
@@ -147,7 +149,8 @@
 		runAnimation: function (index, lazy) {
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
-				for (var element of steps) {
+				for (var i = 0; i < steps.length; i++) {
+					var element = steps[i];
 					var delay = element.getAttribute('data-delay') || 100;
 					var timer = setTimeout(function () {
 						element.style.display = '';
@@ -160,10 +163,12 @@
 			if (this.opt.useAnimation) {
 				var steps = this.container.querySelectorAll('.step');
 				var lazys = this.container.querySelectorAll('.lazy');
-				for (var element of steps) {
+				for (var i = 0; i < steps.length; i++) {
+					var element = steps[i];
 					element.style.display = 'none';
 				}
-				for (var element of lazys) {
+				for (var i = 0; i < lazys.length; i++) {
+					var element = lazys[i];
 					element.style.display = 'none';
 				}
 				methods.runAnimation.call(this, index);
@@ -309,10 +314,12 @@
 			var i = 0, len = this.items.length;
 			var steps = this.container.querySelectorAll('.step');
 			var lazys = this.container.querySelectorAll('.lazy');
-			for (var element of steps) {
+			for (var i = 0; i < steps.length; i++) {
+				var element = steps[i];
 				element.style.display = '';
 			}
-			for (var element of lazys) {
+			for (var i = 0; i < lazys.length; i++) {
+				var element = lazys[i];
 				element.style.display = '';
 			}
 			methods.runAnimation.call(this, 0);
