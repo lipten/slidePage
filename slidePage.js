@@ -1,17 +1,17 @@
 
 
-(function (root, factory) {
+(function  (root,  factory)  {
 	'use strict';
-	if (typeof define === 'function' && define.amd) {
-		define([], function() {
+	if  (typeof  define  ===  'function'  &&  define.amd)  {
+		define([], function () {
 			return factory(root, root.document);
 		});
-	} else if (typeof exports === 'object') {
-		module.exports = factory(root, root.document);
- 	} else {
-		root.slidePage= factory(root, root.document);
+	}  else  if  (typeof  exports  ===  'object')  {
+		module.exports  =  factory(root, root.document);
+	} else  {
+		root.slidePage =  factory(root, root.document);
 	}
-}(typeof window !== 'undefined' ? window : this, function (window, document) {
+}(typeof window !== 'undefined' ? window : this,  function  (window, document)  {
 	'use strict';
 	var supportsPassive = false;
 	try {
@@ -41,10 +41,10 @@
 			var equalClass = el1.className.replace(/ transition/g, '') === el2.className.replace(/ transition/g, '');
 			return equalClass && equalNodeName && equalNodeType && equalHTML;
 		},
-		isDOM: function(obj){
+		isDOM: function (obj) {
 			if ((obj instanceof NodeList) || (obj instanceof HTMLCollection) && obj.length > 0) {
 				var isTrue = 0;
-				for (var i = 0, len = obj.length; i < len; i ++) {
+				for (var i = 0, len = obj.length; i < len; i++) {
 					(obj[i] instanceof Element) && (isTrue++);
 				}
 				return isTrue === len;
@@ -118,7 +118,7 @@
 				} else if (this.direction == 'prev') {
 					this.items[index].scrollTop = itemheight - windowH;
 				}
-				this.items[index].addEventListener('scroll', function(e) {
+				this.items[index].addEventListener('scroll', function (e) {
 					judgeScroll(index);
 				});
 			} else {
@@ -135,37 +135,37 @@
 				}
 				var steps = this.items[index].querySelectorAll('.step');
 				var lazys = this.items[index].querySelectorAll('.lazy');
-				steps.length > 0 && steps.forEach(function (element) {
+				for (element of steps) {
 					element.style.display = 'none';
-				})
-				lazys.length > 0 && lazys.forEach(function (element) {
+				}
+				for (element of lazys) {
 					element.style.display = 'none';
-				})
+				}
 			}
 		},
 		// 自动触发动画
 		runAnimation: function (index, lazy) {
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
-				steps.forEach(function (element) {
+				for (element of steps) {
 					var delay = element.getAttribute('data-delay') || 100;
 					var timer = setTimeout(function () {
 						element.style.display = '';
 						clearTimeout(timer);
 					}, delay);
-				})
+				}
 			}
 		},
 		initAnimation: function (items, index) {
 			if (this.opt.useAnimation) {
 				var steps = this.container.querySelectorAll('.step');
 				var lazys = this.container.querySelectorAll('.lazy');
-				steps.length > 0 && steps.forEach(function (element) {
+				for (element of steps) {
 					element.style.display = 'none';
-				})
-				lazys.length > 0 && lazys.forEach(function (element) {
+				}
+				for (element of lazys) {
 					element.style.display = 'none';
-				})
+				}
 				methods.runAnimation.call(this, index);
 			}
 			for (var i = 0, item; item = this.items[i]; i++) {
@@ -178,7 +178,7 @@
 						item.style.transform = 'translate3d(0, 100%, 0)';
 					}
 				}
-				(function(item) {
+				(function (item) {
 					var timer = setTimeout(function () {
 						item.classList.add('transition');
 						clearTimeout(timer);
@@ -186,7 +186,7 @@
 				})(item)
 			}
 		},
-	
+
 		initEvent: function () {
 			// 滚轮事件
 			if (this.opt.useWheel) {
@@ -194,7 +194,7 @@
 				document.addEventListener('DOMMouseScroll', this.eventHandler.wheelFunc, supportsPassive ? { passive: true } : false);
 				document.addEventListener('mousewheel', this.eventHandler.wheelFunc, supportsPassive ? { passive: true } : false);
 			}
-	
+
 			// 滑动事件
 			if (this.opt.useSwipe) {
 				touchPoint = {
@@ -205,20 +205,20 @@
 				this.container.addEventListener('touchmove', this.eventHandler.touchMove);
 				this.container.addEventListener('touchend', this.eventHandler.touchEnd, supportsPassive ? { passive: true } : false);
 			}
-	
+
 			// 当每次滑动结束后的触发的事件
 			this.container.addEventListener('transitionend', this.eventHandler.transitionEnd);
 		}
 	}
-	
+
 	var slidePage = function (opt) {
 		var pageParams = utils.getQueryParam('page') * 1;
 		var default_opt = {
 			page: pageParams || 1,
 			slidePages: '.slide-page',
 			slideContainer: '.slide-container',
-			after: function(){},
-			before: function(){},
+			after: function () { },
+			before: function () { },
 			refresh: false,
 			useWheel: true,
 			useSwipe: true,
@@ -244,8 +244,8 @@
 		methods.initAnimation.call(this, this.items, this.page - 1);
 		this.slideTo(this.page);
 	}
-	
-	
+
+
 	slidePage.prototype.slideNext = function (optimize) {
 		if (this.count <= this.page) {
 			return false;
@@ -256,7 +256,7 @@
 		this.items[this.page].style.transform = 'translate3d(0, 0, 0)';
 		this.page++;
 		this.opt.before(this.page - 1, this.direction, this.page);
-	
+
 		if (!optimize) {
 			this.canSlide = false;
 			methods.runAnimation.call(this, this.page - 1);
@@ -277,7 +277,7 @@
 			methods.runAnimation.call(this, this.page - 1);
 		}
 	}
-	
+
 	slidePage.prototype.slideTo = function (index) {
 		if (index >= 1 && index <= this.count) {
 			if (index == this.page) {
@@ -297,48 +297,48 @@
 			}
 		}
 	}
-	
+
 	slidePage.prototype.slideFire = function (page) {
 		var index = page ? page - 1 : this.page - 1;
 		methods.runAnimation.call(this, index, '.lazy');
 	}
-	
+
 	slidePage.prototype.destroy = function () {
 		if (this.opt.useAnimation) {
 			// 移除所有隐藏元素
 			var i = 0, len = this.items.length;
 			var steps = this.container.querySelectorAll('.step');
 			var lazys = this.container.querySelectorAll('.lazy');
-			steps.length > 0 && steps.forEach(function (element) {
+			for (element of steps) {
 				element.style.display = '';
-			})
-			lazys.length > 0 && lazys.forEach(function (element) {
+			}
+			for (element of lazys) {
 				element.style.display = '';
-			})
+			}
 			methods.runAnimation.call(this, 0);
 		}
-	
+
 		// 滚轮事件
 		if (this.opt.useWheel) {
 			document.removeEventListener('DOMMouseScroll', this.eventHandler.wheelFunc);
 			document.removeEventListener('mousewheel', this.eventHandler.wheelFunc);
 			this.items[this.page - 1].style.transform = 'translate3d(0, 0, 0)';
 		}
-	
+
 		// 滑动事件
 		if (this.opt.useSwipe) {
 			var startpoint = 0;
 			var endpoint = 0;
-	
+
 			this.container.removeEventListener('touchstart', this.eventHandler.touchStart);
 			this.container.removeEventListener('touchmove', this.eventHandler.touchMove);
 			this.container.removeEventListener('touchend', this.eventHandler.touchEnd);
 		}
-	
+
 		// 当每次滑动结束后的触发的事件
 		this.container.removeEventListener('transitionend', this.eventHandler.transitionEnd);
 	}
-	
+
 	slidePage.prototype.update = function (pages) {
 		// 回到第一屏
 		this.canSlide = true;
