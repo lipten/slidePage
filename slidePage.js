@@ -94,9 +94,19 @@ if (!("classList" in document.documentElement)) {
 		}
 	}
 	var touchPoint = {}
+	var prevTime = new Date().getTime();
 	var eventHandler = {
 		wheelFunc: function (e) {
 			var e = e || window.event;
+			if (this.isScroll) {
+				return;
+			}
+			var curTime = new Date().getTime();
+			var timeDiff = curTime - prevTime;
+			prevTime = curTime;
+			if(timeDiff <= 50){
+				return;
+			}
 			if (e.wheelDeltaY < 0 || e.wheelDelta < 0 || e.detail > 0) {
 				this.canSlide && this.canNext && this.slideNext();
 			} else if (e.wheelDeltaY > 0 || e.wheelDelta > 0 || e.detail < 0) {
