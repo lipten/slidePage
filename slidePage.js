@@ -186,12 +186,12 @@ if (!("classList" in document.documentElement)) {
 				var steps = this.items[index].querySelectorAll('.step');
 				var lazys = this.items[index].querySelectorAll('.lazy');
 				if (steps.length > 0) {
-					for (var element of steps) {
+					for (var element of Array.from(steps)) {
 						element.style.display = 'none';
 					}
 				}
 				if (lazys.length > 0) {
-					for (var element of lazys) {
+					for (var element of Array.from(lazys)) {
 						element.style.display = 'none';
 					}
 				}
@@ -207,7 +207,7 @@ if (!("classList" in document.documentElement)) {
 		runAnimation: function (index, lazy) {
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
-				for (var element of steps) {
+				for (var element of Array.from(steps)) {
 					triggerAnim(element);
 				}
 				function triggerAnim(element) {
@@ -231,12 +231,12 @@ if (!("classList" in document.documentElement)) {
 				var steps = this.container.querySelectorAll('.step');
 				var lazys = this.container.querySelectorAll('.lazy');
 				if (steps.length > 0) {
-					for (var element of steps) {
+					for (var element of Array.from(steps)) {
 						element.style.display = 'none';
 					}
 				}
 				if (lazys.length > 0) {
-					for (var element of lazys) {
+					for (var element of Array.from(lazys)) {
 						element.style.display = 'none';
 					}
 				}
