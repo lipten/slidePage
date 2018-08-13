@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp"
+    "build": "gulp",
+    "server": "node server"
   },
   "repository": {
     "type": "git",
@@ -28,8 +29,9 @@
   "homepage": "http://lipten.github.io/slidePage/",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "express": "^4.16.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-clean-css": "^3.9.2",

@@ -214,3 +214,16 @@ var slidepage = new slidePage({
 
 > 此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看示例源码了解：[custom.html](https://github.com/lipten/slidePage/blob/master/examples/custom.html)
 
+
+## Contributing
+
+### development
+本地运行
+```
+npm install
+npm run server
+```
+构建
+```
+npm run build
+```
