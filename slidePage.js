@@ -187,20 +187,16 @@ if (!("classList" in document.documentElement)) {
 				var lazys = this.items[index].querySelectorAll('.lazy');
 				if (steps.length > 0) {
 					for (var element of Array.from(steps)) {
-						element.style.display = 'none';
+						element.style.visibility = 'hidden';
+						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
 				}
 				if (lazys.length > 0) {
 					for (var element of Array.from(lazys)) {
-						element.style.display = 'none';
+						element.style.visibility = 'hidden';
+						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
 				}
-				// steps.length > 0 && steps.forEach(function (element) {
-				// 	element.style.display = 'none';
-				// })
-				// lazys.length > 0 && lazys.forEach(function (element) {
-				// 	element.style.display = 'none';
-				// })
 			}
 		},
 		// 自动触发动画
@@ -213,17 +209,12 @@ if (!("classList" in document.documentElement)) {
 				function triggerAnim(element) {
 					var delay = element.getAttribute('data-delay') || 100;
 					var timer = setTimeout(function () {
-						element.style.display = '';
+						// 将style属性去除即可播放动画
+						element.style.visibility = '';
+						element.style.animationName = '';
 						clearTimeout(timer);
 					}, delay);
 				}
-				// steps.forEach(function (element) {
-				// 	var delay = element.getAttribute('data-delay') || 100;
-				// 	var timer = setTimeout(function () {
-				// 		element.style.display = '';
-				// 		clearTimeout(timer);
-				// 	}, delay);
-				// })
 			}
 		},
 		initAnimation: function (items, index) {
@@ -232,20 +223,17 @@ if (!("classList" in document.documentElement)) {
 				var lazys = this.container.querySelectorAll('.lazy');
 				if (steps.length > 0) {
 					for (var element of Array.from(steps)) {
-						element.style.display = 'none';
+						// 初始设置动画元素为不可见，且animationName是不可用的以控制不播放动画
+						element.style.visibility = 'hidden';
+						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
 				}
 				if (lazys.length > 0) {
 					for (var element of Array.from(lazys)) {
-						element.style.display = 'none';
+						element.style.visibility = 'hidden';
+						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
 				}
-				// steps.length > 0 && steps.forEach(function (element) {
-				// 	element.style.display = 'none';
-				// })
-				// lazys.length > 0 && lazys.forEach(function (element) {
-				// 	element.style.display = 'none';
-				// })
 				methods.runAnimation.call(this, index);
 			}
 			for (var i = 0, item; item = this.items[i]; i++) {
@@ -391,12 +379,12 @@ if (!("classList" in document.documentElement)) {
 			var lazys = this.container.querySelectorAll('.lazy');
 			if (steps.length > 0) {
 				for (var element of steps) {
-					element.style.display = '';
+					element.style.visibility = '';
 				}
 			}
 			if (lazys.length > 0) {
 				for (var element of lazys) {
-					element.style.display = '';
+					element.style.visibility = '';
 				}
 			}
 			// steps.length > 0 && steps.forEach(function (element) {
