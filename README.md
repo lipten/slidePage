@@ -32,20 +32,11 @@ slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码
 
 ## Usage
 
-### Install slidePage
-```
-// With npm
-npm install slidePage
-
-// With bower
-bower install slidePage
-```
-
 ### Including files
 ```
-<link rel="stylesheet" type="text/css" href="slidePage.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.css">
 
-<script type="text/javascript" src="slidePage.js"></script>
+<script type="text/javascript" src="<script src="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.js"></script>
 ```
 
 ### Required HTML structure
