@@ -192,7 +192,7 @@ var slidepage = new slidePage({
 ### slidepage.slideTo(page)
 传入page页码，滑动定位到对应的page
 
-### slidepage.slideFile(page)
+### slidepage.slideFire(page)
 触发对应 page 的lazy手动动画
 
 ### slidepage.destroy()
