@@ -3,3 +3,4 @@ bower_components/
 .vscode/
 .DS_Store
 yarn-error.log
+package-lock.json
