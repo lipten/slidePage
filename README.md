@@ -10,7 +10,7 @@
 * [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Featured
-slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码只有12kb，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，具有单屏内容滚动、手动播放动画、动态重绘等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码只有12kb，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，具有单屏内容滚动、手动播放动画、动态重绘等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Documentation:
 * [Usage](#usage)
@@ -32,20 +32,11 @@ slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码
 
 ## Usage
 
-### Install slidePage
-```
-// With npm
-npm install slidePage
-
-// With bower
-bower install slidePage
-```
-
 ### Including files
 ```
-<link rel="stylesheet" type="text/css" href="slidePage.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.css">
 
-<script type="text/javascript" src="slidePage.js"></script>
+<script type="text/javascript" src="<script src="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.js"></script>
 ```
 
 ### Required HTML structure
@@ -108,7 +99,7 @@ var slidepage = new slidePage({
       <td>指定slidePage要运行的容器选择器或元素</td>
     </tr>
     <tr>
-      <td>slidePages</td>
+      <td>slidePages</td>
       <td>String|NodeList|HTMLCollection</td>
       <td>'.slide-page'</td>
       <td>指定`slideContainer`容器里每个page的选择器或元素</td>
@@ -158,11 +149,11 @@ var slidepage = new slidePage({
   <tbody>
     <tr>
       <td>before</td>
-      <td>每次全屏滚动前触发事件，回调三个参数(origin, direction, target)，分别是滚动前的page序号、方向('next'|'prev')、滚动后的page序号</td>
+      <td>每次全屏滚动前触发事件，回调三个参数(origin, direction, target)，分别是滚动前的page序号、方向('next'|'prev')、滚动后的page序号</td>
     </tr>
     <tr>
       <td>after</td>
-      <td>每次全屏滚动后触发事件，回调三个参数(origin, direction, target)，参数释义同上</td>
+      <td>每次全屏滚动后触发事件，回调三个参数(origin, direction, target)，参数释义同上</td>
     </tr>
   </tbody>
 </table>
@@ -201,18 +192,18 @@ var slidepage = new slidePage({
 ### slidepage.slideTo(page)
 传入page页码，滑动定位到对应的page
 
-### slidepage.slideFile(page)
-触发对应 page 的lazy手动动画
+### slidepage.slideFire(page)
+触发对应 page 的lazy手动动画
 
 ### slidepage.destroy()
-销毁当前实例，移除所有事件恢复class属性值。
+销毁当前实例，移除所有事件恢复class属性值。
 
 ### slidepage.update(newSlidePages)
 当html里的page发生变化时需要执行动态更新。
 
-`newSlidePages`参数非必填，仅应对于初始化的时候`slidePages`参数传入的是`NodeList`或`HTMLCollection`时才需要在更新的时候再传一次变化后的DOM结构通知更新。
+`newSlidePages`参数非必填，仅应对于初始化的时候`slidePages`参数传入的是`NodeList`或`HTMLCollection`时才需要在更新的时候再传一次变化后的DOM结构通知更新。
 
-> 此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看示例源码了解：[custom.html](https://github.com/lipten/slidePage/blob/master/examples/custom.html)
+> 此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看示例源码了解：[custom.html](https://github.com/lipten/slidePage/blob/master/examples/custom.html)
 
 
 ## Contributing
