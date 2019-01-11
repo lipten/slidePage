@@ -438,6 +438,7 @@ if (!("classList" in document.documentElement)) {
 		this.count = this.items.length;
 		this.slideTo(this.page);
 		methods.initAnimation.call(this, this.items, this.page - 1);
+		methods.slideScroll.call(this, this.page - 1);
 	}
 	return slidePage;
 }));
