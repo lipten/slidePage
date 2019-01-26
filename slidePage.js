@@ -188,28 +188,30 @@ if (!("classList" in document.documentElement)) {
 		}
 	}
 	var methods = {
-		slideScroll: function (index) {
+		slideScroll: function (index, command) {
 			var itemheight = this.items[index].children[0].offsetHeight;
 			var windowH = window.innerHeight;
 			var judgeScroll = function (index) {
 				var windowH = window.innerHeight;
-				var isBottom = itemheight <= this.items[index].scrollTop + windowH;
+				var isBottom = itemheight == this.items[index].scrollTop + windowH;
 				var isTop = this.items[index].scrollTop == 0;
 				this.canPrev = isTop && !isBottom;
 				this.canNext = isBottom && !isTop;
 				this.isScroll = !(isBottom || isTop)
-			}.bind(this)
-			if ((itemheight - windowH) > 20) {
+			}.bind(this, index)
+			if (command == 'removeListener') {
+				this.items[index].removeEventListener('scroll', judgeScroll);
+				return;
+			}
+			if ((itemheight - windowH) > 10) {
 				this.items[index].children[0].children[0].focus();
-				judgeScroll(index);
+				judgeScroll();
 				if (this.direction == 'next') {
 					this.items[index].scrollTop = 0;
 				} else if (this.direction == 'prev') {
 					this.items[index].scrollTop = itemheight - windowH;
 				}
-				this.items[index].addEventListener('scroll', function (e) {
-					judgeScroll(index);
-				});
+				this.items[index].addEventListener('scroll', judgeScroll);
 			} else {
 				this.canPrev = true;
 				this.canNext = true;
@@ -378,6 +380,7 @@ if (!("classList" in document.documentElement)) {
 			this.items[this.page].classList.add('transition');
 		}
 		this.direction = 'next';
+		methods.slideScroll.call(this, this.page - 1, 'removeListener');
 		methods.slideScroll.call(this, this.page);
 		this.items[this.page - 1].style.transform = 'translate3d(0, -100%, 0)';
 		this.items[this.page].style.transform = 'translate3d(0, 0, 0)';
@@ -398,6 +401,7 @@ if (!("classList" in document.documentElement)) {
 			this.items[this.page - 1].classList.add('transition');
 		}
 		this.direction = 'prev';
+		methods.slideScroll.call(this, this.page - 1, 'removeListener');
 		methods.slideScroll.call(this, this.page - 2);
 		this.items[this.page - 2].style.transform = 'translate3d(0, 0, 0)';
 		this.items[this.page - 1].style.transform = 'translate3d(0, 100%, 0)';
