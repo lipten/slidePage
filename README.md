@@ -9,7 +9,7 @@
 * [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Featured
-slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，可实现内容超出屏幕滚动、手动播放动画、动态更新等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，可实现内容超出屏幕滚动、手动播放动画、动态更新等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Documentation:
 * [Usage](#usage)
@@ -27,6 +27,7 @@ slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压�
   * [slidepage.slideFile(page)](#slidepageslidefilepage)
   * [slidepage.destroy()](#slidepagedestroy)
   * [slidepage.update()](#slidepageupdate)
+* [Troubleshooting(常见问题汇总)](https://github.com/lipten/slidePage/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
 
 
 ## Usage
