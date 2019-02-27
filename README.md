@@ -1,165 +1,235 @@
-
 # slidePage
-Demo:http://lipten.link/projects/slidePage/demo.html?page=1
+
+### Demo:
+* [simple](http://lipten.link/projects/slidePage3/examples/simple.html)
+* [animated](http://lipten.link/projects/slidePage3/examples/animated.html)
+* [scroll](http://lipten.link/projects/slidePage3/examples/scroll.html) 
+* [custom](http://lipten.link/projects/slidePage3/examples/custom.html) 
+* [dragMode](http://lipten.link/projects/slidePage3/examples/drag.html) 
+* [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+
+### Featured
+slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，可实现内容超出屏幕滚动、手动播放动画、动态更新等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+
+### Documentation:
+* [Usage](#usage)
+  * [Install slidePage](#install-slidepage)
+  * [Including files](#including-files)
+  * [Required HTML structure](#required-html-structure)
+  * [Initialization](#initialization)
+* [Configuration](#configuration)
+* [Options](#options)
+* [Using Animation](#using-animation)
+* [Methods](#methods)
+  * [slidepage.slideNext()](#slidepageslidenext)
+  * [slidepage.slidePrev()](#slidepageslideprev)
+  * [slidepage.slideTo(page)](#slidepageslidetopage)
+  * [slidepage.slideFile(page)](#slidepageslidefilepage)
+  * [slidepage.destroy()](#slidepagedestroy)
+  * [slidepage.update()](#slidepageupdate)
+* [Troubleshooting(常见问题汇总)](https://github.com/lipten/slidePage/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
 
 
-###-update v0.6-
-1.加入了分页组件。
+## Usage
 
-2.开放了三个方法：slidePage.index()、slidePage.next()和slidePage.prev(),详情见文档;
-
-
-###-update v0.5.2-
-1.html结构有所改变：滚动的父容器除了加"slidePage-container"的class样式外还要加多个"slidePage-container"的id
+### Including files
 ```
-<div class="slidePage-container" id="slidePage-container">
-```
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.css">
 
-###-update v0.5.1-
-1.去除了slidePage_Mobile版本(只有十行左右的区别，没必要)。
-
-2.mobile版本的需求衍生成useWheel和useKeyboard两个参数来开关键盘事件和滚轮事件.
-
-
-###安装方法
-
-####1、下载slidePage
-利用bower安装
-```
-bower install slidePage
-```
-或者克隆到本地
-```
-git clone https://github.com/lipten/slidePage.git
-```
-
-
-####2、引用相关文件
-```
-<link rel="stylesheet" type="text/css" href="slidePage.css">        //插件必须样式
-<link rel="stylesheet" type="text/css" href="page-animation.css">   //动画样式，可自己编写
-```
-
-####3、引用js文件
-```
-<script type="text/javascript" src="zepto.min.js"></script>         //zepto.js类库
-<script type="text/javascript" src="slidePage.js"></script>         //slidePage主文件，支持手机和PC浏览
-                                                                    
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.js"></script>
 ```
 
-####4、html结构
+### Required HTML structure
 ```
-<div class="slidePage-container" id="slidePage-container">
-    <div class="item page1">
+<div class="slide-container" id="slide-container">
+    <div class="slide-page page1">
+      <div class="container">
         <h2>page1</h2>
-        <div class="step step1 fadeIn" data-delay="1000"></div>
-        <div class="step step2 fadeIn"></div>
+        <p>page1 content</p>
+      </div>
     </div>
-    <div class="item page2">
+    <div class="slide-page page2">
+      <div class="container">
         <h2>page2</h2>
-        <div class="step step1 slideRight" data-delay="1300"></div>
-        <div class="step step2 slideLeft"></div>
-        <div class="step step3 zoomIn"></div>
+        <p>page2 content</p>
+      </div>
     </div>
 </div>
 ```
+您可以查看完整examples里的html文件结构 [fullFeatured.html](https://github.com/lipten/slidePage/blob/master/examples/fullFeatured.html)
 
-
-####5、初始化代码
+### Initialization
 ```
-slidePage.init();
+new slidePage()
 ```
 
-## Doc
-slidePage.init(options);
+## Configuration
+```
+var slidepage = new slidePage({
+    slideContainer: '#slide-container',
+    slidePages: '.slide-item',
+    page: 1,
+    refresh: true,
+    dragMode: false,
+    useWheel: true,
+    useSwipe: true,
+    useAnimation : true,
 
-options:(default)
+    // Events
+    before: function(origin,direction,target){},
+    after: function(origin,direction,target){},
+ });
+```
+## Options
+> 在slidePage中，page指的是每一次全屏滚动的一屏，也可以理解为每一屏对应的页码，必须是1以上的整数
 
-<pre>
-{
-    'index' : 1,
-    'before' : function(index){},
-    'after' : function(index){},
-    'speed' : 700
-    'refresh'  : true,
-    'useWheel' : true,
-    'useKeyboard' : true,
-    'useArrow' : true,
-    'useAnimation' : true,
-    'pagination': true,
-    'useMusic' : {
-        'autoPlay' : true,
-        'loopPlay' : true,
-        'src' : 'Summer.mp3'
-    }
- };
-</pre>
-####index
-初始进入的索引页面，值为1时从第一页开始，默认为1
-####before
-触发页面滚动前的回调，参数index为滚动前的页面索引号
-####after
-触发页面滚动后的回调，参数index为滚动后的页面索引号
-####speed
-页面过渡的动画时间，以毫秒为单位
-####refresh
-往回滚的时候是否重新执行动画
-####useWheel
-开启或关闭鼠标滚轮滑动
-####useKeyboard
-开启或关闭键盘上下键控制滚动
-####useArrow
-使用自带样式的下箭头提示图标
-####useAnimation
-开启或关闭动画
-####useMusic
-使用音乐，并有音乐图标提示用户控制播放(不使用直接赋值false)
+<table>
+  <thead>
+  <tr>
+    <th>name</th>
+    <th>type</th>
+    <th>default</th>
+    <th>description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>slideContainer</td>
+      <td>String|Element</td>
+      <td>'.slide-container'</td>
+      <td>指定slidePage要运行的容器选择器或元素</td>
+    </tr>
+    <tr>
+      <td>slidePages</td>
+      <td>String|NodeList|HTMLCollection</td>
+      <td>'.slide-page'</td>
+      <td>指定`slideContainer`容器里每个page的选择器或元素</td>
+    </tr>
+    <tr>
+      <td>page</td>
+      <td>Number</td>
+      <td>1</td>
+      <td>首次进入的page页码</td>
+    </tr>
+    <tr>
+      <td>dragMode</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>💡移动端开启触控拖动滑屏模式(此功能还在测试阶段)，默认为false，前提是`useSwipe: true`</td>
+    </tr>
+    <tr>
+      <td>useAnimation</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>是否开启动画</td>
+    </tr>
+    <tr>
+      <td>refresh</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>每次滚动进入是否重新执行动画</td>
+    </tr>
+    <tr>
+      <td>useWheel</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>是否开启鼠标滚轮滑动</td>
+    </tr>
+    <tr>
+      <td>useSwipe</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>是否开启移动端触控滑动</td>
+    </tr>
+  </tbody>
+</table>
 
-###使用动画
-<pre>
-&lt;div class="step slideRight" data-delay="1300"&gt;&lt;/div&gt;
-</pre>
+## Events
+
+<table>
+  <thead>
+  <tr>
+    <th>name</th>
+    <th>description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>before</td>
+      <td>每次全屏滚动前触发事件，回调三个参数(origin, direction, target)，分别是滚动前的page序号、方向('next'|'prev')、滚动后的page序号</td>
+    </tr>
+    <tr>
+      <td>after</td>
+      <td>每次全屏滚动后触发事件，回调三个参数(origin, direction, target)，参数释义同上</td>
+    </tr>
+  </tbody>
+</table>
+
+## Using Animation
+
+> 为了方便示例用animate.css，动画效果可以自己实现
+
+### Include animate.css
+```
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+```
+
+### HTML structure
+```
+<div class="step animated fadeIn" data-delay="1300"></div>;
+```
 在想要动画控制的元素上加上step类，并加上css动画类名即可使用动画，data-delay属性控制动画延时播放(默认为100毫秒);
-此项目还为您准备了一套css动画：page-animation.css，可自由更改或添加您想要的动画，
 
-####动效列表:
-<pre>
-[
-    fadeIn,                 //渐显动画
-    fadeFlash,              //闪烁动画
-    flaxLine,               //伸展线条(基于父容器的宽度伸到100%)
-    borderFlash,            //闪烁边框(红色边框)
-    forceDown,              //重力砸下的动画(不是弹跳动画)
-    slideLeft,              //从左边渐现移动出现
-    slideRight,             //从右边渐现移动出现
-    slideUp,                //从上边渐现移动出现
-    slideDown,              //从下边渐现移动出现
-    rotateIn,               //旋转渐现出现
-    zoomIn,                 //缩放渐显出现
-    heartBeat,              //若隐若现
-    rollInLeft,             //从左边旋转渐现
-    rollInRight             //从右边旋转渐现
-]
-</pre>
+#### 手动触发动画
+
+```
+<div class="lazy animated fadeIn"></div>
+```
+1. 在想要手动播放动画的元素上加上lazy类，并加上css动画类名即可使用动画，可以加上data-delay使触发时再延时播放;
+2. 通过slidepage.slideFire(page)指定某一页的lazy动画触发播放。
+
+## Drag Mode
+> 最新加入的拖动滑屏模式，在实例化时传入配置`dragMode: true`，即可开启，此功能目前为测试阶段，请酌情使用。
+
+现已加入Demo系列豪华套餐：
+* [dragMode](http://lipten.link/projects/slidePage3/examples/drag.html) 
+
+需要注意的是，为了滑动松手后的动画体验更好，记得在你的项目里设置过渡动画类`.slide-container .slide-page.transition`，调整过渡函数和时长。具体查看示例代码：https://github.com/lipten/slidePage/blob/master/examples/drag.html#L13
+
+## Methods
+
+### slidepage.slideNext()
+滑动定位到下一屏
+
+### slidepage.slidePrev()
+滑动定位到上一屏
+
+### slidepage.slideTo(page)
+传入page页码，滑动定位到对应的page
+
+### slidepage.slideFire(page)
+触发对应 page 的lazy手动动画
+
+### slidepage.destroy()
+销毁当前实例，移除所有事件恢复class属性值。
+
+### slidepage.update(newSlidePages)
+当html里的page发生变化时需要执行动态更新。
+
+`newSlidePages`参数非必填，仅应对于初始化的时候`slidePages`参数传入的是`NodeList`或`HTMLCollection`时才需要在更新的时候再传一次变化后的DOM结构通知更新。
+
+> 此方法非常适合现在流行的数据驱动型框架，当模型数据驱动改变pege的排列时，执行update可以起到更新的作用，可以先看示例源码了解：[custom.html](https://github.com/lipten/slidePage/blob/master/examples/custom.html)
 
 
+## Contributing
 
-####更新历史
-
-###-update v0.5-
-1.兼容了桌面系统，使用鼠标滚轮或者键盘上下键即可全屏滚动。
-
-###-update v0.4-
-1.新增参数speed(页面过渡的动画时间，毫秒为单位)
-
-2.修复refresh参数的bug.
-
-###-update v0.3-
-1.新增参数refresh(回滚的时候是否重新执行动画，默认为true)
-
-2.修复无page参数的bug.
-
-###-update v0.2-
-1.新增url参数pege跳转指定页，优先于index参数.
-
-2.已加入bower大军.
+### development
+本地运行
+```
+npm install
+npm run server
+```
+构建
+```
+npm run build
+```
