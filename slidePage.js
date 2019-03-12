@@ -186,13 +186,13 @@ if (!("classList" in document.documentElement)) {
 				var steps = this.items[index].querySelectorAll('.step');
 				var lazys = this.items[index].querySelectorAll('.lazy');
 				if (steps.length > 0) {
-					for (var element of Array.from(steps)) {
+					for (var element of Array.prototype.slice.call(steps)) {
 						element.style.visibility = 'hidden';
 						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
 				}
 				if (lazys.length > 0) {
-					for (var element of Array.from(lazys)) {
+					for (var element of Array.prototype.slice.call(lazys)) {
 						element.style.visibility = 'hidden';
 						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
@@ -203,7 +203,7 @@ if (!("classList" in document.documentElement)) {
 		runAnimation: function (index, lazy) {
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
-				for (var element of Array.from(steps)) {
+				for (var element of Array.prototype.slice.call(steps)) {
 					triggerAnim(element);
 				}
 				function triggerAnim(element) {
@@ -222,14 +222,14 @@ if (!("classList" in document.documentElement)) {
 				var steps = this.container.querySelectorAll('.step');
 				var lazys = this.container.querySelectorAll('.lazy');
 				if (steps.length > 0) {
-					for (var element of Array.from(steps)) {
+					for (var element of Array.prototype.slice.call(steps)) {
 						// 初始设置动画元素为不可见，且animationName是不可用的以控制不播放动画
 						element.style.visibility = 'hidden';
 						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
 				}
 				if (lazys.length > 0) {
-					for (var element of Array.from(lazys)) {
+					for (var element of Array.prototype.slice.call(lazys)) {
 						element.style.visibility = 'hidden';
 						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
 					}
