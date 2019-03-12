@@ -1,16 +1,15 @@
 # slidePage
 
- > slidePage现已推出3.0, 吸取了上一版本[slidePage v2.1.1](https://github.com/lipten/slidePage/tree/v2) 的各种经验，弥补不足，与v2.1.1不同的是移除了对jquery和zepto的依赖，精简到只有一个js文件，优化了接口调用方式，更适合主流的前端框架，另外还有基于vue的插件版本[vue-slidePage](https://github.com/lipten/vue-slidePage)和基于react的插件版本[react-slidePage](https://github.com/lipten/react-slidePage)
-
 ### Demo:
 * [simple](http://lipten.link/projects/slidePage3/examples/simple.html)
 * [animated](http://lipten.link/projects/slidePage3/examples/animated.html)
 * [scroll](http://lipten.link/projects/slidePage3/examples/scroll.html) 
 * [custom](http://lipten.link/projects/slidePage3/examples/custom.html) 
+* [dragMode](http://lipten.link/projects/slidePage3/examples/drag.html) 
 * [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Featured
-slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码只有12kb，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，具有单屏内容滚动、手动播放动画、动态重绘等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，可实现内容超出屏幕滚动、手动播放动画、动态更新等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
 
 ### Documentation:
 * [Usage](#usage)
@@ -28,6 +27,7 @@ slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码
   * [slidepage.slideFile(page)](#slidepageslidefilepage)
   * [slidepage.destroy()](#slidepagedestroy)
   * [slidepage.update()](#slidepageupdate)
+* [Troubleshooting(常见问题汇总)](https://github.com/lipten/slidePage/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
 
 
 ## Usage
@@ -36,7 +36,7 @@ slidePage3 特别适合主流前端框架开发，无任何依赖库，源代码
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.css">
 
-<script type="text/javascript" src="<script src="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lipten/slidePage/dist/slidePage.min.js"></script>
 ```
 
 ### Required HTML structure
@@ -70,6 +70,7 @@ var slidepage = new slidePage({
     slidePages: '.slide-item',
     page: 1,
     refresh: true,
+    dragMode: false,
     useWheel: true,
     useSwipe: true,
     useAnimation : true,
@@ -109,6 +110,12 @@ var slidepage = new slidePage({
       <td>Number</td>
       <td>1</td>
       <td>首次进入的page页码</td>
+    </tr>
+    <tr>
+      <td>dragMode</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>💡移动端开启触控拖动滑屏模式(此功能还在测试阶段)，默认为false，前提是`useSwipe: true`</td>
     </tr>
     <tr>
       <td>useAnimation</td>
@@ -180,6 +187,14 @@ var slidepage = new slidePage({
 ```
 1. 在想要手动播放动画的元素上加上lazy类，并加上css动画类名即可使用动画，可以加上data-delay使触发时再延时播放;
 2. 通过slidepage.slideFire(page)指定某一页的lazy动画触发播放。
+
+## Drag Mode
+> 最新加入的拖动滑屏模式，在实例化时传入配置`dragMode: true`，即可开启，此功能目前为测试阶段，请酌情使用。
+
+现已加入Demo系列豪华套餐：
+* [dragMode](http://lipten.link/projects/slidePage3/examples/drag.html) 
+
+需要注意的是，为了滑动松手后的动画体验更好，记得在你的项目里设置过渡动画类`.slide-container .slide-page.transition`，调整过渡函数和时长。具体查看示例代码：https://github.com/lipten/slidePage/blob/master/examples/drag.html#L13
 
 ## Methods
 
