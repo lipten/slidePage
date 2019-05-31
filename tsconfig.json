@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "skipDefaultLibCheck": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "target": "es2016",
+    "lib": [
+      "es2016"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": false,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "baseUrl": "./"
+  },
+  "files": [
+    "./js_transition.d.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true
+  }
+}
