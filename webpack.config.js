@@ -1,3 +1,5 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const main = [
   __dirname + '/slidePage2.js',
 ]
@@ -27,4 +29,7 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    // new BundleAnalyzerPlugin()
+  ]
 }
