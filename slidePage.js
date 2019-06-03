@@ -1,58 +1,5 @@
-if (!("classList" in document.documentElement)) {
-	Object.defineProperty(HTMLElement.prototype, 'classList', {
-		get: function () {
-			var self = this;
-			function update(fn) {
-				return function (value) {
-					var classes = self.className.split(/\s+/g),
-						index = classes.indexOf(value);
-
-					fn(classes, index, value);
-					self.className = classes.join(" ");
-				}
-			}
-
-			return {
-				add: update(function (classes, index, value) {
-					if (!~index) classes.push(value);
-				}),
-
-				remove: update(function (classes, index) {
-					if (~index) classes.splice(index, 1);
-				}),
-
-				toggle: update(function (classes, index, value) {
-					if (~index)
-						classes.splice(index, 1);
-					else
-						classes.push(value);
-				}),
-
-				contains: function (value) {
-					return !!~self.className.split(/\s+/g).indexOf(value);
-				},
-
-				item: function (i) {
-					return self.className.split(/\s+/g)[i] || null;
-				}
-			};
-		}
-	});
-}
-
-(function (root, factory) {
-	'use strict';
-	if (typeof define === 'function' && define.amd) {
-		define([], function () {
-			return factory(root, root.document);
-		});
-	} else if (typeof exports === 'object') {
-		module.exports = factory(root, root.document);
-	} else {
-		root.slidePage = factory(root, root.document);
-	}
-}(typeof window !== 'undefined' ? window : this, function (window, document) {
-	'use strict';
+const slidePage = (function() {
+	// supportsPassive 判断
 	var supportsPassive = false;
 	try {
 		var opts = Object.defineProperty({}, 'passive', {
@@ -62,14 +9,14 @@ if (!("classList" in document.documentElement)) {
 		});
 		window.addEventListener("test", null, opts);
 	} catch (e) { }
+
 	var utils = {
-		getQueryParam: function (name) {
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-			var r = window.location.search.substr(1).match(reg);
-			if (r != null) return unescape(r[2]); return null;
+		getQueryParam: function(url = location.href) {
+			const query_match = url.match(/([^?=&]+)(=([^&]*))/g)
+			return !!query_match && query_match.reduce((a, v) => (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1), a), {});
 		},
-		extend: function (obj1, obj2) {
-			for (var attr in obj2) {
+		extend: function(obj1, obj2) {
+			for (let attr in obj2) {
 				obj1[attr] = obj2[attr];
 			}
 			return obj1;
@@ -84,7 +31,7 @@ if (!("classList" in document.documentElement)) {
 		isDOM: function (obj) {
 			if ((obj instanceof NodeList) || (obj instanceof HTMLCollection) && obj.length > 0) {
 				var isTrue = 0;
-				for (var i = 0, len = obj.length; i < len; i++) {
+				for (let i = 0, len = obj.length; i < len; i++) {
 					(obj[i] instanceof Element) && (isTrue++);
 				}
 				return isTrue === len;
@@ -93,10 +40,14 @@ if (!("classList" in document.documentElement)) {
 			}
 		}
 	}
+
+	// 记录touch事件的xy
 	var touchPoint = {}
+	// 鼠标滚轮是事件节流记录时间
 	var prevTime = new Date().getTime();
+	// 所有事件处理器
 	var eventHandler = {
-		wheelFunc: function (e) {
+		wheelFunc: function(e) {
 			var e = e || window.event;
 			if (this.isScroll) {
 				return;
@@ -104,7 +55,7 @@ if (!("classList" in document.documentElement)) {
 			var curTime = new Date().getTime();
 			var timeDiff = curTime - prevTime;
 			prevTime = curTime;
-			if(timeDiff <= 50){
+			if(timeDiff <= 200){
 				return;
 			}
 			if (e.wheelDeltaY < 0 || e.wheelDelta < 0 || e.detail > 0) {
@@ -113,14 +64,14 @@ if (!("classList" in document.documentElement)) {
 				this.canSlide && this.canPrev && this.slidePrev();
 			}
 		},
-		touchStart: function (e) {
+		touchStart: function(e) {
 			if (!this.canSlide) {
 				touchPoint.startpoint = -1;
 			} else {
 				touchPoint.startpoint = e.targetTouches[0].clientY;
 			}
 		},
-		touchMove: function (e) {
+		touchMove: function(e) {
 			if (touchPoint.startpoint === -1) {
 				e.preventDefault();
 				return false;
@@ -145,7 +96,7 @@ if (!("classList" in document.documentElement)) {
 				touchPoint.endpoint = e.targetTouches[0].clientY;
 			}
 		},
-		touchEnd: function (e) {
+		touchEnd: function(e) {
 			if (touchPoint.endpoint === 0 || touchPoint.startpoint === -1) {
 				return false;
 			}
@@ -157,7 +108,7 @@ if (!("classList" in document.documentElement)) {
 				} else if (offsetDrag > thresholdDistance) {
 					this.canSlide && this.canPrev && this.slidePrev();
 				} else if (offsetDrag > -1 * thresholdDistance && offsetDrag < thresholdDistance) {
-					methods.resetSlideForDrag.call(this);
+					methods.resetSlideForDrag();
 				}
 			} else {
 				if ((touchPoint.endpoint - touchPoint.startpoint) < -60) {
@@ -169,8 +120,8 @@ if (!("classList" in document.documentElement)) {
 			touchPoint.startpoint = 0;
 			touchPoint.endpoint = 0;
 		},
-		transitionEnd: function (event) {
-			if (event.target.isEqualNode(this.items[this.page - 1])) {
+		transitionEnd: function(event) {
+			if (utils.isEqualNode(event.target, this.items[this.page - 1])) {
 				if (this.opt.dragMode) {
 					this.items[this.page - 1].classList.remove('transition');
 					this.items[this.page - 2] && this.items[this.page - 2].classList.remove('transition');
@@ -187,13 +138,15 @@ if (!("classList" in document.documentElement)) {
 			}
 		}
 	}
+
+	// 滑屏基础方法
 	var methods = {
-		slideScroll: function (index, command) {
+		slideScroll: function(index, command) {
 			var itemheight = this.items[index].children[0].offsetHeight;
 			var windowH = window.innerHeight;
 			var judgeScroll = function (index) {
 				var windowH = window.innerHeight;
-				var isBottom = itemheight == this.items[index].scrollTop + windowH;
+				var isBottom = itemheight <= this.items[index].scrollTop + windowH;
 				var isTop = this.items[index].scrollTop == 0;
 				this.canPrev = isTop && !isBottom;
 				this.canNext = isBottom && !isTop;
@@ -232,34 +185,30 @@ if (!("classList" in document.documentElement)) {
 			}
 		},
 		// 重置动画状态，全部隐藏
-		resetAnimation: function (index) {
+		resetAnimation: function(index) {
 			if (this.opt.useAnimation && this.opt.refresh) {
 				if (!this.items[index]) {
 					return false;
 				}
-				var steps = this.items[index].querySelectorAll('.step');
-				var lazys = this.items[index].querySelectorAll('.lazy');
-				if (steps.length > 0) {
-					for (var element of Array.prototype.slice.call(steps)) {
-						element.style.visibility = 'hidden';
-						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
-					}
-				}
-				if (lazys.length > 0) {
-					for (var element of Array.prototype.slice.call(lazys)) {
-						element.style.visibility = 'hidden';
-						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
-					}
-				}
+				var steps = Array.prototype.slice.call(this.items[index].querySelectorAll('.step'));
+				var lazys = Array.prototype.slice.call(this.items[index].querySelectorAll('.lazy'));
+				steps.map((element) => {
+					element.style.visibility = 'hidden';
+					element.style.animationName = '__' + window.getComputedStyle(element).animationName;
+				})
+				lazys.map((element) => {
+					element.style.visibility = 'hidden';
+					element.style.animationName = '__' + window.getComputedStyle(element).animationName;
+				})
 			}
 		},
 		// 自动触发动画
-		runAnimation: function (index, lazy) {
+		runAnimation: function(index, lazy) {
 			if (this.opt.useAnimation) {
 				var steps = this.items[index].querySelectorAll(lazy || '.step');
-				for (var element of Array.prototype.slice.call(steps)) {
+				Array.prototype.slice.call(steps).map((element) => {
 					triggerAnim(element);
-				}
+				})
 				function triggerAnim(element) {
 					var delay = element.getAttribute('data-delay') || 100;
 					var timer = setTimeout(function () {
@@ -271,50 +220,37 @@ if (!("classList" in document.documentElement)) {
 				}
 			}
 		},
-		initAnimation: function (items, index) {
+		initAnimation: function(items, index) {
 			if (this.opt.useAnimation) {
-				var steps = this.container.querySelectorAll('.step');
-				var lazys = this.container.querySelectorAll('.lazy');
-				if (steps.length > 0) {
-					for (var element of Array.prototype.slice.call(steps)) {
-						// 初始设置动画元素为不可见，且animationName是不可用的以控制不播放动画
-						element.style.visibility = 'hidden';
-						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
-					}
-				}
-				if (lazys.length > 0) {
-					for (var element of Array.prototype.slice.call(lazys)) {
-						element.style.visibility = 'hidden';
-						element.style.animationName = '__' + window.getComputedStyle(element).animationName;
-					}
-				}
+				var steps = Array.prototype.slice.call(this.container.querySelectorAll('.step'));
+				var lazys = Array.prototype.slice.call(this.container.querySelectorAll('.lazy'));
+				steps.map((element) => {
+					// 初始设置动画元素为不可见，且animationName是不可用的以控制不播放动画
+					element.style.visibility = 'hidden';
+					element.style.animationName = '__' + window.getComputedStyle(element).animationName;
+				})
+				lazys.map((element) => {
+					element.style.visibility = 'hidden';
+					element.style.animationName = '__' + window.getComputedStyle(element).animationName;
+				})
 				methods.runAnimation.call(this, index);
 			}
-			for (var i = 0, item; item = this.items[i]; i++) {
-				if (i === index) {
-					item.style.transform = 'translate3d(0, 0, 0)';
-				} else {
-					if (i < index) {
-						item.style.transform = 'translate3d(0, -100%, 0)';
-					} else if (i > index) {
-						item.style.transform = 'translate3d(0, 100%, 0)';
-					}
-				}
+			for (let i = 0, item; item = this.items[i]; i++) {
+				item.style.transform = 'translate3d(0, ' + (i < index ? '-100%' : i > index ? '100%' : '0')  + ', 0)';
+
 				if (!this.opt.dragMode) {
-					(function (item) {
-						var timer = setTimeout(function () {
-							if (item.classList && item.classList.add instanceof Function) item.classList.add('transition');
-							clearTimeout(timer);
-						});
-					})(item)
+					// 交给下一次宏任务延迟执行
+					let timer = setTimeout(function () {
+						item.classList.add('transition');
+						clearTimeout(timer);
+					});
 				}
 			}
 		},
-
+		// 注册事件
 		initEvent: function () {
 			// 滚轮事件
 			if (this.opt.useWheel) {
-				// document.onmousewheel = eventHandler.wheelFunc.bind(this)
 				document.addEventListener('DOMMouseScroll', this.eventHandler.wheelFunc, supportsPassive ? { passive: true } : false);
 				document.addEventListener('mousewheel', this.eventHandler.wheelFunc, supportsPassive ? { passive: true } : false);
 			}
@@ -335,177 +271,171 @@ if (!("classList" in document.documentElement)) {
 		}
 	}
 
-	var slidePage = function (opt) {
-		var pageParams = utils.getQueryParam('page') * 1;
-		var default_opt = {
-			page: pageParams || 1,
-			slidePages: '.slide-page',
-			slideContainer: '.slide-container',
-			after: function () { },
-			before: function () { },
-			refresh: false,
-			useWheel: true,
-			useSwipe: true,
-			useAnimation: true,
-			dragMode: false,
-		};
-		this.canSlide = true;
-		this.canNext = true;
-		this.canPrev = true;
-		this.isScroll = false;
+  class slidePage {
+    constructor(opt) {
+			var pageParams = utils.getQueryParam('page') * 1;
+			var default_opt = {
+				page: pageParams || 1,
+				slidePages: '.slide-page',
+				slideContainer: '.slide-container',
+				after: function () { },
+				before: function () { },
+				refresh: false,
+				useWheel: true,
+				useSwipe: true,
+				useAnimation: true,
+				dragMode: false,
+			};
+			this.canSlide = true;
+			this.canNext = true;
+			this.canPrev = true;
+			this.isScroll = false;
 
-		this.opt = utils.extend(default_opt, opt);
-		this.page = this.opt.page;
-		this.container = utils.isDOM(this.opt.slideContainer) ? this.opt.slideContainer : document.querySelector(this.opt.slideContainer);
-		this.items = utils.isDOM(this.opt.slidePages) ? this.opt.slidePages : document.querySelectorAll(this.opt.slidePages);
-		this.count = this.items.length;
-		this.direction = '';
-		this.eventHandler = {};
-		for (var eventName in eventHandler) {
-			this.eventHandler[eventName] = eventHandler[eventName].bind(this);
+			this.opt = utils.extend(default_opt, opt);
+			this.page = this.opt.page;
+			this.container = utils.isDOM(this.opt.slideContainer) ? this.opt.slideContainer : document.querySelector(this.opt.slideContainer);
+			this.items = utils.isDOM(this.opt.slidePages) ? this.opt.slidePages : document.querySelectorAll(this.opt.slidePages);
+			this.count = this.items.length;
+			this.direction = '';
+			this.eventHandler = {};
+			for (var eventName in eventHandler) {
+				this.eventHandler[eventName] = eventHandler[eventName].bind(this);
+			}
+			methods.initEvent.call(this);
+			methods.slideScroll.call(this, this.page - 1);
+			methods.initAnimation.call(this, this.items, this.page - 1);
+			this.slideTo(this.page);
 		}
-		methods.initEvent.call(this);
-		methods.slideScroll.call(this, this.page - 1);
-		methods.initAnimation.call(this, this.items, this.page - 1);
-		this.slideTo(this.page);
-	}
 
-
-	slidePage.prototype.slideNext = function (optimize) {
-		if (this.count <= this.page) {
-			return false;
-		}
-		if (this.opt.dragMode) {
-			this.items[this.page - 1].classList.add('transition');
-			this.items[this.page].classList.add('transition');
-		}
-		this.direction = 'next';
-		methods.slideScroll.call(this, this.page - 1, 'removeListener');
-		methods.slideScroll.call(this, this.page);
-		this.items[this.page - 1].style.transform = 'translate3d(0, -100%, 0)';
-		this.items[this.page].style.transform = 'translate3d(0, 0, 0)';
-		this.page++;
-		this.opt.before(this.page - 1, this.direction, this.page);
-
-		if (!optimize) {
-			this.canSlide = false;
-			methods.runAnimation.call(this, this.page - 1);
-		}
-	}
-	slidePage.prototype.slidePrev = function (optimize) {
-		if (1 >= this.page) {
-			return false;
-		}
-		if (this.opt.dragMode) {
-			this.items[this.page - 2].classList.add('transition');
-			this.items[this.page - 1].classList.add('transition');
-		}
-		this.direction = 'prev';
-		methods.slideScroll.call(this, this.page - 1, 'removeListener');
-		methods.slideScroll.call(this, this.page - 2);
-		this.items[this.page - 2].style.transform = 'translate3d(0, 0, 0)';
-		this.items[this.page - 1].style.transform = 'translate3d(0, 100%, 0)';
-		this.page--;
-		this.opt.before(this.page + 1, this.direction, this.page);
-		if (!optimize) {
-			this.canSlide = false;
-			methods.runAnimation.call(this, this.page - 1);
-		}
-	}
-
-	slidePage.prototype.slideTo = function (index) {
-		if (index >= 1 && index <= this.count) {
-			if (index == this.page) {
+		slideNext(optimize) {
+			if (this.count <= this.page) {
 				return false;
 			}
-			if (index > this.page) {
-				// 优化：当中间有一个以上的page将略过渲染
-				for (var i = this.page + 1; i < index; i++) {
-					this.slideNext('optimize');
-				}
-				this.slideNext();
-			} else if (index < this.page) {
-				for (var i = this.page - 1; i > index; i--) {
-					this.slidePrev('optimize');
-				}
-				this.slidePrev();
+			if (this.opt.dragMode) {
+				this.items[this.page - 1].classList.add('transition');
+				this.items[this.page].classList.add('transition');
+			}
+			this.direction = 'next';
+			methods.slideScroll.call(this, this.page - 1, 'removeListener');
+			methods.slideScroll.call(this, this.page);
+			this.items[this.page - 1].style.transform = 'translate3d(0, -100%, 0)';
+			this.items[this.page].style.transform = 'translate3d(0, 0, 0)';
+			this.page++;
+			this.opt.before(this.page - 1, this.direction, this.page);
+	
+			if (!optimize) {
+				this.canSlide = false;
+				methods.runAnimation.call(this, this.page - 1);
 			}
 		}
-	}
 
-	slidePage.prototype.slideFire = function (page) {
-		var index = page ? page - 1 : this.page - 1;
-		methods.runAnimation.call(this, index, '.lazy');
-	}
-
-	slidePage.prototype.destroy = function () {
-		if (this.opt.useAnimation) {
-			// 移除所有隐藏元素
-			var i = 0, len = this.items.length;
-			var steps = this.container.querySelectorAll('.step');
-			var lazys = this.container.querySelectorAll('.lazy');
-			if (steps.length > 0) {
-				for (var element of steps) {
+		slidePrev(optimize) {
+			if (1 >= this.page) {
+				return false;
+			}
+			if (this.opt.dragMode) {
+				this.items[this.page - 2].classList.add('transition');
+				this.items[this.page - 1].classList.add('transition');
+			}
+			this.direction = 'prev';
+			methods.slideScroll.call(this, this.page - 1, 'removeListener');
+			methods.slideScroll.call(this, this.page - 2);
+			this.items[this.page - 2].style.transform = 'translate3d(0, 0, 0)';
+			this.items[this.page - 1].style.transform = 'translate3d(0, 100%, 0)';
+			this.page--;
+			this.opt.before(this.page + 1, this.direction, this.page);
+			if (!optimize) {
+				this.canSlide = false;
+				methods.runAnimation.call(this, this.page - 1);
+			}
+		}
+		
+		slideTo(index) {
+			if (index >= 1 && index <= this.count) {
+				if (index == this.page) {
+					return false;
+				}
+				if (index > this.page) {
+					// 优化：当中间有一个以上的page将略过渲染
+					for (var i = this.page + 1; i < index; i++) {
+						this.slideNext('optimize');
+					}
+					this.slideNext();
+				} else if (index < this.page) {
+					for (var i = this.page - 1; i > index; i--) {
+						this.slidePrev('optimize');
+					}
+					this.slidePrev();
+				}
+			}
+		}
+		
+		slideFire(page) {
+			var index = page ? page - 1 : this.page - 1;
+			methods.runAnimation.call(this, index, '.lazy');
+		}
+		
+		destroy() {
+			if (this.opt.useAnimation) {
+				// 移除所有隐藏元素
+				var i = 0, len = this.items.length;
+				var steps = Array.prototype.slice.call(this.container.querySelectorAll('.step'));
+				var lazys = Array.prototype.slice.call(this.container.querySelectorAll('.lazy'));
+				steps.map((element) => {
 					element.style.visibility = '';
-				}
-			}
-			if (lazys.length > 0) {
-				for (var element of lazys) {
+				})
+				lazys.map((element) => {
 					element.style.visibility = '';
+				})
+				methods.runAnimation.call(this, 0);
+			}
+	
+			// 滚轮事件
+			if (this.opt.useWheel) {
+				document.removeEventListener('DOMMouseScroll', this.eventHandler.wheelFunc);
+				document.removeEventListener('mousewheel', this.eventHandler.wheelFunc);
+				this.items[this.page - 1].style.transform = 'translate3d(0, 0, 0)';
+			}
+	
+			// 滑动事件
+			if (this.opt.useSwipe) {
+				var startpoint = 0;
+				var endpoint = 0;
+	
+				this.container.removeEventListener('touchstart', this.eventHandler.touchStart);
+				this.container.removeEventListener('touchmove', this.eventHandler.touchMove);
+				this.container.removeEventListener('touchend', this.eventHandler.touchEnd);
+			}
+	
+			// 当每次滑动结束后的触发的事件
+			this.container.removeEventListener('transitionend', this.eventHandler.transitionEnd);
+		}
+		
+		update(pages) {
+			// 回到第一屏
+			this.canSlide = true;
+			this.canNext = true;
+			this.canPrev = true;
+			var newItems = utils.isDOM(pages) ? pages : document.querySelectorAll(this.opt.slidePages);
+			for (var i = 0, len = newItems.length; i < len; i++) {
+				// 判断当前活动的page是否还存在则保持当前屏
+				if (this.items[this.page - 1] && utils.isEqualNode(this.items[this.page - 1], newItems[i])) {
+					this.page = i + 1;
+					break;
+				}
+				// 匹配到最后一个都不存在当前元素，则自动转到第一屏
+				if (i === len - 1) {
+					this.page = 1;
 				}
 			}
-			// steps.length > 0 && steps.forEach(function (element) {
-			// 	element.style.display = '';
-			// })
-			// lazys.length > 0 && lazys.forEach(function (element) {
-			// 	element.style.display = '';
-			// })
-			methods.runAnimation.call(this, 0);
+			this.items = newItems;
+			this.count = this.items.length;
+			this.slideTo(this.page);
+			methods.initAnimation.call(this, this.items, this.page - 1);
+			methods.slideScroll.call(this, this.page - 1);
 		}
+  }
+  return slidePage;
+})();
 
-		// 滚轮事件
-		if (this.opt.useWheel) {
-			document.removeEventListener('DOMMouseScroll', this.eventHandler.wheelFunc);
-			document.removeEventListener('mousewheel', this.eventHandler.wheelFunc);
-			this.items[this.page - 1].style.transform = 'translate3d(0, 0, 0)';
-		}
-
-		// 滑动事件
-		if (this.opt.useSwipe) {
-			var startpoint = 0;
-			var endpoint = 0;
-
-			this.container.removeEventListener('touchstart', this.eventHandler.touchStart);
-			this.container.removeEventListener('touchmove', this.eventHandler.touchMove);
-			this.container.removeEventListener('touchend', this.eventHandler.touchEnd);
-		}
-
-		// 当每次滑动结束后的触发的事件
-		this.container.removeEventListener('transitionend', this.eventHandler.transitionEnd);
-	}
-
-	slidePage.prototype.update = function (pages) {
-		// 回到第一屏
-		this.canSlide = true;
-		this.canNext = true;
-		this.canPrev = true;
-		var newItems = utils.isDOM(pages) ? pages : document.querySelectorAll(this.opt.slidePages);
-		for (var i = 0, len = newItems.length; i < len; i++) {
-			// 判断当前活动的page是否还存在则保持当前屏
-			if (this.items[this.page - 1] && utils.isEqualNode(this.items[this.page - 1], newItems[i])) {
-				this.page = i + 1;
-				break;
-			}
-			// 匹配到最后一个都不存在当前元素，则自动转到第一屏
-			if (i === len - 1) {
-				this.page = 1;
-			}
-		}
-		this.items = newItems;
-		this.count = this.items.length;
-		this.slideTo(this.page);
-		methods.initAnimation.call(this, this.items, this.page - 1);
-		methods.slideScroll.call(this, this.page - 1);
-	}
-	return slidePage;
-}));
+export default slidePage;

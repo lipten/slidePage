@@ -8,7 +8,6 @@
   },
   "scripts": {
     "webpack": "webpack",
-    "webpack-ie": "webpack --ie",
     "build": "gulp",
     "server": "node server"
   },
