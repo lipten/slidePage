@@ -1,6 +1,6 @@
 {
   "name": "slidePage",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "slidePage.js is a simple and universal to use libary to create fullscreen scrolling websites",
   "main": "dist/slidePage.min.js",
   "directories": {
@@ -31,7 +31,6 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.1.6",
     "@babel/runtime": "^7.1.5",
-    "babel-loader": "^8.0.6",
     "express": "^4.16.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0",
@@ -39,15 +38,5 @@
     "gulp-cli": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
-    "ts-loader": "^6.0.2",
-    "typescript": "^3.5.1",
-    "uglifyjs-webpack-plugin": "^2.1.3",
-    "webpack": "^4.32.2",
-    "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.2"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.4.4",
-    "es3ify-loader": "^0.2.0"
   }
 }
