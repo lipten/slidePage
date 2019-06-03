@@ -18,7 +18,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
     gulp.src('./slidePage.js')
         .pipe(babel({
-            presets: ['es2015']
+            presets: ["@babel/env"]
         }))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
