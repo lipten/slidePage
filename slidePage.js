@@ -41,7 +41,8 @@
 			isDOM: function (obj) {
 				if ((obj instanceof NodeList) || (obj instanceof HTMLCollection) && obj.length > 0) {
 					var isTrue = 0;
-					for (let i = 0, len = obj.length; i < len; i++) {
+					var len = obj.length
+					for (let i = 0; i < len; i++) {
 						(obj[i] instanceof Element) && (isTrue++);
 					}
 					return isTrue === len;
