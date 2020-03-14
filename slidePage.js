@@ -337,6 +337,8 @@
 				if (!optimize) {
 					this.canSlide = false;
 					methods.runAnimation.call(this, this.page - 1);
+				} else {
+					methods.resetAnimation.call(this, this.page - 2);
 				}
 			}
 
@@ -358,6 +360,8 @@
 				if (!optimize) {
 					this.canSlide = false;
 					methods.runAnimation.call(this, this.page - 1);
+				} else {
+					methods.resetAnimation.call(this, this.page);
 				}
 			}
 			

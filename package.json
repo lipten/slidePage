@@ -1,6 +1,6 @@
 {
   "name": "slidePage",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "description": "slidePage.js is a simple and universal to use libary to create fullscreen scrolling websites",
   "main": "dist/slidePage.min.js",
   "directories": {
