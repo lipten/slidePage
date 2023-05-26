@@ -1,15 +1,15 @@
 # slidePage
 
 ### Demo:
-* [simple](http://lipten.link/projects/slidePage3/examples/simple.html)
-* [animated](http://lipten.link/projects/slidePage3/examples/animated.html)
-* [scroll](http://lipten.link/projects/slidePage3/examples/scroll.html) 
-* [custom](http://lipten.link/projects/slidePage3/examples/custom.html) 
-* [dragMode](http://lipten.link/projects/slidePage3/examples/drag.html) 
-* [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+* [simple](http://slidepage.codeasily.net/examples/simple.html)
+* [animated](http://slidepage.codeasily.net/examples/animated.html)
+* [scroll](http://slidepage.codeasily.net/examples/scroll.html) 
+* [custom](http://slidepage.codeasily.net/examples/custom.html) 
+* [dragMode](http://slidepage.codeasily.net/examples/drag.html) 
+* [fullFeatured](http://slidepage.codeasily.net/examples/fullFeatured.html)
 
 ### Featured
-slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，可实现内容超出屏幕滚动、手动播放动画、动态更新等特色功能，具体查看完整示例: [fullFeatured](http://lipten.link/projects/slidePage3/examples/fullFeatured.html)
+slidePage3 特别适合主流前端框架开发，无任何依赖库，Gzip压缩后仅有2.4k, 接口符合插件具有的初始化、销毁、重载的方法，适配PC和移动端，可实现内容超出屏幕滚动、手动播放动画、动态更新等特色功能，具体查看完整示例: [fullFeatured](http://slidepage.codeasily.net/examples/fullFeatured.html)
 
 ### Documentation:
 * [Usage](#usage)
@@ -192,7 +192,7 @@ var slidepage = new slidePage({
 > 最新加入的拖动滑屏模式，在实例化时传入配置`dragMode: true`，即可开启，此功能目前为测试阶段，请酌情使用。
 
 现已加入Demo系列豪华套餐：
-* [dragMode](http://lipten.link/projects/slidePage3/examples/drag.html) 
+* [dragMode](http://slidepage.codeasily.net/examples/drag.html) 
 
 需要注意的是，为了滑动松手后的动画体验更好，记得在你的项目里设置过渡动画类`.slide-container .slide-page.transition`，调整过渡函数和时长。具体查看示例代码：https://github.com/lipten/slidePage/blob/master/examples/drag.html#L13
 
